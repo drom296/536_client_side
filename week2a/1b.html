@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Untitled</title>
+	<script type="text/javascript">
+		//SCOPE!
+		var dan=5;
+		console.log('from the head: '+dan);
+		
+		function scopeTest(){
+			var dan=6;
+			console.log('from the function: '+dan);
+			console.log('from the funciton of the window prop: '+window.dan);
+		}
+		
+		scopeTest();
+		console.log('from after the function: '+dan);
+		
+		/////////////////////Array //////////////////
+		/*
+		var myArr=['jim','dan','sally'];
+		myArr['first']='stevie';
+		//by putting an associative array element in this ordinal array
+		//I basically broke it...
+		for(i=0, len=myArr.length;i<len;i++){
+			console.log(myArr[i]);
+		}*/
+		/*
+		var obj=new Object();
+		obj['name']=['dan','scott','bogaard'];
+		obj['job']=['prof','rit'];
+		*/
+		//exactly the same as:
+		var obj={
+			name:['dan','scott','bogaard'],
+			job:['prof','rit'],
+			myFunct:function(x){console.log(x);}
+		}
+		
+		console.log(obj.job[1]);
+		
+		//use object to output ;scott;
+		obj.myFunct(obj.name[1]);
+		
+		
+		for(i in obj){
+			obj.myFunct('My i: ' + i + 'My firs value: ' + obj[i][0]);			
+		}
+	</script>
+</head>
+<body>
+
+</body>
+</html>
