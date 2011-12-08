@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Storage Example</title>
+	<script type="text/javascript" src="cookies.js"></script>
+	<script type="text/javascript">
+		////////////Careful - does not work on file:// (MUST upload to gibson)
+		//////////Also - Though testing as IE7 in IE9 says localStorage works, it does NOT
+		//localStorage
+		//persistance is on a server based system
+		function changeBg(color){
+			if(window.localStorage){
+				if(color){
+					//clicked on a color
+					window.localStorage.setItem('color',color);
+				}
+				if(localStorage.getItem('color')){
+					//change the bg color
+					document.getElementsByTagName('body')[0].style.background=localStorage.getItem('color');
+				}
+			}
+		}
+		
+		function changeClear(){
+			localStorage.removeItem('color');
+			document.getElementsByTagName('body')[0].style.background='';
+		}
+		
+		//cookie
+
+
+	</script>
+</head>
+<body onload="changeBg()">
+<div style="position:absolute;right:10px;bottom:10px;background:#c9c;">
+	Change your style. <span style="pointer:finger" onclick="changeBg('red')">Red</span> | 
+	<span style="pointer:finger" onclick="changeBg('green')">Green</span> | 
+	<span style="pointer:finger" onclick="changeClear()">Clear</span>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
