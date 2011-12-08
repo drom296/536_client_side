@@ -27,8 +27,27 @@
 			document.getElementsByTagName('body')[0].style.background='';
 		}
 		
-		//cookie
-
+		// get the their name from a cookie
+		var name = GetCookie('user_id');
+		
+		// cookie
+		// if you do this exact same thing in your project, you will receive nothing
+		if( name == null){
+			// first time here...
+			name = prompt('hello, first time...','');
+			
+			document.write('Hello '+name+' this is your first time');
+			// set the cookie
+			SetCookie('user_id',name);
+			SetCookie('hit_count',1);
+		} else{
+			// number of times they've been here
+			var visitCount = GetCookie('hit_count');
+			// been here before!
+			document.write('welcome back '+name+', you have been here '+visitCount+' times');
+			// increment cookie counter
+			SetCookie('hit_count', parseInt(visitCount)+1);
+		}
 
 	</script>
 </head>
