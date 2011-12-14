@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Form Play</title>
+<script type="text/javascript">
+//<![CDATA[
+    function go(which){
+        //console.log(which.value);
+        if(which.value!="start"){
+            window.location=which.value;
+        }
+    }
+    
+    function chooseColor(whatRadioName){
+    //return array of all form elements that are named "choice"
+        console.log(document.forms[0].choice.length);
+        
+        for(i=0, len=document.forms[0].choice.length; i<len; i++){
+            //check if 'this one' is checked
+            if(document.forms[0].choice[i].checked==true){
+                document.forms[0].elements[5].value=document.forms[0].choice[i].value;
+                break;
+            }
+        }
+    }
+//]]>
+</script>
+</head>
+<body>
+    <form>
+        <select name="selectmenu" onchange="go(this)">
+            <option value="start">
+                --Select page--
+            </option>
+            <option value="http://www.microsoft.com">
+                Microsoft
+            </option>
+            <option value="http://www.altavista.com">
+                Altavista
+            </option>
+            <option value="http://www.w3schools.com">
+                W3Schools
+            </option>
+        </select>
+        <hr />
+        <p>Which did you choose?<br />
+        <input type="radio" name="choice" value="r" />Red<br />
+        <input type="radio" name="choice" value="g" />Green<br />
+        <input type="radio" name="choice" value="b" />Blue<br />
+        <input type="button" value="Color choice" onclick="chooseColor('choice')" /></p>
+        <p>Your favorite color is: <input type="text" name="favorite" value="" /></p>
+    </form>
+</body>
+</html>

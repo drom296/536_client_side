@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Storage Example</title>
+	<script type="text/javascript" src="cookies.js"></script>
+	<script type="text/javascript">
+		////////////Careful - does not work on file:// (MUST upload to gibson)
+		//////////Also - Though testing as IE7 in IE9 says localStorage works, it does NOT
+		//localStorage
+		//persistance is on a server based system
+		function changeBg(color){
+			if(window.localStorage){
+				if(color){
+					//clicked on a color
+					window.localStorage.setItem('color',color);
+				}
+				if(localStorage.getItem('color')){
+					//change the bg color
+					document.getElementsByTagName('body')[0].style.background=localStorage.getItem('color');
+				}
+			}
+		}
+		
+		function changeClear(){
+			localStorage.removeItem('color');
+			document.getElementsByTagName('body')[0].style.background='';
+		}
+		
+		// get the their name from a cookie
+		var name = GetCookie('user_id');
+		
+		// cookie
+		// if you do this exact same thing in your project, you will receive nothing
+		if( name == null){
+			// first time here...
+			name = prompt('hello, first time...','');
+			
+			document.write('Hello '+name+' this is your first time');
+			// set the cookie
+			SetCookie('user_id',name);
+			SetCookie('hit_count',1);
+		} else{
+			// number of times they've been here
+			var visitCount = GetCookie('hit_count');
+			// been here before!
+			document.write('welcome back '+name+', you have been here '+visitCount+' times');
+			// increment cookie counter
+			SetCookie('hit_count', parseInt(visitCount)+1);
+		}
+
+	</script>
+</head>
+<body onload="changeBg()">
+<div style="position:absolute;right:10px;bottom:10px;background:#c9c;">
+	Change your style. <span style="pointer:finger" onclick="changeBg('red')">Red</span> | 
+	<span style="pointer:finger" onclick="changeBg('green')">Green</span> | 
+	<span style="pointer:finger" onclick="changeClear()">Clear</span>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+

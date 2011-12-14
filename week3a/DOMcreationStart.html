@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>DOM Creation</title>
+<script type="text/javascript">
+//<![CDATA[
+	//some possible methods/props you will use! (know them!)
+	//createElement, setAttribute, appendChild, replaceChild, createTextNode, childNodes[], firstChild, 
+	//nodeType, nodeName, nodeValue, getElementById, getElementsByTagName
+	
+	function createText(){
+		// create the element
+		var hElem = document.createElement("h2");
+		// attach the attributes
+		hElem.setAttribute("id","test");
+		hElem.setAttribute("style", "color:red;");
+		// create and append text node
+		var t = document.createTextNode("Look ma, no hands");
+		hElem.appendChild(t);
+		
+		// fix IE's problem with IE7
+		hElem.style.color="red";
+		
+		// append to the document
+		document.getElementsByTagName("body")[0].appendChild(hElem);
+		
+		// image
+		var imgElem = document.createElement('img');
+		imgElem.setAttribute("src","california.jpg");
+		
+		// height and width is important so that the browser know how much space to
+		// reserve for it
+		
+		// add the image to the document
+		document.getElementsByTagName("body")[0].appendChild(imgElem);
+		
+		
+		// radio button
+		var radElem = document.createElement("input");
+		radElem.setAttribute("type","radio");
+		radElem.setAttribute("name","blargh");
+		document.getElementsByTagName("body")[0].appendChild(radElem);
+		
+	}
+	
+//]]>
+</script>
+</head>
+<body>
+<div id="buttons" style="position:absolute; top:8px; left:200px">
+  <button onclick="createText();">Create It!</button>
+</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

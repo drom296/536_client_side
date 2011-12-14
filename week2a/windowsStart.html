@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Untitled</title>
+	<script type="text/javascript">
+		// a var to hold the reference to the other window
+		var winWin;
+		
+		// Find out info about the browser
+		// First thing that should be done on all pages
+		console.dir(window.navigator);
+		
+		// if i build my code on brwoser versions and numbers, I'm going to spend the 
+		// rest of my life updating it...
+		
+		// better way
+		if(document.getElementById && document.attachEvent /* Exists in IE only*/){
+			// can also test document.all
+			// modern IE  browser
+		} else if(!document.getElementById && document.attachEvent){
+			// old IE
+		} else if (document.getElementById){
+			// modern gecko browser			
+		} else{
+			// boot em
+			window.location = "redirect.html";			// redirect.html is the boot page
+		}
+		
+		window.resizeTo(650,330);	
+		window.moveTo(30,30);
+		
+		
+		function createNew(){
+			newWin = window.open('','myWin','height=300 width=650 top=350 screenY=350');
+			newWin.document.write('<h2>536 Rulesz</h2>');
+		}
+		
+		function closeNew(){
+			newWin.close();			
+		}
+		
+	</script>
+</head>
+<body style="background-color:#999966;">
+<form>
+  <input type="button" value="Create New Window!" onclick="createNew()"><br/>
+  <input type="button" value="Close the New Window!" onclick="closeNew()"><br/>
+</form>
+</body>
+</html>
