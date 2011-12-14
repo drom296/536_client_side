@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
+		Remove this if you use the .htaccess -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="description" content="" />
+		<meta name="author" content="dblab" />
+		<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+		<!-- Replace favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+		
+		<!-- Title -->
+		<title>class_code</title>
+		<!-- CSS -->
+		
+		<!-- Scripts -->
+		<script type="text/javascript">
+			// scope!
+			var dan=5;
+			console.log('from the head: '+dan);
+			
+			function scopeTest(){
+				var dan=6;
+				console.log('from the function: '+dan);
+				console.log('from the window prop: '+window.dan);
+				console.log('from the function after: '+dan);
+			}
+			
+			scopeTest();
+			console.log('from after the function: '+dan);
+			
+			/*********************Array*************************/
+			
+			var myArr=['jim','dan','sally'];
+			myArr[5] = 'stevie';
+			
+			
+			for (i=0, (len=myArr.length); i<len; i++){
+				console.log(myArr[i]);
+			}
+			
+			var obj = new Object();
+			obj['name'] = ['dan', 'scott', 'bogaard'];
+			obj['job'] = ['prof','rit'];
+			
+		</script>
+	</head>
+	<body>
+		<p>
+			Testing something.
+		</p>
+	</body>
+</html>
