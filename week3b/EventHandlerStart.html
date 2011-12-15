@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>Events</title>
+	<script type="text/javascript">
+	//<![CDATA[
+
+	function doIt(){
+		console.log('no args');
+	}
+	
+	function doThat(x){
+		console.log(x);
+	}
+	
+	//For Image 2 --------------------------------------------------------------------
+	//assign an event to Image 2
+	function init(){
+		document.images[1].onclick = doIt;
+		document.images[1].onmouseout = function(){ doThat('hi from an arg');};
+	}
+	  
+	  
+    //For Image 3 --------------------------------------------------------------------
+	//attach an event to Image 3
+	function init2(){
+		var dom = document.images[2];
+		
+		if(document.attachEvent){
+			// im in IE
+			dom.attachEvent('onmouseover',function(){ doThat("from IE attachEvent"); });
+		}else{
+			dom.addEventListener('click', doIt, false);
+			dom.addEventListener('click', function(){ doThat("from addEventListener"); }, false);
+		}
+	}
+
+
+
+	//]]>
+	</script>
+</head>
+<body onload="init(); init2()">
+
+  <h1>Image 1:</h1><img src="pic.jpg" onclick="alert('hi from an html attribute event');"/>
+  
+  <h1>Image 2:</h1><img src="pic.jpg"/>
+  
+  <h1>Image 3:</h1><img src="pic.jpg"/>
+
+</body>
+</html>

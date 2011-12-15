@@ -20,6 +20,10 @@
 			
 			addSelect("start");
 			
+			function setSelect(field, which){
+				
+			}
+			
 			function addSelect(field, which){
 				// grab the field they want
 				var options = date[field];
@@ -58,7 +62,8 @@
 					
 					var selected = document.getElementById(field)
 					
-					selected.onchange = addSelect(selected.value, selected);
+					// this needs to be done in another function
+					selected.onchange = function(){addSelect(selected.value, selected)};
 				}
 			}
 			

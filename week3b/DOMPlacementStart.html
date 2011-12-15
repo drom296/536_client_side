@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>DOM Placement</title>
+<script type="text/javascript">
+//<![CDATA[
+	function changeMe(){
+		hElem = document.createElement('h1');
+		
+		// hElem.setAttribute('style', 'font-family:comic sans ms;');
+		// hElem.appendChild(document.createTextNode("This is fun"));
+		
+		//put it on the page
+		// document.getElementsByTagName('body')[0].appendChild(hElem);
+		
+		// $('text').appendChild(hElem);
+		
+		// parent.insertBefore(elle, which)
+		// $$('body',0).insertBefore(hElem, $$body('body',0).firstChild);
+		// $('everything').insertBefore(hElem, $('text'));
+		// $('moreText').insertBefore(hElem,$('moreText').firstChild);
+		
+		//parent.removeChild(whichChildOfParentToKill);
+		// $('everything').removeChild($('moreText'));
+		
+		// parent.replaceChild(ele, whichChildto Replace)
+		
+		
+		var c = $('everything').cloneNode(true);
+		console.log($$('body',0).firstChild);
+	}
+	
+	
+	function $(id){
+		return document.getElementById(id);
+	}
+	
+	function $$(element, num){
+		return document.getElementsByTagName(element)[num];
+	}
+	
+//]]>
+</script>
+</head>
+<body>
+  <div id="everything">
+    <div id="buttons" style="position:absolute; top:8px; left:200px">
+      <button onclick="changeMe();">Do It!</button>
+    </div>
+    <div id="text">
+      Text
+    </div>
+    <div id="moreText">
+      More text
+    </div>
+    <hr>
+  </div>
+</body>
+</html>

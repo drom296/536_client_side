@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title></title>
+
+<script type="text/javascript">
+	var ieSeven = false;
+	
+</script>
+<!--[if lt IE 8]> 
+	<script type="text/javascript">
+		var ieSeven = true;
+	
+	</script>
+<![endif]-->
+
+
+
+
+<script type="text/javascript">
+	//<![CDATA[
+	  function init(){
+	  	var x = document.createElement('button');
+	  	x.appendChild(document.createTextNode("click me"));
+	  	
+	  	x.setAttribute('id', 'thing');
+	  	// does not work in IE
+	  	if(ieSeven){
+	  		x.setAttribute('onclick', function(){test("hi from IE<8")});
+	  		x.setAttribute('onmouseover',other);
+	  		
+	  	} else{
+		  	x.setAttribute('onclick', 'test("hi from test")');;
+		  	x.setAttribute('onmouseover',"other()");
+		  	
+		  	document.getElementsByTagName('body')[0].appendChild(x);
+			}
+	  }
+	  
+	  function test(x){
+	  	alert(x);
+	  }
+	  
+	  function other(){
+	  	alert('no arg sent');
+	  }
+	//]]>
+</script>
+</head>
+<body onload="init();">
+
+</body>
+</html>
