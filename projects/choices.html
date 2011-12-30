@@ -3,14 +3,22 @@
 	<head>
 		<meta charset="utf-8" />
 		<title>Choices</title>
+		
+		<!-- CSS -->
+		
+		<!-- JavaScript -->
+		<script src="dynamic_select.js" type="text/javascript"></script>
+		
 	</head>
 	<body>
 		<div>
-			<select>
-				<option value="man">Man</option>
-				<option value="man">Woman</option>
+			<p>Men or Women?</p>
+			<!-- <select onchange="processSelect(this.parent);"> -->
+			<select onchange="processSelect(this);">
+				<option>--Choose One--</option>
+				<option value="men">Man</option>
+				<option value="women">Woman</option>
 			</select>
 		</div>
-	
 	</body>
 </html>
