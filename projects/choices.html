@@ -7,6 +7,16 @@
 		<!-- CSS -->
 		
 		<!-- JavaScript -->
+		<script type="text/javascript">
+			var ieSeven = false;
+			
+		</script>
+		<!--[if lt IE 8]> 
+			<script type="text/javascript">
+				var ieSeven = true;
+			
+			</script>
+		<![endif]-->
 		<script src="dynamic_select.js" type="text/javascript"></script>
 		
 	</head>
@@ -16,8 +26,8 @@
 			<!-- <select onchange="processSelect(this.parent);"> -->
 			<select onchange="processSelect(this);">
 				<option>--Choose One--</option>
-				<option value="men">Man</option>
-				<option value="women">Woman</option>
+				<option value="men">Men</option>
+				<option value="women">Women</option>
 			</select>
 		</div>
 	</body>
