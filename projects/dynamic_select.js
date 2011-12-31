@@ -2,6 +2,7 @@
  * @author Pedro Mass
  */
 var DEFAULT = "--Choose One--";
+var START = "start";
 
 // create the data object
 var data = new Object();
@@ -14,8 +15,15 @@ data["hair"] 		= ["Complexion?", ["dark","light"]];
 data["no hair"] = ["Build?", ["big", "small"]];
 data["blonde"]	=	["Height?", ["tall", "small"]];
 data["brunette"]=	["Eyes?", ["brown","blue"]];
- 
+// level3
+data["brown"]		= ["personality?", ["bossy", "sweet", "dark"]]
 
+
+// add default value to all choices
+for(field in data){
+	data[field][1].unshift(DEFAULT);	
+}
+ 
 /**
  * Removes all the children, checks to see if there is data for the selection (value).
  * If there is, we dynamically create a select element and add it after the current select.
@@ -29,16 +37,15 @@ function processSelect(which){
 	var result = false;
 	
 	// check if the passed in value is not null
-	if(!which){
+		// check if the reference is a an element
+	if(!which || which.nodeType != 1){
 		// not a valid reference 
-		return result;
+		// must be the start, make the first choice
+		which = document.getElementById("choices");
+		which.value = START;
 	}
 	
-	// check if the reference is a an element
-	if(which.nodeType != 1){ //1 being for element nodes
-		// not an element 
-		return result;
-	}
+
 	
 	// remove younger siblings
 	killOlderSiblings(which);
@@ -66,6 +73,11 @@ function showResults(which){
 	}
 
 	// display the results
+	var message = document.createElement("p");
+	var messText = document.createTextNode("You Choose: ");
+	message.appendChild(messText);
+	which.parentNode.appendChild(message);
+	
 	
 	// create the list
 	var uElem = document.createElement("ul");
@@ -117,9 +129,6 @@ function addChoice(elem){
 	// grab the data
 	var options = data[elem.value][1];
 	var question = data[elem.value][0];
-
-	// add the defaul option to the options array (at the front)
-	options.unshift(DEFAULT);
 	
 	// create the question
 	// create p node
@@ -138,6 +147,7 @@ function addChoice(elem){
 	// set up the options
 	for (option in options){
 		option = options[option];
+
 		// create the option
 		var optElem = document.createElement("option");
 		// set attributes
