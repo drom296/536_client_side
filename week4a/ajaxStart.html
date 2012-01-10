@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>.:AJAX:.</title>
+<script language="javascript"  type="text/javascript">
+/////////////////////////////////////////////////////////////////
+//first, we create a XMLHttpRequest Object...
+function getHTTPObject() {
+	var xmlhttp;
+	// branch for native XMLHttpRequest object
+	if (window.XMLHttpRequest){
+  		xmlhttp=new XMLHttpRequest()
+  	}
+	// branch for IE/Windows ActiveX version
+	else if (window.ActiveXObject){
+  		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP")
+  	}else{	
+ 		return false;
+  	} 
+  	
+  	return xmlhttp;
+}
+
+var http = getHTTPObject(); // We create the HTTP Object
+var isWorking = false; //flag for stopping the next request until this one is done...
+
+///////////////////////////////////////////////////////////////////
+//If we got the information, do something with it!
+function handleHttpResponse() {
+  //alert(http.readyState);
+  //first, is my 'object' complete (done getting info from server?)
+  if (http.readyState == 4) {
+    //if I got something...
+          //alert(http.responseText);
+    if (http.status==200) {
+      // Use the XML DOM to unpack the data 
+      var xmlDocument = http.responseXML; 
+      
+      //*********************************************************************
+      //Add code here to process the return content!
+		
+
+
+	  //end adding code!
+	  //*********************************************************************
+      isWorking = false;
+    }
+  }
+}
+
+//*********************************************************************
+//Add functions here to trigger the calls to the object!
+	
+
+
+
+//end adding code!
+//*********************************************************************
+
+
+</script>
+<style type="text/css">
+	#container{
+		overflow:auto; 
+		width:200px; 
+		height:300px; 
+		border:black 10px solid;
+		background:#ccc;
+		padding:10px;
+	}
+</style>
+</head>
+<body onload="">
+<form method="" action="">
+	Enter your name (then tab out of input) to add to list!
+	<input type="text" name="newName" onchange=""/>
+</form>
+<div id="container">
+
+</div>
+</body>
+</html>
