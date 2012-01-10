@@ -1,66 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<title>DHTML FUN</title>
-  	<script type="text/javascript">
-  	//<![CDATA[
-    	window.resizeTo(680,380);
-    	window.moveTo(0,0);
-    	var newWin;
-    	
-		 function createWin(){
-			newWin = window.open('','','height=300, width=650');
-			newWin.document.write('<h1 id="coolBeans" style="position:absolute;left:3px;">536 is fun</h1>');
-		 }
-	
-		function colorChange(toWhat){
-			newWin.document.getElementById('coolBeans').style.color = toWhat;
-		}
-		
-		function changeAll(whatToChange, toWhat){
-			// below is bad bc you have a argument to the left of the =
-			// newWin.document.getElementById('coolBeans').style.whatToChange = toWhat;
-			
-			// 1) eval (eval === evil)
-			// eval('newWin.document.getElementById('coolBeans').style.'+whatToChange+'=toWhat');
-			
-			newWin.document.getElementById('coolBeans').style[whatToChange]=toWhat;
-		}
-		
-		function moveIt(id){
-			var dom = newWin.document.getElementById(id).style;
-			
-			if(parseInt(dom.left)<500){
-				dom.left = parseInt(dom.left)+1+'px'; 
-				setTimeout('moveIt("'+id+'")',20);
+	<head>
+		<meta charset="utf-8" />
+		<title>DHTML FUN</title>
+		<script type="text/javascript">
+			//<![CDATA[
+			window.resizeTo(680, 380);
+			window.moveTo(0, 0);
+			var newWin;
+
+			function createWin() {
+				newWin = window.open('', '', 'height=300, width=650');
+				newWin.document.write('<h1 id="coolBeans" style="position:absolute;left:3px;">536 is fun</h1>');
 			}
-			
-			
-		}
-	//]]>
-  	</script>
-</head>
-<body>
-	<a href="#" onclick="createWin()">click for new window</a>
-	
-	<br/><br/><br/>
-	<form>
- 		Put in a color name (or hex):<input type="text" size="30" onchange="colorChange(this.value)"/><br/>
- 		Put in a font size (like 12pt):<input type="text" size="30" onchange="changeAll('fontSize',this.value)"/><br/>
- 		Put in a font family:<input type="text" size="30" onchange="changeAll('fontFamily',this.value)"/><br/>
- 		Put in a new left (like 100px):<input type="text" size="30" onchange="changeAll('left',this.value)"/><br/>
- 		Put in a new top (like 200px):<input type="text" size="30" onchange="changeAll('top',this.value)"/><br/>
- 		Put in a background color:<input type="text" size="30" onchange="changeAll('backgroundColor',this.value)"/>
-		<input type="button" value="Move it" onclick="moveIt('coolBeans')"/>
-	</form> 
-</body>
+
+			function colorChange(toWhat) {
+				newWin.document.getElementById('coolBeans').style.color = toWhat;
+			}
+
+			function changeAll(whatToChange, toWhat) {
+				// below is bad bc you have a argument to the left of the =
+				// newWin.document.getElementById('coolBeans').style.whatToChange = toWhat;
+
+				// 1) eval (eval === evil)
+				// eval('newWin.document.getElementById('coolBeans').style.'+whatToChange+'=toWhat');
+
+				newWin.document.getElementById('coolBeans').style[whatToChange] = toWhat;
+			}
+
+			function moveIt(id) {
+				var dom = newWin.document.getElementById(id).style;
+
+				if(parseInt(dom.left) < 500) {
+					dom.left = parseInt(dom.left) + 1 + 'px';
+					setTimeout('moveIt("' + id + '")', 20);
+				}
+
+			}
+
+			//]]>
+		</script>
+	</head>
+	<body>
+		<a href="#" onclick="createWin()">click for new window</a>
+		<br/>
+		<br/>
+		<br/>
+		<form>
+			Put in a color name (or hex):
+			<input type="text" size="30" onchange="colorChange(this.value)"/>
+			<br/>
+			Put in a font size (like 12pt):
+			<input type="text" size="30" onchange="changeAll('fontSize',this.value)"/>
+			<br/>
+			Put in a font family:
+			<input type="text" size="30" onchange="changeAll('fontFamily',this.value)"/>
+			<br/>
+			Put in a new left (like 100px):
+			<input type="text" size="30" onchange="changeAll('left',this.value)"/>
+			<br/>
+			Put in a new top (like 200px):
+			<input type="text" size="30" onchange="changeAll('top',this.value)"/>
+			<br/>
+			Put in a background color:
+			<input type="text" size="30" onchange="changeAll('backgroundColor',this.value)"/>
+			<input type="button" value="Move it" onclick="moveIt('coolBeans')"/>
+		</form>
+	</body>
 </html>
-
-
-
-
-
-
-
-
