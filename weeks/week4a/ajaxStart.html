@@ -44,8 +44,10 @@
 						var dom = xmlDocument.getElementsByTagName('who');
 
 						for( i = 0, len = dom.length; i < len; i++) {
-							var hold = dom.item(i).firstChild.data;
-							stuffForPage += hold + '<br />';
+							if(dom.item(1).firstChild) {
+								var hold = dom.item(i).firstChild.data;
+								stuffForPage += hold + '<br />';
+							}
 						}
 
 						document.getElementById('container').innerHTML = stuffForPage;
@@ -60,10 +62,19 @@
 			//*********************************************************************
 			//Add functions here to trigger the calls to the object!
 
+			function addUser(who) {
+				if(http && !isWorking) {
+					http.open('get', 'addUserPhp.php?who=' + who, true);
+					http.onreadystatechange = handleHttpResponse;
+					isWorking = true;
+					http.send(null);
+				}
+			}
+
 			function getData() {
 				// if the object exists and it isn't currently busy
 				if(http && !isWorking) {
-					http.open("GET", "addUserPhp.php", true);
+					http.open("get", "addUserPhp.php", true);
 
 					// NOTE
 					// handleHTTPResponse is a function
@@ -94,7 +105,7 @@
 	<body onload="getData()">
 		<form method="" action="">
 			Enter your name (then tab out of input) to add to list!
-			<input type="text" name="newName" onchange=""/>
+			<input type="text" name="newName" onchange="addUser(this.value)"/>
 		</form>
 		<div id="container"></div>
 	</body>
