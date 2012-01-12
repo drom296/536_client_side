@@ -1,4 +1,39 @@
 body {
 	font: normal 11px verdana;
 }
+/*make it pretty*/
+ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background: #ffffff;
+	width: 150px; /*width of menu item*/
+	border-bottom: 1px solid #ccc;
+}
+ul li {
+	position: relative;
+}
+li ul {
+	position: absolute;
+	left: 149px; /* 1 less than width so there is no gap*/
+	top: 0;
+}
+ul li a {
+	display: block;
+	text-decoration: none;
+	color: #777;
+	padding: 5px;
+	border: 1px solid #ccc;
+	border-bottom: 0;
+}
+/*make it work*/
+ul#nav li ul{
+	display: none;
+}
+ul#nav li:hover > ul{
+	display: block;
+}
 
+ul#nav li:hover>a {
+	color: red;
+}
