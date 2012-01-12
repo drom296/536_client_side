@@ -21,63 +21,57 @@
 				position: relative;
 				top: 10px;
 			}
-			span > a{
-				position:relative;
-				left:10px;
+			span > a {
+				position: relative;
+				left: 10px;
 			}
 		</style>
 		<script type="text/javascript">
-			function doMenu(which){
+			function doMenu(which) {
 				// need to fork because of those text nodes inserted in between tags
 				// in anything other than IE
 				// console.log(which.nextSibling.nextSibling);
-				
+
 				var menuObj;
-				
-				if(document.attachEvent){
+
+				if(document.attachEvent) {
 					// in IE
 					// menuObj = which.nextSibling;
 					//console.log(which.sourceIndex);
-					menuObj = document.all[which.sourceIndex+1];
-				} else{
-					menuObj = which.nextSibling.nextSibling;					
+					menuObj = document.all[which.sourceIndex + 1];
+				} else {
+					menuObj = which.nextSibling.nextSibling;
 				}
-				
+
 				// toggle the display
-				if(menuObj.style.display=="none"){
-					menuObj.style.display="";
-				}else{
-					menuObj.style.display="none";
+				if(menuObj.style.display == "none") {
+					menuObj.style.display = "";
+				} else {
+					menuObj.style.display = "none";
 				}
-				
+
 			}
-			
 		</script>
 	</head>
 	<body>
 		<!--     Menu start     -->
 		<span class="relTitle" onclick="doMenu(this)"> Main Menu I </span>
-		
 		<span style="position:relative;top:10px;display:none" >
 			<br>
 			<a  href="#"> I SubMenu - 1 </a>
 			<br>
 			<a  href="#"> I SubMenu - 2 </a>
 			<br>
-			<a href="#"> I SubMenu - 3 </a> 
-		</span>
+			<a href="#"> I SubMenu - 3 </a> </span>
 		<br>
-		
 		<span class="relTitle" onclick="doMenu(this)"> Main Menu II </span>
-		
 		<span style="position:relative; top:10px;display:none" >
 			<br>
 			<a  href="#"> II SubMenu - 1 </a>
 			<br>
 			<a  href="#"> II SubMenu - 2 </a>
 			<br>
-			<a  href="#"> II SubMenu - 3 </a> 
-		</span>
+			<a  href="#"> II SubMenu - 3 </a> </span>
 		<!--     Menu End     -->
 	</body>
 </html>
