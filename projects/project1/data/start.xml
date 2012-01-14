@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<choices>
+	<key>start</key>
+	<question>What data set would you like?</question>
+	<option>dating</option>
+</choices>

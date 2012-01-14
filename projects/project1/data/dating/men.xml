@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <choices>
+	<key>men</key>
 	<question>Facial Hair?</question>
 	<option>hair</option>
 	<option>no hair</option>

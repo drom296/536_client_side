@@ -1,6 +1,9 @@
 /**
  * @author Pedro Mass
  */
+
+var filePath = "data/dating/";
+
 /**
  * Removes all the children, checks to see if there is data for the selection (value).
  * If there is, we dynamically create a select element and add it after the current select.
@@ -23,15 +26,31 @@ function processSelect(which) {
 	}
 
 	// remove younger siblings
-	killOlderSiblings(which);
+	killOlderSiblings(which.parentNode);
 
 	// check to see if there is any data
-	if(which.value in data && data[which.value]) {
-		// add the select
+	// if(which.value in data && data[which.value]) {
+		// // add the select
+		// addChoice(which);
+	// } else {
+		// //create the final text node
+		// showResults(which);
+	// }
+	
+	// check to see if there is any data
+	// do this by checking to see if there is a document matching the value
+	var fileName = filePath+which.value+".xml";
+	console.log("File "+fileName+" exists? "+fileExists(fileName));
+	
+	if(fileExists(fileName)){
+		// setup the data
+		requestData(fileName);
+		
+		// add the choice
 		addChoice(which);
-	} else {
-		//create the final text node
-		showResults(which);
+	} else{
+		// create the final text node
+		showResults(which.parentNode);
 	}
 }
 
@@ -47,11 +66,15 @@ function showResults(which) {
 		return;
 	}
 
+	// create the div container
+	var container = document.createElement("div");
+	
 	// display the results
 	var message = document.createElement("p");
 	var messText = document.createTextNode("You Choose: ");
 	message.appendChild(messText);
-	which.parentNode.appendChild(message);
+	// append to container
+	container.parentNode.appendChild(message);
 
 	// create the list
 	var uElem = document.createElement("ul");
@@ -71,8 +94,11 @@ function showResults(which) {
 		uElem.appendChild(li);
 	}
 
-	// add ul to the document
-	which.parentNode.appendChild(uElem);
+	// add ul to the container
+	container.parentNode.appendChild(uElem);
+	
+	// append the container to the document.
+	which.parentNode.appendChild(container);
 }
 
 function getSelVals() {
@@ -98,8 +124,9 @@ function getSelVals() {
  */
 function addChoice(elem) {
 	// grab the data
-	var options = data[elem.value][1];
 	var question = data[elem.value][0];
+	var options = data[elem.value][1];
+	
 
 	// create the div container
 	var container = document.createElement("div");
@@ -156,7 +183,7 @@ function addChoice(elem) {
 		// this is not the start, so we have to go up 2 levels from the select
 		// to the div container.
 		doc = doc.parentNode.parentNode;
-	}
+	} 
 
 	// attach the div to the document
 	doc.appendChild(container)
@@ -175,18 +202,4 @@ function killOlderSiblings(elem) {
 		// remove it
 		sib.parentNode.removeChild(sib);
 	}
-}
-
-/**
- * Removes spaces from the string, and turns it all to lowercase
- */
-function removeSpace(string){
-	// remove outer spaces
-	string.replace(/^\s+|\s+$/g,"");
-	// remove inner space
-	string.replace(/\s/g, "");
-	// turn to lower case
-	string.toLowerCase();
-	// return result
-	return string;
 }

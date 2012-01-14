@@ -7,23 +7,27 @@ var FILE_NO_EXIST = 404;
 
 // create the data object
 var data = new Object();
-data[START] = ["Men or Women?", ["men", "women"]];
-// level 1
-data["men"] = ["Facial Hair?", ["hair", "no hair"]];
-data["women"] = ["Blonde or Brunette?", ["blonde", "brunette"]];
-// level2
-data["hair"] = ["Complexion?", ["dark", "light"]];
-data["no hair"] = ["Build?", ["big", "small"]];
-data["blonde"] = ["Height?", ["tall", "small"]];
-data["brunette"] = ["Eyes?", ["brown", "blue"]];
-// level3
-data["brown"] = ["personality?", ["bossy", "sweet", "dark"]]
+// data[START] = ["Men or Women?", ["men", "women"]];
+// // level 1
+// data["men"] = ["Facial Hair?", ["hair", "no hair"]];
+// data["women"] = ["Blonde or Brunette?", ["blonde", "brunette"]];
+// // level2
+// data["hair"] = ["Complexion?", ["dark", "light"]];
+// data["no hair"] = ["Build?", ["big", "small"]];
+// data["blonde"] = ["Height?", ["tall", "small"]];
+// data["brunette"] = ["Eyes?", ["brown", "blue"]];
+// // level3
+// data["brown"] = ["personality?", ["bossy", "sweet", "dark"]]
 
-var http = getHTTPObject();
 // We create the HTTP Object
-var isWorking = false;
+var http = getHTTPObject();
 //flag for stopping the next request until this one is done...
+var isWorking = false;
 
+/**
+ * Checks to see if a file exists by making an AJAX call on the fileName and
+ * checking the return status
+ */
 function fileExists(fileName) {
 	var result = false;
 
@@ -38,35 +42,43 @@ function fileExists(fileName) {
 	return result;
 }
 
-function process(fileName) {
+function requestData(fileName) {
 	var result = false;
-	
+
+	// remove spaces from the fileName
+	fileName = removeSpaces(fileName);
+
 	// check if file exists
-	if (!fileExists(fileName)){
+	if(!fileExists(fileName)) {
 		return result;
 	}
 
 	//if the object exists and it isn't currently busy
 	if(http && !isWorking) {
-		http.open("GET", 'data.xml', true);
+		http.open("GET", fileName, false);
 		http.onreadystatechange = handleHttpResponse;
 		isWorking = true;
 		http.send(null);
-		setTimeout('getData()', 1500);
 	}
 
 	return true;
 }
 
 function addData(xmlDoc) {
+	// get the key
+	var key = xmlDoc.getElementsByTagName('key').item(0).firstChild.data;
+	
 	// get the question
 	var question = xmlDoc.getElementsByTagName('question').item(0).firstChild.data;
 
 	// set up the choices array
-	var choices;
+	var choices = new Array();
+	
+	// add the default choice
+	choices.push(DEFAULT);
 
 	// setup the dom var for choices
-	var dom = xmlDoc.getElementsByTagName('choice');
+	var dom = xmlDoc.getElementsByTagName('option');
 	// go thru all choices
 	for( i = 0, len = dom.length; i < len; i++) {
 		// get the value
@@ -76,6 +88,7 @@ function addData(xmlDoc) {
 	}
 
 	// add question and choices to data object
+	window.data[key] = [question, choices];
 
 }
 
@@ -120,5 +133,16 @@ function handleHttpResponse() {
 	}
 }
 
-//*********************************************************************
-//Add functions here to trigger the calls to the object!
+/**
+ * Removes spaces from the string, and turns it all to lowercase
+ */
+function removeSpaces(string) {
+	// remove outer spaces
+	string.replace(/^\s+|\s+$/g, "");
+	// remove inner space
+	string.replace(/\s/g, "");
+	// turn to lower case
+	string.toLowerCase();
+	// return result
+	return string;
+}
