@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<choices>
+	<question>Men or Women?</question>
+	<option>men</option>
+	<option>women</option>
+</choices>
