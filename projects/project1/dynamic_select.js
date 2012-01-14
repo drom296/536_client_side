@@ -6,7 +6,7 @@ var START = "start";
 
 // create the data object
 var data = new Object();
-data["start"] 	= ["Men or Women?", ["men", "women"]];
+data[START] 	= ["Men or Women?", ["men", "women"]];
 // level 1
 data["men"] 		= ["Facial Hair?", ["hair", "no hair"]];
 data["women"] 	= ["Blonde or Brunette?", ["blonde","brunette"]];
@@ -41,7 +41,7 @@ function processSelect(which){
 	if(!which || which.nodeType != 1){
 		// not a valid reference 
 		// must be the start, make the first choice
-		which = document.getElementById("choices");
+		which = document.getElementsByTagName("body")[0];
 		which.value = START;
 	}
 	
@@ -130,6 +130,9 @@ function addChoice(elem){
 	var options = data[elem.value][1];
 	var question = data[elem.value][0];
 	
+	// create the div container
+	var container = document.createElement("div");
+	
 	// create the question
 	// create p node
 	var pQuestion = document.createElement("p");
@@ -137,8 +140,8 @@ function addChoice(elem){
 	question = document.createTextNode(question);
 	// attach to p node
 	pQuestion.appendChild(question);
-	// attach p node to the document
-	elem.parentNode.appendChild(pQuestion);
+	// attach p node to the div container
+	container.appendChild(pQuestion);
 	
 	
 	// create the select option element
@@ -171,9 +174,21 @@ function addChoice(elem){
   	selElem.setAttribute('onchange', 'processSelect(this);');;
   }
 	
-	// add select to the document
-	elem.parentNode.appendChild(selElem);
+	// add select to the div container
+	container.appendChild(selElem);
 	
+	// attach div container to the document
+	// first determine if this is the start
+	var doc = elem;
+	
+	if(elem.value != START){
+		// this is not the start, so we have to go up 2 levels from the select
+		// to the div container.
+		doc = doc.parentNode.parentNode;
+	}
+	
+	// attach the div to the document
+	doc.appendChild(container)
 }
 
 /**
