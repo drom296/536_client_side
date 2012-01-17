@@ -39,7 +39,7 @@ function processSelect(which) {
 	
 	// check to see if there is any data
 	// do this by checking to see if there is a document matching the value
-	var fileName = filePath+which.value+".xml";
+	var fileName = filePath+removeSpaces(which.value)+".xml";
 	console.log("File "+fileName+" exists? "+fileExists(fileName));
 	
 	if(fileExists(fileName)){
@@ -74,7 +74,7 @@ function showResults(which) {
 	var messText = document.createTextNode("You Choose: ");
 	message.appendChild(messText);
 	// append to container
-	container.parentNode.appendChild(message);
+	container.appendChild(message);
 
 	// create the list
 	var uElem = document.createElement("ul");
@@ -95,7 +95,7 @@ function showResults(which) {
 	}
 
 	// add ul to the container
-	container.parentNode.appendChild(uElem);
+	container.appendChild(uElem);
 	
 	// append the container to the document.
 	which.parentNode.appendChild(container);
@@ -123,9 +123,12 @@ function getSelVals() {
  * @param elem - element to add after
  */
 function addChoice(elem) {
+	//strip spaces from elem.value
+	var val = removeSpaces(elem.value);
+	
 	// grab the data
-	var question = data[elem.value][0];
-	var options = data[elem.value][1];
+	var question = data[val][0];
+	var options = data[val][1];
 	
 
 	// create the div container
@@ -179,7 +182,7 @@ function addChoice(elem) {
 	// first determine if this is the start
 	var doc = elem;
 
-	if(elem.value != START) {
+	if(val != START) {
 		// this is not the start, so we have to go up 2 levels from the select
 		// to the div container.
 		doc = doc.parentNode.parentNode;
@@ -202,4 +205,18 @@ function killOlderSiblings(elem) {
 		// remove it
 		sib.parentNode.removeChild(sib);
 	}
+}
+
+/**
+ * Removes spaces from the string, and turns it all to lowercase
+ */
+function removeSpaces(string) {
+	// remove outer spaces
+	string = string.replace(/^\s+|\s+$/g, "");
+	// remove inner space
+	string = string.replace(/\s/g, "");
+	// turn to lower case
+	string = string.toLowerCase();
+	// return result
+	return string;
 }
