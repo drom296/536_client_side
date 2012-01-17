@@ -3,6 +3,7 @@
  */
 
 var filePath = "data/dating/";
+var page = "choices"
 
 /**
  * Removes all the children, checks to see if there is data for the selection (value).
@@ -21,7 +22,7 @@ function processSelect(which) {
 	if(!which || which.nodeType != 1) {
 		// not a valid reference
 		// must be the start, make the first choice
-		which = document.getElementsByTagName("body")[0];
+		which = document.getElementById(page);
 		which.value = START;
 	}
 
