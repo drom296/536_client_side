@@ -46,7 +46,7 @@ function requestData(fileName) {
 	var result = false;
 
 	// remove spaces from the fileName
-	fileName = removeSpaces(fileName);
+	// fileName = removeSpaces(fileName);
 
 	// check if file exists
 	if(!fileExists(fileName)) {
@@ -133,16 +133,3 @@ function handleHttpResponse() {
 	}
 }
 
-/**
- * Removes spaces from the string, and turns it all to lowercase
- */
-function removeSpaces(string) {
-	// remove outer spaces
-	string.replace(/^\s+|\s+$/g, "");
-	// remove inner space
-	string.replace(/\s/g, "");
-	// turn to lower case
-	string.toLowerCase();
-	// return result
-	return string;
-}
