@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <choices>
-	<key></key>
+	<key>women</key>
 	<question>Blonde or Brunette?</question>
 	<option>blonde</option>
 	<option>brunette</option>
