@@ -64,12 +64,20 @@ function requestData(fileName) {
 	return true;
 }
 
+
+function getXMLVal(xmlDoc, tag){
+	return xmlDoc.getElementsByTagName(tag).item(0).firstChild.data;
+}
+
 function addData(xmlDoc) {
 	// get the key
-	var key = xmlDoc.getElementsByTagName('key').item(0).firstChild.data;
+	var key = getXMLVal(xmlDoc,'key');
 	
 	// get the question
-	var question = xmlDoc.getElementsByTagName('question').item(0).firstChild.data;
+	var question = getXMLVal(xmlDoc,'question');
+
+	// get the quote
+	var quote = getXMLVal(xmlDoc,'quote');
 
 	// set up the choices array
 	var choices = new Array();
@@ -88,7 +96,7 @@ function addData(xmlDoc) {
 	}
 
 	// add question and choices to data object
-	window.data[key] = [question, choices];
+	window.data[key] = [quote, question, choices];
 
 }
 
