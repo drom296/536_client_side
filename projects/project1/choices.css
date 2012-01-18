@@ -1,0 +1,46 @@
+/*testing*/
+* {
+	border: 1px solid white;
+}
+
+
+/*COLOR*/
+
+colors {
+	color: #776655;
+	color: #ccbb88;
+	color: #ffffee;
+	color: #eeddbb;
+	color: #bb9966;
+}
+body {
+	background-color: #776655;
+	color: #ffffee;
+	background-image: url(imgs/minimalfly.jpg);
+}
+#choices {
+	background-color: #ccbb88;
+}
+select {
+	color: #ffffee;
+	background-color: #eeddbb;
+}
+
+
+/*LAYOUT*/
+
+* {
+	margin: 0;
+	padding: 0;
+}
+#choices {
+	min-width: 600px;
+	width: 70%;
+	min-height: 50%;
+	margin: 1% auto 1% auto;
+}
+.quote {
+	position: relative;
+	left: 5em;
+	font-style: italic;
+}
