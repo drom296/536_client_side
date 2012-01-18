@@ -1,46 +1,57 @@
-/*testing*/
-* {
-	border: 1px solid white;
-}
-
 
 /*COLOR*/
-
-colors {
-	color: #776655;
-	color: #ccbb88;
-	color: #ffffee;
-	color: #eeddbb;
-	color: #bb9966;
-}
 body {
 	background-color: #776655;
-	color: #ffffee;
+	color: #555544;
 	background-image: url(imgs/minimalfly.jpg);
 }
 #choices {
 	background-color: #ccbb88;
 }
 select {
-	color: #ffffee;
+	color: #887766;
 	background-color: #eeddbb;
 }
-
-
 /*LAYOUT*/
-
 * {
-	margin: 0;
 	padding: 0;
+	margin: 0;
+}
+.question {
+	font-size: 1.3em;
+	font-weight: bold;
 }
 #choices {
 	min-width: 600px;
-	width: 70%;
 	min-height: 50%;
 	margin: 1% auto 1% auto;
+	padding: 2%;
+	overflow: hidden;
+	width: 70%;
 }
-.quote {
-	position: relative;
-	left: 5em;
+#choices > div {
+	margin-left: auto;
+	margin-right: auto;
+}
+.choice, .reactionDiv {
+	float: left;
+	width: 20%
+}
+.reactionDiv {
+	width: 60%;
+}
+.rPic {
+	float: left;
+	height: 10%;
+	width: 10%;
+	min-height: 20px;
+	min-width: 15px;
+	margin-right: 1%;
+}
+.noFloat {
+	clear: both;
+}
+p.quote {
 	font-style: italic;
+	margin-top: 5%;
 }
