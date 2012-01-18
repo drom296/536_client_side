@@ -1,9 +1,11 @@
-
 /*COLOR*/
 body {
 	background-color: #776655;
 	color: #555544;
 	background-image: url(imgs/minimalfly.jpg);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
 }
 #choices {
 	background-color: #ccbb88;
