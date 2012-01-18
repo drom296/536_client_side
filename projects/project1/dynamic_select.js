@@ -3,10 +3,14 @@
  */
 
 var filePath = "data/dating/";
+var imgPath = "imgs/";
 var page = "choices";
 var questionPos = 1;
 var optionsPos = 2;
 var quotePos = 0;
+
+var quoteClass = "quote";
+var picClass = "rPic";
 
 /**
  * Removes all the children, checks to see if there is data for the selection (value).
@@ -63,6 +67,7 @@ function showResults(which) {
 
 	// create the div container
 	var container = document.createElement("div");
+	container.setAttribute('class', 'resultDiv noFloat');
 
 	// display the results
 	var message = document.createElement("p");
@@ -118,6 +123,7 @@ function addReactionDiv(elem, quote) {
 	container.setAttribute('class','reactionDiv');
 	
 	// add picture
+	addPic(container, imgPath+removeSpaces(elem.value)+'.jpg');
 
 	// add quote
 	addQuote(container, quote);
@@ -127,11 +133,21 @@ function addReactionDiv(elem, quote) {
 
 }
 
+function addPic(elem, picSrc) {
+	// add quote within elem
+	// create img tag
+	var pQuote = document.createElement('img');
+	pQuote.setAttribute('class', picClass);
+	pQuote.setAttribute('src',picSrc);
+	// add p to the elem
+	elem.appendChild(pQuote);
+}
+
 function addQuote(elem, quote) {
 	// add quote within select's div
 	// create p tag
 	var pQuote = document.createElement('p');
-	pQuote.setAttribute('class', 'quote');
+	pQuote.setAttribute('class', quoteClass);
 	// create text node
 	quote = document.createTextNode(quote);
 	// add text node to p tag
@@ -156,10 +172,12 @@ function addChoice(elem) {
 
 	// create the div container
 	var container = document.createElement("div");
+	container.setAttribute('class','choice noFloat');
 
 	// create the question
 	// create p node
 	var pQuestion = document.createElement("p");
+	pQuestion.setAttribute('class','question');
 	// create text node
 	question = document.createTextNode(question);
 	// attach to p node
