@@ -3,7 +3,10 @@
  */
 
 var filePath = "data/dating/";
-var page = "choices"
+var page = "choices";
+var questionPos = 1;
+var optionsPos = 2;
+var quotePos = 0;
 
 /**
  * Removes all the children, checks to see if there is data for the selection (value).
@@ -30,26 +33,17 @@ function processSelect(which) {
 	killOlderSiblings(which.parentNode);
 
 	// check to see if there is any data
-	// if(which.value in data && data[which.value]) {
-		// // add the select
-		// addChoice(which);
-	// } else {
-		// //create the final text node
-		// showResults(which);
-	// }
-	
-	// check to see if there is any data
 	// do this by checking to see if there is a document matching the value
-	var fileName = filePath+removeSpaces(which.value)+".xml";
-	console.log("File "+fileName+" exists? "+fileExists(fileName));
-	
-	if(fileExists(fileName)){
+	var fileName = filePath + removeSpaces(which.value) + ".xml";
+	console.log("File " + fileName + " exists? " + fileExists(fileName));
+
+	if(fileExists(fileName)) {
 		// setup the data
 		requestData(fileName);
-		
+
 		// add the choice
 		addChoice(which);
-	} else{
+	} else {
 		// create the final text node
 		showResults(which.parentNode);
 	}
@@ -69,7 +63,7 @@ function showResults(which) {
 
 	// create the div container
 	var container = document.createElement("div");
-	
+
 	// display the results
 	var message = document.createElement("p");
 	var messText = document.createTextNode("You Choose: ");
@@ -97,7 +91,7 @@ function showResults(which) {
 
 	// add ul to the container
 	container.appendChild(uElem);
-	
+
 	// append the container to the document.
 	which.parentNode.appendChild(container);
 }
@@ -118,19 +112,47 @@ function getSelVals() {
 	return values;
 }
 
+function addReactionDiv(elem, quote) {
+	// create reaction container
+	var container = document.createElement("div");
+	container.setAttribute('class','reactionDiv');
+	
+	// add picture
+
+	// add quote
+	addQuote(container, quote);
+	
+	// add container to the document
+	elem.parentNode.parentNode.appendChild(container);
+
+}
+
+function addQuote(elem, quote) {
+	// add quote within select's div
+	// create p tag
+	var pQuote = document.createElement('p');
+	pQuote.setAttribute('class', 'quote');
+	// create text node
+	quote = document.createTextNode(quote);
+	// add text node to p tag
+	pQuote.appendChild(quote);
+	// add p to the document
+	elem.appendChild(pQuote);
+}
+
 /**
  * Creates a div, adds the question, and creates the select option element
  *
- * @param elem - element to add after
+ * @param elem - the select that was changed
  */
 function addChoice(elem) {
 	//strip spaces from elem.value
 	var val = removeSpaces(elem.value);
-	
+
 	// grab the data
-	var question = data[val][0];
-	var options = data[val][1];
-	
+	var question = data[val][questionPos];
+	var options = data[val][optionsPos];
+	var quote = data[val][quotePos];
 
 	// create the div container
 	var container = document.createElement("div");
@@ -187,7 +209,10 @@ function addChoice(elem) {
 		// this is not the start, so we have to go up 2 levels from the select
 		// to the div container.
 		doc = doc.parentNode.parentNode;
-	} 
+
+		// add reaction to their selection
+		addReactionDiv(elem, quote);
+	}
 
 	// attach the div to the document
 	doc.appendChild(container)
