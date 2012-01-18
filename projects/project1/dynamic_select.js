@@ -12,6 +12,8 @@ var quotePos = 0;
 var quoteClass = "quote";
 var picClass = "rPic";
 
+var quotes = [];
+
 /**
  * Removes all the children, checks to see if there is data for the selection (value).
  * If there is, we dynamically create a select element and add it after the current select.
@@ -154,6 +156,9 @@ function addQuote(elem, quote) {
 	pQuote.appendChild(quote);
 	// add p to the document
 	elem.appendChild(pQuote);
+	
+	// add quote to quotes array
+	quotes.push(quote);
 }
 
 /**
