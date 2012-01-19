@@ -64,24 +64,45 @@ function requestData(fileName) {
 	return true;
 }
 
+function getBioXML(fileName) {
+	var result = false;
 
-function getXMLVal(xmlDoc, tag){
+	// remove spaces from the fileName
+	// fileName = removeSpaces(fileName);
+
+	// check if file exists
+	if(!fileExists(fileName)) {
+		return result;
+	}
+
+	//if the object exists and it isn't currently busy
+	if(http && !isWorking) {
+		http.open("GET", fileName, false);
+		http.onreadystatechange = handleBioCall;
+		isWorking = true;
+		http.send(null);
+	}
+
+	return true;
+}
+
+function getXMLVal(xmlDoc, tag) {
 	return xmlDoc.getElementsByTagName(tag).item(0).firstChild.data;
 }
 
 function addData(xmlDoc) {
 	// get the key
-	var key = getXMLVal(xmlDoc,'key');
-	
+	var key = getXMLVal(xmlDoc, 'key');
+
 	// get the question
-	var question = getXMLVal(xmlDoc,'question');
+	var question = getXMLVal(xmlDoc, 'question');
 
 	// get the quote
-	var quote = getXMLVal(xmlDoc,'quote');
+	var quote = getXMLVal(xmlDoc, 'quote');
 
 	// set up the choices array
 	var choices = new Array();
-	
+
 	// add the default choice
 	choices.push(DEFAULT);
 
@@ -141,3 +162,50 @@ function handleHttpResponse() {
 	}
 }
 
+function handleBioCall() {
+	//alert(http.readyState);
+	//first, is my 'object' complete (done getting info from server?)
+	if(http.readyState == 4) {
+		//if I got something...
+		//alert(http.responseText);
+		if(http.status == 200) {
+			// Use the XML DOM to unpack the data
+			var xmlDoc = http.responseXML;
+
+			//*********************************************************************
+			//Add code here to process the return content!
+
+			// get the name
+			var name = getXMLVal(xmlDoc, 'name');
+
+			// get the bio
+			var bio = getXMLVal(xmlDoc, 'bio');
+
+			// get the picture
+			var pic = getXMLVal(xmlDoc, 'picture');
+			
+			// get the website
+			var site = getXMLVal(xmlDoc, 'website'); 
+
+			// set up the qualities array
+			var qualities = new Array();
+
+			// setup the dom var for choices
+			var dom = xmlDoc.getElementsByTagName('quality');
+			// go thru all choices
+			for( i = 0, len = dom.length; i < len; i++) {
+				// get the value
+				var quality = dom.item(i).firstChild.data;
+				// add to the array
+				qualities.push(quality);
+			}
+
+			// add question and choices to data object
+			window.data['bio'] = {"name":name, "bio":bio, "pic":pic, "site":site, "qualities":qualities};
+
+			//end adding code!
+			//*********************************************************************
+			isWorking = false;
+		}
+	}
+}
