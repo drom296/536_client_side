@@ -1,0 +1,16 @@
+v<?xml version="1.0" encoding="UTF-8" ?>
+<result>
+	<name>Tom</name>
+	<qualities>
+		<quality>movie star</quality>
+		<quality>has hair</quality>
+		<quality>short in stature</quality>
+		<quality>regains composure quickly (Oprah incident)</quality>
+		<quality></quality>
+	</qualities>
+	<bio>
+		Born Thomas Cruise Mapother IV, on July 3rd, 1962, in Syracuse, New York, Tom Cruise became interested in acting when he won the lead in a high school production of Guys and Dolls. His role in 1981's Taps, his second film, caught critics' attention, and he eventually went on to star in many box office hits.
+	</bio>
+	<picture>tomcruise.jpg</picture>
+	<website>http://www.tomcruiseisnuts.com/</website>
+</result>
