@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <choices>
 	<key>nohair</key>
-	<question>Build?</question>
-	<option>big</option>
-	<option>small</option>
+	<question>Height?</question>
+	<option>tall</option>
+	<option>short</option>
 	<quote>Look like George Costanza but [hug] like Ron Jeremy</quote>
 </choices>
