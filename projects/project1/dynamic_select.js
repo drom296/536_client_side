@@ -2,6 +2,8 @@
  * @author Pedro Mass
  */
 
+var isIE = ((navigator.userAgent.indexOf("MSIE") != -1) && (navigator.userAgent.indexOf("Opera") == -1));
+
 var filePath = "data/dating/";
 var resultPath = "results/";
 var imgPath = "imgs/";
@@ -23,11 +25,46 @@ function init() {
 		// window.location = "redirect.html";
 		return;
 	}
-	
+
+	// init the quotes array
 	quotes = new Array();
+
+	// check if they have a saved result
+	var result = getBioResult();
+
+	console.log(result);	
+	if(result) {
+		//show previous bio
+		showBio(document.getElementById('choices'), result);
+	}
 
 	// start the select madness
 	processSelect();
+}
+
+function storeBioResult(bioName) {
+
+	if(isIE) {
+		// store as cookie
+		SetCookie('bio', bioName, 100000);
+	} else {
+		// store as localStorage
+		window.localStorage.setItem('bio', bioName);
+	}
+}
+
+function getBioResult() {
+
+	var result = null;
+	if(isIE) {
+		// look for cookie
+		result = GetCookie('bio');
+	} else {
+		// look in local storage
+		result = localStorage.getItem('bio');
+	}
+	// return the name
+	return result;
 }
 
 function processForm() {
@@ -70,15 +107,18 @@ function isEmpty(string) {
 }
 
 function isIEMAC() {
-	// store useragent
-	var uAgent = navigator.userAgent;
+	// // store useragent
+	// var uAgent = navigator.userAgent;
+	//
+	// // check if mac from user agent
+	// var isMac = uAgent.indexOf("Mac") > -1;
+	//
+	// var isIE = uAgent.indexOf("MSIE") > -1;
 
-	// check if mac from user agent
-	var isMac = uAgent.indexOf("Mac") > -1;
+	// got this from week2a - browserChecker.js
+	var isIEMac = ((navigator.userAgent.indexOf("MSIE") != -1) && (navigator.userAgent.indexOf("Mac") != -1) && (navigator.userAgent.indexOf("Opera") == -1));
 
-	var isIE = uAgent.indexOf("MSIE") > -1;
-
-	return isMac && isIE;
+	return isIEMac;
 }
 
 /**
@@ -179,13 +219,26 @@ function showResults(which) {
 		return;
 	}
 
+	// collapse the array to get our file name
+	var bioName = removeSpaces(values.join(""));
+
+	// store the bio name
+	storeBioResult(bioName);
+
+	// show bio
+	showBio(which.parentNode, bioName);
+
+	// add contact form
+	addContactForm(which);
+
+}
+
+function showBio(which, bioName) {
+
 	// create the div container
 	var container = document.createElement("div");
 	container.setAttribute('class', 'noFloat');
 	container.setAttribute('id', 'bioDiv');
-
-	// collapse the array to get our file name
-	var bioName = removeSpaces(values.join(""));
 
 	// get data from results bio XML
 	getBioXML(filePath + resultPath + bioName + ".xml");
@@ -217,10 +270,8 @@ function showResults(which) {
 	addList(container, quotes, 'ul', 'bioLines');
 
 	// append the container to the document.
-	which.parentNode.appendChild(container);
+	which.appendChild(container);
 
-	// add contact form
-	addContactForm(which);
 }
 
 function addLink(elem, text, url) {
@@ -246,7 +297,6 @@ function addList(elem, options, listType, iClass) {
 
 	// set up the list items
 	for(val in options) {
-		
 		val = options[val];
 
 		// create list item
@@ -319,10 +369,10 @@ function addPic(elem, picSrc, iClass) {
 }
 
 function addQuote(elem, quote) {
-	
+
 	// add quote to quotes array
 	quotes.push(quote);
-	
+
 	// add quote within select's div
 	// create p tag
 	var pQuote = document.createElement('p');
@@ -333,7 +383,6 @@ function addQuote(elem, quote) {
 	pQuote.appendChild(quote);
 	// add p to the document
 	elem.appendChild(pQuote);
-
 
 }
 
