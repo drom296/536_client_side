@@ -57,3 +57,32 @@ select {
 p.quote {
 	font-style: italic;
 }
+
+#bioDiv{
+/*	border: 1px solid white;*/
+	margin:25% auto 2% auto;
+	overflow: hidden;
+	width: 90%;
+}
+
+.bioPic{
+	float:right;
+	height:20%;
+	width: 20%;
+}
+
+.bioHeading{
+	text-decoration: underline;
+}
+
+#bioDiv>ul{
+	margin-left: 2%;
+	list-style-type: square;
+	list-style-position:inside;
+}
+
+form > *{
+	margin-left: 10px;
+}
+
+
