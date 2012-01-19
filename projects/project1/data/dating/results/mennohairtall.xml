@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<result>
+	<name>The Rock</name>
+	<qualities>
+		<quality>rugged</quality>
+		<quality>shiny</quality>
+		<quality>tall and muscular</quality>
+		<quality>The people's people</quality>
+	</qualities>
+	<bio>The Rock makes his living laying the smack down on people, mainly other
+		wrestlers. He also has appeared on many of manly movies, like "The Tooth Fairy"</bio>
+	<picture>therock.jpg</picture>
+	<website>http://www.wwe.com/superstars/wwealumni/therock</website>
+</result>
