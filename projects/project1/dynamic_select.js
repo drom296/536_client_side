@@ -34,11 +34,16 @@ function init() {
 
 	if(result) {
 		//show previous bio
-		var container = document.getElementById('choices');
+		var container = document.createElement("div");
+		container.setAttribute('id', 'beforeBio');
+		container.setAttribute('class', 'beforeBioDiv');
 		addHeading(container, 'Last time, you choose...', 'h2', 'bioHeading')
 		showBio(container, result);
-		document.getElementById('bioDiv').style.borderBottomWidth = "1px;";
-		document.getElementById('bioDiv').style.borderBottomStyle = "solid";
+
+		document.getElementById('choices').appendChild(container);
+
+		document.getElementById('beforeBio').style.borderBottomWidth = "1px;";
+		document.getElementById('beforeBio').style.borderBottomStyle = "solid";
 	}
 
 	// start the select madness
@@ -257,7 +262,10 @@ function showBio(which, bioName) {
 	// addName
 	addHeading(container, 'Name', 'h3', 'bioHeading');
 	addP(container, results['name'], 'bioName');
-	// addLink(container, "name: "+results['name'], results['site']);
+	
+	// addWebsite
+	addHeading(container, 'Website', 'h3', 'bioHeading');
+	addLink(container, results['site'], results['site']);
 
 	// add Qualities heading
 	addHeading(container, 'Qualities', 'h3', 'bioHeading');
@@ -280,7 +288,14 @@ function showBio(which, bioName) {
 }
 
 function addLink(elem, text, url) {
-	// create
+	// create p tag
+	var p = document.createElement('span');
+	var link = document.createElement('a');
+	link.setAttribute('href',url);
+	link.appendChild(document.createTextNode(text));
+	p.appendChild(link);
+	elem.appendChild(p);
+	
 }
 
 function addP(elem, text, iClass) {
@@ -465,6 +480,14 @@ function addChoice(elem) {
 
 		// add reaction to their selection
 		addReactionDiv(elem, quote);
+
+		// last minute add
+		// kill last choosen bio if start
+		var beforeBioDiv = document.getElementById('beforeBio');
+
+		if(beforeBioDiv) {
+			beforeBioDiv.parentNode.removeChild(beforeBioDiv);
+		}
 	}
 
 	// attach the div to the document

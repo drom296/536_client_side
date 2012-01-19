@@ -57,7 +57,7 @@ select {
 p.quote {
 	font-style: italic;
 }
-#bioDiv {
+#bioDiv , .beforeBioDiv{
 	/*	border: 1px solid white;*/
 	margin: 2% auto 2% auto;
 	overflow: hidden;
