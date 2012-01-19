@@ -15,6 +15,70 @@ var picClass = "rPic";
 
 var quotes = [];
 
+function init() {
+	// perfom some initial checks
+	// redirect if less than IE 7
+	if(ieFail || isIEMAC()) {
+		window.location = "http://www.mozilla.org/en-US/firefox/new/"
+		// window.location = "redirect.html";
+		return;
+	}
+
+	// start the select madness
+	processSelect();
+}
+
+function processForm() {
+	return validateForm();
+}
+
+function validateForm() {
+	// get form
+	var form = document.getElementsByTagName('form')[0];
+
+	var message = "";
+
+	var result = true;
+
+	// check if name is blank
+	if(isEmpty(form.uName.value)) {
+		result = false;
+		message += "Please enter your name. ";
+	}
+
+	if(isEmpty(form.uEmail.value)) {
+		result = false;
+		message += "\nPlease enter your email. ";
+	}
+
+	if(isEmpty(form.uMessage.value)) {
+		result = false;
+		message += "\nPlease enter a message. ";
+	}
+
+	if(!result) {
+		alert(message);
+	}
+
+	return result;
+}
+
+function isEmpty(string) {
+	return removeSpaces(string).length == 0;
+}
+
+function isIEMAC() {
+	// store useragent
+	var uAgent = navigator.userAgent;
+
+	// check if mac from user agent
+	var isMac = uAgent.indexOf("Mac") > -1;
+
+	var isIE = uAgent.indexOf("MSIE") > -1;
+
+	return isMac && isIE;
+}
+
 /**
  * Removes all the children, checks to see if there is data for the selection (value).
  * If there is, we dynamically create a select element and add it after the current select.
@@ -62,7 +126,8 @@ function addContactForm(which) {
 
 	// create the form
 	var form = document.createElement('form');
-	form.setAttribute('action', 'mailto:536@mainator.com');
+	form.setAttribute('onsubmit', 'validateForm();');
+	form.setAttribute('method', 'get');
 
 	// add input for the name
 	form.appendChild(document.createTextNode('Name'));
@@ -86,7 +151,7 @@ function addContactForm(which) {
 	message.setAttribute('name', 'uMessage');
 	form.appendChild(message);
 	form.appendChild(document.createElement('br'));
-	
+
 	// add submit
 	var submit = document.createElement('input');
 	submit.setAttribute('name', 'submit');
@@ -157,8 +222,8 @@ function showResults(which) {
 	addContactForm(which);
 }
 
-function addLink(elem, text, url){
-	// create 
+function addLink(elem, text, url) {
+	// create
 }
 
 function addP(elem, text, iClass) {
