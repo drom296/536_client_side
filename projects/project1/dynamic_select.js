@@ -55,6 +55,45 @@ function processSelect(which) {
 	}
 }
 
+function addContactForm(which) {
+	// create container
+	var container = document.createElement("div");
+	container.setAttribute('class', 'formDiv');
+
+	// create the form
+	var form = document.createElement('form');
+	form.setAttribute('action', 'mailto:536@mainator.com');
+
+	// add input for the name
+	form.appendChild(document.createTextNode('Name'));
+	var name = document.createElement('input');
+	name.setAttribute('name', 'uName');
+	name.setAttribute('type', 'uName');
+	form.appendChild(name);
+	form.appendChild(document.createElement('br'));
+
+	// add input for the email
+	form.appendChild(document.createTextNode('Email'));
+	var email = document.createElement('input');
+	email.setAttribute('name', 'uEmail');
+	email.setAttribute('type', 'email');
+	form.appendChild(email);
+	form.appendChild(document.createElement('br'));
+
+	// add input for the message
+	form.appendChild(document.createTextNode('Message'));
+	var message = document.createElement('textarea');
+	message.setAttribute('name', 'uMessage');
+	form.appendChild(message);
+	form.appendChild(document.createElement('br'));
+
+	// attach form to container
+	container.appendChild(form);
+
+	// attach container to which
+	which.parentNode.appendChild(container);
+}
+
 /**
  * Gets all the choices, displays them.
  */
@@ -87,12 +126,13 @@ function showResults(which) {
 	addHeading(container, 'Qualities', 'h3', 'bioHeading');
 	// add qualities
 	addList(container, results['qualities'], 'ul', 'bioQualities');
-	
+
 	// add Bio heading
 	addHeading(container, 'Bio', 'h3', 'bioHeading');
 	// add bio
 	addP(container, results['bio'], 'bioBio');
-	
+
+	// TODO: Fix lines, not showing actual data
 	// add Lines heading
 	addHeading(container, 'Pickup Lines', 'h3', 'bioHeading');
 	// add lines
@@ -100,9 +140,12 @@ function showResults(which) {
 
 	// append the container to the document.
 	which.parentNode.appendChild(container);
+
+	// add contact form
+	addContactForm(which);
 }
 
-function addP(elem, text, iClass){
+function addP(elem, text, iClass) {
 	// create p tag
 	var p = document.createElement('p');
 	// create text node
