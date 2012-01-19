@@ -13,7 +13,7 @@ var quotePos = 0;
 var quoteClass = "quote";
 var picClass = "rPic";
 
-var quotes = [];
+var quotes;
 
 function init() {
 	// perfom some initial checks
@@ -23,6 +23,8 @@ function init() {
 		// window.location = "redirect.html";
 		return;
 	}
+	
+	quotes = new Array();
 
 	// start the select madness
 	processSelect();
@@ -209,7 +211,6 @@ function showResults(which) {
 	// add bio
 	addP(container, results['bio'], 'bioBio');
 
-	// TODO: Fix lines, not showing actual data
 	// add Lines heading
 	addHeading(container, 'Pickup Lines', 'h3', 'bioHeading');
 	// add lines
@@ -245,6 +246,7 @@ function addList(elem, options, listType, iClass) {
 
 	// set up the list items
 	for(val in options) {
+		
 		val = options[val];
 
 		// create list item
@@ -272,10 +274,6 @@ function addHeading(elem, text, heading, iClass) {
 	pQuote.appendChild(text);
 
 	elem.appendChild(pQuote);
-}
-
-function getBio(bioPath) {
-	console.log(bioPath);
 }
 
 function getSelVals() {
@@ -321,6 +319,10 @@ function addPic(elem, picSrc, iClass) {
 }
 
 function addQuote(elem, quote) {
+	
+	// add quote to quotes array
+	quotes.push(quote);
+	
 	// add quote within select's div
 	// create p tag
 	var pQuote = document.createElement('p');
@@ -332,9 +334,7 @@ function addQuote(elem, quote) {
 	// add p to the document
 	elem.appendChild(pQuote);
 
-	// add quote to quotes array
-	console.log(quote);
-	quotes.push(quote);
+
 }
 
 /**
