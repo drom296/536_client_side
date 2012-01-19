@@ -41,7 +41,6 @@ function processSelect(which) {
 	// check to see if there is any data
 	// do this by checking to see if there is a document matching the value
 	var fileName = filePath + removeSpaces(which.value) + ".xml";
-	console.log("File " + fileName + " exists? " + fileExists(fileName));
 
 	if(fileExists(fileName)) {
 		// setup the data
