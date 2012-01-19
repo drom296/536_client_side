@@ -86,6 +86,12 @@ function addContactForm(which) {
 	message.setAttribute('name', 'uMessage');
 	form.appendChild(message);
 	form.appendChild(document.createElement('br'));
+	
+	// add submit
+	var submit = document.createElement('input');
+	submit.setAttribute('name', 'submit');
+	submit.setAttribute('type', 'submit');
+	form.appendChild(submit);
 
 	// attach form to container
 	container.appendChild(form);
