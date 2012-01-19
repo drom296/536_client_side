@@ -183,9 +183,9 @@ function handleBioCall() {
 
 			// get the picture
 			var pic = getXMLVal(xmlDoc, 'picture');
-			
+
 			// get the website
-			var site = getXMLVal(xmlDoc, 'website'); 
+			var site = getXMLVal(xmlDoc, 'website');
 
 			// set up the qualities array
 			var qualities = new Array();
@@ -201,7 +201,13 @@ function handleBioCall() {
 			}
 
 			// add question and choices to data object
-			window.data['bio'] = {"name":name, "bio":bio, "pic":pic, "site":site, "qualities":qualities};
+			window.data['bio'] = {
+				"name" : name,
+				"bio" : bio,
+				"pic" : pic,
+				"site" : site,
+				"qualities" : qualities
+			};
 
 			//end adding code!
 			//*********************************************************************

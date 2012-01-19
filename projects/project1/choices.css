@@ -57,32 +57,26 @@ select {
 p.quote {
 	font-style: italic;
 }
-
-#bioDiv{
-/*	border: 1px solid white;*/
-	margin:2% auto 2% auto;
+#bioDiv {
+	/*	border: 1px solid white;*/
+	margin: 2% auto 2% auto;
 	overflow: hidden;
 	width: 90%;
 }
-
-.bioPic{
-	float:right;
-	height:20%;
+.bioPic {
+	float: right;
+	height: 20%;
 	width: 20%;
 }
-
-.bioHeading{
+.bioHeading {
 	text-decoration: underline;
 }
-
-#bioDiv>ul{
+#bioDiv > ul {
 	margin-left: 2%;
 	list-style-type: square;
-	list-style-position:inside;
+	list-style-position: inside;
 }
-
-form > *{
+form > * {
 	margin-left: 10px;
 }
-
 
