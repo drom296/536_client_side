@@ -114,7 +114,8 @@ function showResults(which) {
 
 	// create the div container
 	var container = document.createElement("div");
-	container.setAttribute('class', 'bioDiv noFloat');
+	container.setAttribute('class', 'noFloat');
+	container.setAttribute('id', 'bioDiv');
 
 	// collapse the array to get our file name
 	var bioName = removeSpaces(values.join(""));
@@ -127,6 +128,11 @@ function showResults(which) {
 
 	// addPic
 	addPic(container, imgPath + results['pic'], "bioPic");
+
+	// addName
+	addHeading(container, 'Name', 'h3', 'bioHeading');
+	addP(container, results['name'], 'bioName');
+	// addLink(container, "name: "+results['name'], results['site']);
 
 	// add Qualities heading
 	addHeading(container, 'Qualities', 'h3', 'bioHeading');
@@ -149,6 +155,10 @@ function showResults(which) {
 
 	// add contact form
 	addContactForm(which);
+}
+
+function addLink(elem, text, url){
+	// create 
 }
 
 function addP(elem, text, iClass) {
