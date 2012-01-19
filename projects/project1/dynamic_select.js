@@ -85,15 +85,58 @@ function showResults(which) {
 
 	// add Qualities heading
 	addHeading(container, 'Qualities', 'h3', 'bioHeading');
-	
 	// add qualities
+	addList(container, results['qualities'], 'ul', 'bioQualities');
+	
+	// add Bio heading
+	addHeading(container, 'Bio', 'h3', 'bioHeading');
+	// add bio
+	addP(container, results['bio'], 'bioBio');
+	
+	// add Lines heading
+	addHeading(container, 'Pickup Lines', 'h3', 'bioHeading');
+	// add lines
+	addList(container, quotes, 'ul', 'bioLines');
 
 	// append the container to the document.
 	which.parentNode.appendChild(container);
 }
 
-function addList(elem, options, listType, iClass){
-	
+function addP(elem, text, iClass){
+	// create p tag
+	var p = document.createElement('p');
+	// create text node
+	text = document.createTextNode(text);
+	// attach to p
+	p.appendChild(text);
+	// add to elem
+	elem.appendChild(p);
+}
+
+function addList(elem, options, listType, iClass) {
+
+	// create the list element
+	var list = document.createElement(listType);
+	list.setAttribute('class', iClass);
+
+	// set up the list items
+	for(val in options) {
+		val = options[val];
+
+		// create list item
+		var li = document.createElement("li");
+		// create list item text node
+		var text = document.createTextNode(val);
+		// add text to list item
+		li.appendChild(text);
+
+		// add li to ul
+		list.appendChild(li);
+	}
+
+	// add ul to the container
+	elem.appendChild(list);
+
 }
 
 function addHeading(elem, text, heading, iClass) {
@@ -166,6 +209,7 @@ function addQuote(elem, quote) {
 	elem.appendChild(pQuote);
 
 	// add quote to quotes array
+	console.log(quote);
 	quotes.push(quote);
 }
 
