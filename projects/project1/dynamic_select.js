@@ -3,6 +3,7 @@
  */
 
 var filePath = "data/dating/";
+var resultPath = "results/";
 var imgPath = "imgs/";
 var page = "choices";
 var questionPos = 1;
@@ -68,38 +69,46 @@ function showResults(which) {
 
 	// create the div container
 	var container = document.createElement("div");
-	container.setAttribute('class', 'resultDiv noFloat');
+	container.setAttribute('class', 'bioDiv noFloat');
 
-	// display the results
-	var message = document.createElement("p");
-	var messText = document.createTextNode("You Choose: ");
-	message.appendChild(messText);
-	// append to container
-	container.appendChild(message);
+	// collapse the array to get our file name
+	var bioName = removeSpaces(values.join(""));
 
-	// create the list
-	var uElem = document.createElement("ul");
+	// get data from results bio XML
+	getBioXML(filePath + resultPath + bioName + ".xml");
 
-	// set up the list items
-	for(val in values) {
-		val = values[val];
+	// store in temp array
+	var results = data['bio'];
 
-		// create list item
-		var li = document.createElement("li");
-		// create list item text node
-		var text = document.createTextNode(val);
-		// add text to list item
-		li.appendChild(text);
+	// addPic
+	addPic(container, imgPath + results['pic'], "bioPic");
 
-		// add li to ul
-		uElem.appendChild(li);
-	}
-
-	// add ul to the container
-	container.appendChild(uElem);
+	// add Qualities heading
+	addHeading(container, 'Qualities', 'h3', 'bioHeading');
+	
+	// add qualities
 
 	// append the container to the document.
 	which.parentNode.appendChild(container);
+}
+
+function addList(elem, options, listType, iClass){
+	
+}
+
+function addHeading(elem, text, heading, iClass) {
+	var pQuote = document.createElement(heading);
+	pQuote.setAttribute('class', iClass);
+
+	// create text node
+	text = document.createTextNode(text);
+	pQuote.appendChild(text);
+
+	elem.appendChild(pQuote);
+}
+
+function getBio(bioPath) {
+	console.log(bioPath);
 }
 
 function getSelVals() {
@@ -121,25 +130,25 @@ function getSelVals() {
 function addReactionDiv(elem, quote) {
 	// create reaction container
 	var container = document.createElement("div");
-	container.setAttribute('class','reactionDiv');
-	
+	container.setAttribute('class', 'reactionDiv');
+
 	// add picture
-	addPic(container, imgPath+removeSpaces(elem.value)+'.jpg');
+	addPic(container, imgPath + removeSpaces(elem.value) + '.jpg', picClass);
 
 	// add quote
 	addQuote(container, quote);
-	
+
 	// add container to the document
 	elem.parentNode.parentNode.appendChild(container);
 
 }
 
-function addPic(elem, picSrc) {
+function addPic(elem, picSrc, iClass) {
 	// add quote within elem
 	// create img tag
 	var pQuote = document.createElement('img');
-	pQuote.setAttribute('class', picClass);
-	pQuote.setAttribute('src',picSrc);
+	pQuote.setAttribute('class', iClass);
+	pQuote.setAttribute('src', picSrc);
 	// add p to the elem
 	elem.appendChild(pQuote);
 }
@@ -155,7 +164,7 @@ function addQuote(elem, quote) {
 	pQuote.appendChild(quote);
 	// add p to the document
 	elem.appendChild(pQuote);
-	
+
 	// add quote to quotes array
 	quotes.push(quote);
 }
@@ -176,12 +185,12 @@ function addChoice(elem) {
 
 	// create the div container
 	var container = document.createElement("div");
-	container.setAttribute('class','choice noFloat');
+	container.setAttribute('class', 'choice noFloat');
 
 	// create the question
 	// create p node
 	var pQuestion = document.createElement("p");
-	pQuestion.setAttribute('class','question');
+	pQuestion.setAttribute('class', 'question');
 	// create text node
 	question = document.createTextNode(question);
 	// attach to p node
