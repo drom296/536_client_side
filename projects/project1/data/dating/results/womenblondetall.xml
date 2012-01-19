@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<result>
+	<name>Carmen</name>
+	<qualities>
+		<quality>Funny</quality>
+		<quality>Adventurous</quality>
+		<quality>Intelligent</quality>
+	</qualities>
+	<bio>Most well known for her title role in the romantic comedy "There's Something About Mary"</bio>
+	<picture>cameron.jpg</picture>
+	<website>http://www.cameron-diaz.org/cameron-diaz/biography/</website>
+</result>

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <result>
-	<name>Angelina</name>
+	<name>Tina</name>
 	<qualities>
-		<quality>seductive</quality>
-		<quality>beautiful lips</quality>
-		<quality>strong and independent</quality>
+		<quality>Bossy</quality>
+		<quality>Intelligent</quality>
+		<quality>Hilarious</quality>
 	</qualities>
-	<bio>Angelina Jolie is an Oscar-winning actress who has become popular by taking on the title role in the "Lara Croft" series of blockbuster movies</bio>
-	<picture>angelina.jpg</picture>
-	<website>http://angelina-place.com/</website>
+	<bio>Tina Fey is most notable for her work in the television series "Saturday Night Live".</bio>
+	<picture>tina.jpg</picture>
+	<website>http://www.tinafeyfan.com</website>
 </result>

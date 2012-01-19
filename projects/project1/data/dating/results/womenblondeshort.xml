@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<result>
+	<name>Shakira</name>
+	<qualities>
+		<quality>Loves Music</quality>
+		<quality>Loves to Dance</quality>
+		<quality>Great Singing Voice</quality>
+	</qualities>
+	<bio>Over the course of her career, Grammy winner Shakira has sold close to sixty million albums</bio>
+	<picture>shakira.jpg</picture>
+	<website>http://www.shakira.com/</website>
+</result>
