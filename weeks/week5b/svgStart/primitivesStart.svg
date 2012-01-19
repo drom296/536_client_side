@@ -1,0 +1,63 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+version="1.1" baseProfile="full" width="500%" height="500px">
+
+	<!--
+	7 Primitive Types
+	rect
+	line
+	circle
+	ellipse
+	polyline
+	polygon
+	path
+	-->
+
+	<!--Your SVG content goes here -->
+	<rect x="0px" y="0px" width="289px" height="289px" fill="olive"
+	stroke="rgb(200,3,9)" stroke-width="10px" />
+	<line x1="427px" x2="600px" y1="30px" y2="50px" stroke="#990099" stroke-width="7px" />
+	<circle cx="220px" cy="163px" r="89px" fill="orange" stroke="magenta" stroke-width="7px"
+	fill-opacity="0.7" stroke-opacity="0.2"/>
+	<ellipse cx="260px" cy="360px" rx="180px" ry="30px" fill="orange" stroke="magenta" stroke-width="7px"
+	fill-opacity="0.7" stroke-opacity="0.2"/>
+	<polyline points="223,123 276,213 171,213" fill="#090" stroke="magenta" stroke-width="7px"
+	fill-opacity="0.7" stroke-opacity="0.2"/>
+	<polygon points="323,223 376,313 271,313" fill="#909" stroke="blue" stroke-width="7px" />
+	<!-- big, nasty path tag
+	d is for data
+	M is for 'moveTo' absolutely - m 'moveTo' relatively
+
+	C is for 'curveTo' abs - c is 'curveTo' rel
+
+	x at end is for closePath
+	-->
+
+	<path d="M100,300 C25,200 475,200 400,300 z" fill="brown" stroke="#0ff" stroke-width="15px" />
+
+	<!-- *********************************************************************** -->
+
+	<image xlink:href="pic.jpg" x="200px" y="200px" height="100px" width="131px"/>
+
+	<!-- 	reuse -->
+	<defs>
+		<rect id="myRect" width="10px" height="10px" fill="black" />
+		
+		<g id="myGroup">
+			<circle r="10px" fill="brown" />
+			<rect width="20px" height="20px" fill="brown" x="-10px" />
+		</g>
+		
+	</defs>
+
+	<use x="400px" y="20px" xlink:href="#myRect" />
+	<use x="400px" y="50px" xlink:href="#myRect" />
+	
+	<use x="500px" y="20px" xlink:href="#myGroup" />
+	<use x="500px" y="60px" xlink:href="#myGroup" />
+	
+	<!-- from illustrator -->
+	<path fill="none" 
+
+</svg>
