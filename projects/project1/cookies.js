@@ -38,8 +38,14 @@ function DeleteCookie (name,path,domain) {
 }
 
 function SetCookie (name,value,expires,path,domain,secure) {
-  document.cookie = name + "=" + escape (value) +
-    ((expires) ? "; expires=" + expires.toGMTString() : "") +
+  // document.cookie = name + "=" + escape (value) +
+    // ((expires) ? "; expires=" + expires.toGMTString() : "") +
+    // ((path) ? "; path=" + path : "") +
+    // ((domain) ? "; domain=" + domain : "") +
+    // ((secure) ? "; secure" : "");
+    
+    document.cookie = name + "=" + escape (value) +
+    ((expires) ? "; expires=" + expires.toUTCString() : "") +
     ((path) ? "; path=" + path : "") +
     ((domain) ? "; domain=" + domain : "") +
     ((secure) ? "; secure" : "");

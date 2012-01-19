@@ -32,10 +32,13 @@ function init() {
 	// check if they have a saved result
 	var result = getBioResult();
 
-	console.log(result);	
 	if(result) {
 		//show previous bio
-		showBio(document.getElementById('choices'), result);
+		var container = document.getElementById('choices');
+		addHeading(container, 'Last time, you choose...', 'h2', 'bioHeading')
+		showBio(container, result);
+		document.getElementById('bioDiv').style.borderBottomWidth = "1px;";
+		document.getElementById('bioDiv').style.borderBottomStyle = "solid";
 	}
 
 	// start the select madness
@@ -46,7 +49,9 @@ function storeBioResult(bioName) {
 
 	if(isIE) {
 		// store as cookie
-		SetCookie('bio', bioName, 100000);
+		var time = new Date();
+		time.setDate(time.getDate() + 30);
+		SetCookie('bio', bioName, time);
 	} else {
 		// store as localStorage
 		window.localStorage.setItem('bio', bioName);
