@@ -5,6 +5,8 @@ version="1.1" baseProfile="full">
 	<desc>A JS Function</desc>
 	<script type="text/javascript">
 		<![CDATA[
+		// we were told to use the attributeNS functions, but i opted not to
+
 		function makeItBig(which){
 			which.setAttributeNS(null, 'r', parseInt(which.getAttributeNS(null, 'r'))+1+"px" );
 		}
