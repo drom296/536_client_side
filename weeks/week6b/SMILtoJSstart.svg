@@ -1,26 +1,48 @@
 <?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     version="1.1" baseProfile="full">
-<desc>A JS Function</desc>
+xmlns:xlink="http://www.w3.org/1999/xlink"
+version="1.1" baseProfile="full">
+	<desc>A JS Function</desc>
 	<script type="text/javascript">
 		<![CDATA[
+		function makeItBig(which){
+			which.setAttributeNS(null, 'r', parseInt(which.getAttributeNS(null, 'r'))+1+"px" );
+		}
+
+		function moveSnow(which){
+			// move the parent Circle
+			which.parentNode.setAttribute("cx", Math.random()*100+'%');
+			// randomly change the dur of the animate
+			// which.setAttribute("dur",Math.floor(Math.random()*10)+1+'s');
+			// should have work, but browsers arent ready
 			
+			// another approach - change the to
+			which.setAttribute("to",Math.floor(Math.random()*100)+100+"px");
+		}
 
 		]]>
 	</script>
-
-	
 	<circle cx="0px" cy="0px" r="20px" fill="green">
-		<animate dur="2.5s" from="0px" to="100px" attributeName="cy" fill="freeze" 
+		<animate dur="2.5s" from="0px" to="100px" attributeName="cy" fill="freeze"
 		repeatCount="indefinite"/>
 	</circle>
 	
-	<circle cx="0px" cy="0px" r="15px" fill="red" id="moveMe"/>
+	<circle cx="0px" cy="0px" r="15px" fill="red" id="moveMe">
+		<animate dur="2s" attributeName="cy" from="0px" to="100px" fill="freeze" repeatCount="indefinite" onrepeat="moveSnow(this)"/>
+	</circle>
+	
+	<circle cx="0px" cy="0px" r="15px" fill="red" id="moveMe">
+		<animate dur="2s" attributeName="cy" from="0px" to="100px" fill="freeze" repeatCount="indefinite" onrepeat="moveSnow(this)"/>
+	</circle>
+	
+	<circle cx="0px" cy="0px" r="15px" fill="red" id="moveMe">
+		<animate dur="2s" attributeName="cy" from="0px" to="100px" fill="freeze" repeatCount="indefinite" onrepeat="moveSnow(this)"/>
+	</circle>
+	
+	<circle cx="0px" cy="0px" r="15px" fill="red" id="moveMe">
+		<animate dur="2s" attributeName="cy" from="0px" to="100px" fill="freeze" repeatCount="indefinite" onrepeat="moveSnow(this)"/>
+	</circle>
 	
 	
-	<circle cx="200px" cy="200px" r="20px" fill="blue" id="makeBig"/>
-
-		
-
+	<circle cx="200px" cy="200px" r="20px" fill="blue" id="makeBig" onmousemove="makeItBig(this)"/>
 </svg> 
