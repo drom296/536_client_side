@@ -1,21 +1,47 @@
 <?xml version="1.0" standalone="no"?>
 <svg xmlns="http://www.w3.org/2000/svg"
-     xmlns:xlink="http://www.w3.org/1999/xlink"
-     version="1.1" baseProfile="full">
- <script type="text/javascript">
- <![CDATA[
- 	var svgns="http://www.w3.org/2000/svg";
- 	var xlinkns="http://www.w3.org/1999/xlink";
- 	
- ]]>
- </script>
- 
-<circle cx="60px" cy="100px" r="50px" fill="white" stroke="blue" stroke-width="4"/>
+xmlns:xlink="http://www.w3.org/1999/xlink"
+version="1.1" baseProfile="full">
+	<script type="text/javascript">
+		<![CDATA[
+		var svgns="http://www.w3.org/2000/svg";
+		var xlinkns="http://www.w3.org/1999/xlink";
 
-<circle cx="300px" cy="100px" r="50px" fill="white" stroke="blue"
-  stroke-width="4" id="listenerTarget"/>
+/*
+		Simple Rules for NS
+		1) when creating new element - ALWAYS use namespace in svg
+		
+		2) for setAttributeNS and getAttributeNS  - 
+				2a) the first argument is null
+					if the attribute is of the same NS as the parent (there is no colon)
+				2b) the first argyment is the namespace of the attribute if the 
+								attribute is of a different ns than the parent (there is a ':'
+		
+		3) createTextNode has NO namespace - text is text everywhere
+*/
 
-<text id="text_elem" x="0" y="1em">This is a dynamic link:  </text>
+		function createLink(){
+		// NS is needed cause the default would add it to HTML
+			var aElem = document.createElementNS(svgns,'a');
+			aElem.setAttributeNS(null,"target", "_blank");
+			// xlink:href is still needed to work every where
+			aElem.setAttributeNS(xlinkns, "xlink:href", "http://www.rit.edu");
+			
+			
+			var tElem = document.createElementNS(svgns, 'text');
+			tElem.setAttributeNS(null, 'x', "200px");
+			tElem.setAttributeNS(null, 'y', "1em");
+			
+			aElem.appendChild(document.createTextNode("click on me"));
+			tElem.appendChild(aElem);
+			
+			document.getElementsByTagName('svg')[0].appendChild(tElem);
+		}
 
-
+		]]>
+	</script>
+	<circle cx="60px" cy="100px" r="50px" fill="white" stroke="blue" stroke-width="4"/>
+	<circle cx="300px" cy="100px" r="50px" fill="white" stroke="blue"
+	stroke-width="4" id="listenerTarget"/>
+	<text id="text_elem" x="0" y="1em" onclick="createLink()">This is a dynamic link:</text>
 </svg> 
