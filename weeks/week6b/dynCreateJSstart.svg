@@ -1,0 +1,110 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+version="1.1" baseProfile="full" onload="init()">
+	<script type="text/javascript">
+		<![CDATA[
+		var svgns="http://www.w3.org/2000/svg";
+		var xlinkns="http://www.w3.org/1999/xlink";
+
+		/*
+		Simple Rules for NS
+		1) when creating new element - ALWAYS use namespace in svg
+
+		2) for setAttributeNS and getAttributeNS  -
+		2a) the first argument is null
+		if the attribute is of the same NS as the parent (there is no colon)
+		2b) the first argyment is the namespace of the attribute if the
+		attribute is of a different ns than the parent (there is a ':'
+
+		3) createTextNode has NO namespace - text is text everywhere
+		*/
+
+		function init(){
+		var dom = document.getElementById("listenerTarget");
+
+		dom.addEventListener('mouseDown', makeCir, false);
+		dom.addEventListener('mouseDown', makeAni, false);
+		}
+
+		function makeAni(){
+		var rectElem = document.createElementNS(svgns, 'rect');
+		rectElem.setAttributeNS(null, "y", "40px");
+		rectElem.setAttributeNS(null, "fill", "orange");
+		rectElem.setAttributeNS(null, "width", "40px");
+		rectElem.setAttributeNS(null, "height", "40px");
+		rectElem.setAttributeNS(null, "opacity", "0.5s");
+
+		var ani = document.createElementNS(svgns, "animate");
+		ani.setAttributeNS(null, "attributeName", "x");
+		ani.setAttributeNS(null, "from", "0px");
+		ani.setAttributeNS(null, "to", "200px");
+		ani.setAttributeNS(null, "dur", "8s");
+		ani.setAttributeNS(null, "repeatCount", "indefinite");
+
+		// the problem is time...
+		// when this created without a begin - the animate figures out where
+		// it should be in relation to time 0 (load of doc)
+
+		// get global clock (below is accessing getCurrentTime on the svg node)
+		// var time = document.documentElement.getCurrentTime();
+
+		// ani.setAttributeNS(null, "begin", time+'s');
+
+		// better solution
+		ani.setAttributeNS(null, "begin", "indefinite");
+
+		rectElem.appendChild(ani);
+		document.getElementsByTagName('svg')[0].appendChild(rectElem);
+
+		// tell the animate to fire
+		var rects = document.getElementsByTagName('rect');
+		var animates = rects[rects.length-1].getElementsByTagName('animate');
+		animates[animate.length-1].beginElement();
+		}
+
+		function createLink(){
+		// NS is needed cause the default would add it to HTML
+		var aElem = document.createElementNS(svgns,'a');
+		aElem.setAttributeNS(null,"target", "_blank");
+		// xlink:href is still needed to work every where
+		aElem.setAttributeNS(xlinkns, "xlink:href", "http://www.rit.edu");
+
+		var tElem = document.createElementNS(svgns, 'text');
+		tElem.setAttributeNS(null, 'x', "200px");
+		tElem.setAttributeNS(null, 'y', "1em");
+
+		aElem.appendChild(document.createTextNode("click on me"));
+		tElem.appendChild(aElem);
+
+		document.getElementsByTagName('svg')[0].appendChild(tElem);
+		}
+
+		function makeCir(){
+		var cirElem = document.createElementNS(svgns, "circle" );
+		cirElem.setAttributeNS(null, "cx", Math.ceil((Math.random()*100))+"%" );
+		cirElem.setAttributeNS(null, "cy", Math.ceil((Math.random()*100))+"%" );
+		cirElem.setAttributeNS(null, "r", Math.round((Math.random()*40))+10+"px" ); // 10-50
+		cirElem.setAttributeNS(null, "fill", makeColor() );
+		cirElem.setAttributeNS(null, "stroke", makeColor() );
+		cirElem.setAttributeNS(null, "stroke-width", Math.floor(Math.random()*5)+5+"px" ); // 5-10
+		cirElem.setAttributeNS(null, "opacity", Math.random() );
+
+		// actually put on page
+		document.getElementById('holder').appendChild(cirElem);
+		}
+
+		function makeColor(){
+		return 'rgb('+Math.floor(Math.random()*255)+","+
+		Math.floor(Math.random()*255)+","+
+		Math.floor(Math.random()*255)+")";
+		}
+
+		]]>
+	</script>
+	<g id="holder"></g>
+	<circle cx="60px" cy="100px" r="50px" fill="white" stroke="blue" stroke-width="4" onclick="makeCir()"/>
+	<circle cx="300px" cy="100px" r="50px" fill="white" stroke="blue"
+	stroke-width="4" id="listenerTarget"/>
+	<text id="text_elem" x="0" y="1em" onclick="createLink()">This is a dynamic link:</text>
+</svg> 
