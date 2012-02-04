@@ -1,0 +1,23 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
+
+	<!--
+	7 Primitive Types
+	rect  -> the clock
+	line  -> hands
+	circle -> face
+	ellipse
+	polyline
+	polygon ->
+	path ->Banner?
+	-->
+
+	<g>
+		<rect x="20%" y="20%" height="60%" width="60%"
+		style="stroke:#006600; fill: black" rx="10%" ry="10%"></rect>
+<!-- 		<circle cx="50%" cy="50%" r="20%" style="stroke:white; fill:#00cc00" stroke-width:"18px"/> -->
+		<circle id="Q" cx="50%" cy="50%" r="30%" fill="white" stroke="blue" stroke-width="18"
+		stroke-dasharray="1%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%"/>
+	</g>
+</svg>
