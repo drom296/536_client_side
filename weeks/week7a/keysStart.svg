@@ -1,0 +1,43 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg [
+<!ENTITY dur "4.1s">
+<!ENTITY values     "0;           17;        3;            14;        5;          12;       7">
+<!ENTITY values2    "300;         200;         300;       240;          300;       270;        300;">
+<!ENTITY keyTimes   "0;           .25;       .41;          .64;       .74;        .89;     1">
+<!ENTITY keySplines "0 .75 .5 1; .5 0 1 .25; 0 .75 .5 1; .5 0 1 .25; 0 .75 .5 1; .5 0 1 .25">
+<!ENTITY calcMode "spline">
+<!ENTITY begin "mouseover">
+]>
+<!-- values:  the set of values that go into the animation -->
+<!-- keytimes: value between 0 and 1, controls when the keySplines and values are doing -->
+<!-- keySplines:  a set of 2 coordinates (between the ';') that define where the Bezier point is
+that defines at what rate the animation will flow.  Check out:
+http://people.rit.edu/dsbics/536/lecture/keySplines.html
+-->
+<svg xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+version="1.1" baseProfile="full" width="665px" height="500px">
+	<title>SVG Animation - keyTimes &amp; keySplines Demonstration</title>
+	<rect width="100%" height="100%" style="fill: #999999; stroke: none;" />
+	<g transform="translate(400, 220)" >
+		<circle r="15px" style="stroke:red;fill:green">
+			<animateTransform  dur="&dur;" values="&values;" keyTimes="&keyTimes;"
+			keySplines="&keySplines;" attributeName="transform" type="scale" begin="&begin;"
+			restart="whenNotActive" calcMode="spline" fill="freeze" />
+			<!--try changing restart above to ="never"-->
+		</circle>
+	</g>
+	<g transform="translate(100, 143)" >
+		<text text-anchor="right" style="font-family:baskerville;font-size:50px;">
+			Some Text
+			<animateTransform  dur="&dur;" values="&values;" keyTimes="&keyTimes;"
+			keySplines="&keySplines;" attributeName="transform" type="skewX" begin="&begin;"
+			restart="whenNotActive" calcMode="&calcMode;" fill="freeze" />
+		</text>
+	</g>
+	<circle cx="200px" cy="200px" r="20px" fill="orange">
+		<animate attributeName="cy" dur="&dur;" values="&values2;" keyTimes="&keyTimes;" keySplines="&keySplines;"
+		begin="&begin;"  restart="whenNotActive" calcMode="&calcMode;" fill="freeze" />
+	</circle>
+</svg>
+

@@ -21,7 +21,7 @@ xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
 <!-- 	second hand -->
 	<line x1="50%" y1="50%" x2="50%" y2="27%" stroke="red" stroke-width="1%">
 <!-- 		rotate the second hand around the center -->
-		<animate />
+		<animateTransform />
 		
 	</line>
 <!-- 	<rect x="49.85%" y="50%" width=".3%" height="23%" fill="#911" /> -->

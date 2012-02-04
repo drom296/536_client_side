@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>SVG in HTML</title>
+		<script type="text/javascript">
+			var svgns = "http://www.w3.org/2000/svg";
+			
+			function whatAmI(which){
+				alert(which);
+			}
+
+		</script>
+	</head>
+	<body>
+		<h1 onclick="whatAmI(this)">big html heading</h1>
+		<div>
+			<svg xmlns="http://www.w3.org/2000/svg"
+			xmlns:xlink="http://www.w3.org/1999/xlink"
+			version="1.1" baseProfile="full" width="500px" height="500px">
+				<rect x="0px" y="0px" width="100%" height="100%" fill="#666633"/>
+				<circle onclick="whatAmI(this)" cx="60px" cy="100px" r="50px" style="fill:white;stroke:blue;stroke-width:4"/>
+				<rect x="300px" y="100px" width="50px" height="50px" style="fill:white;stroke:blue;stroke-width:4"/>
+			</svg>
+		</div>
+	</body>
+</html>

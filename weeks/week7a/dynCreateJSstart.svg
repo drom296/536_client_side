@@ -1,0 +1,147 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+version="1.1" baseProfile="full" onload="init()" onmousemove="createAndFade(evt)">
+	<script type="text/javascript">
+<![CDATA[
+	var svgns="http://www.w3.org/2000/svg";
+		var xlinkns = "http://www.w3.org/1999/xlink";
+
+		function createAndFade(evt) {
+		// console.log(evt.target);
+
+		// console.dir(evt);
+
+		var x = evt.clientX;
+		var y = evt.clientY;
+
+		var rect = document.createElementNS(svgns, "rect");
+		rect.setAttributeNS(null, "width", "30px");
+		rect.setAttributeNS(null, "height", "30px");
+		rect.setAttributeNS(null, "x",(x-15)+"px");
+		rect.setAttributeNS(null, "y", (y-15)+"px");
+		rect.setAttributeNS(null, "fill", "none");
+		rect.setAttributeNS(null, "stroke", makeColor());
+		rect.setAttributeNS(null, "stroke-width", "1px");
+
+		var ani=document.createElementNS(svgns,'animate');
+		ani.setAttributeNS(null, "attributeName", "opacity");
+		ani.setAttributeNS(null, "from", "1");
+		ani.setAttributeNS(null, "to","0");
+		ani.setAttributeNS(null, "dur", "1.3s");
+		ani.setAttributeNS(null, "fill", "freeze");
+		ani.setAttributeNS(null, "onend", "this.parentNode.parentNode.removeChild(this.parentNode)");
+		ani.setAttributeNS(null, "begin", "indefinite");
+	
+		// append
+		rect.appendChild(ani);
+		document.getElementsByTagName('svg')[0].appendChild(rect);
+		
+		// tell animate to go
+		$rect = document.getElementsByTagName('rect'); 
+		$rect[$rect.length-1].firstChild.beginElement();
+		
+		}
+
+		function init() {
+		var dom = document.getElementById('listenerTarget');
+		dom.addEventListener('mousedown', makeCir, false);
+		dom.addEventListener('mousedown', makeAni, false);
+		}
+
+		function makeAni() {
+		var rectEle = document.createElementNS(svgns, 'rect');
+		rectEle.setAttributeNS(null, 'y', '40px');
+		rectEle.setAttributeNS(null, 'fill', 'orange');
+		rectEle.setAttributeNS(null, 'width', '40px');
+		rectEle.setAttributeNS(null, 'height', '40px');
+		rectEle.setAttributeNS(null, 'opacity', '0.5');
+
+		var aniEle = document.createElementNS(svgns, 'animate');
+		aniEle.setAttributeNS(null, 'attributeName', 'x');
+		aniEle.setAttributeNS(null, 'from', '0px');
+		aniEle.setAttributeNS(null, 'to', '200px');
+		aniEle.setAttributeNS(null, 'dur', '8s');
+		aniEle.setAttributeNS(null, 'repeatCount', 'indefinite');
+
+		//the problem is time...
+		//when this is created without a begin - the animate figures out where it should be in relation to time 0 (load of doc)
+
+		//get global clock (below is accessing getCurrentTime on the svg node)
+		//var time=document.documentElement.getCurrentTime();
+
+		//aniEle.setAttributeNS(null,'begin',time+'s');
+
+		//better solution
+		aniEle.setAttributeNS(null, 'begin', 'indefinite');
+
+		rectEle.appendChild(aniEle);
+		document.getElementsByTagName('svg')[0].appendChild(rectEle);
+
+		//tell the animate to fire
+		var last = document.getElementsByTagName('animate').length - 1;
+
+		//alert(last);
+
+		document.getElementsByTagName('animate')[last].beginElement();
+
+		}
+
+		function createLink() {
+		var aEle = document.createElementNS(svgns, 'a');
+		aEle.setAttributeNS(null, 'target', '_blank');
+		aEle.setAttributeNS(xlinkns, 'xlink:href', "http://www.rit.edu");
+
+		var tEle = document.createElementNS(svgns, 'text');
+		tEle.setAttributeNS(null, 'x', '200px');
+		tEle.setAttributeNS(null, 'y', '1em');
+
+		aEle.appendChild(document.createTextNode('click on me'));
+		tEle.appendChild(aEle);
+
+		document.getElementsByTagName('svg')[0].appendChild(tEle);
+
+		/*
+		simple rules for ns
+		1) when creating new element - ALWAYS use namespace in svg
+		2) for setAttributeNS and getAttributeNS -
+		2a)the first argument is null if the attribute is of the same ns as the parent
+		(there is no ':')
+		2b)the first arguemtn is the namespace if the attribute is of a different
+		ns than the parent (there is a ':')
+		3) createTextNode has NO namespace - text is text everywhere....
+		*/
+		}
+
+		function makeCir() {
+		var cirEle = document.createElementNS(svgns, 'circle');
+		cirEle.setAttributeNS(null, 'cx', Math.ceil(Math.random() * 100) + '%');
+		cirEle.setAttributeNS(null, 'cy', Math.ceil(Math.random() * 100) + '%');
+		cirEle.setAttributeNS(null, 'r', Math.round(Math.random() * 40) + 10 + 'px');
+		//10-50
+		cirEle.setAttributeNS(null, 'fill', makeColor());
+		cirEle.setAttributeNS(null, 'stroke', makeColor());
+		cirEle.setAttributeNS(null, 'stroke-width', Math.floor(Math.random() * 5) + 5 + 'px');
+		//5-10
+		cirEle.setAttributeNS(null, 'opacity', Math.random());
+
+		//actually put on page
+		//document.getElementsByTagName('svg')[0].appendChild(cirEle);
+		//put it in a g
+		document.getElementById('holder').appendChild(cirEle);
+
+		}
+
+		function makeColor() {
+		return 'rgb(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ')';
+		}
+	]]>
+		</script>
+	<g id="holder"></g>
+	<circle cx="60px" cy="100px" r="50px" fill="white" stroke="blue" stroke-width="4"
+	onclick="makeCir()"/>
+	<circle cx="300px" cy="100px" r="50px" fill="white" stroke="blue"
+	stroke-width="4" id="listenerTarget"/>
+	<text id="text_elem" x="0" y="1em" onclick="createLink()">This is a dynamic link:</text>
+</svg>
+

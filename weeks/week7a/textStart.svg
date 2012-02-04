@@ -1,0 +1,88 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     version="1.1" baseProfile="full">
+     <style type="text/css">
+	<![CDATA[
+		.text{
+			font-family:Arial, Helvetica, sans-serif;
+			font-size:72px;
+			fill: #e33;
+			stroke: #e33;
+			filter: url(#dropShadow);
+		}
+	]]>
+</style>
+    <defs>
+        <path id="elem" d="M-6,29.5 Q33.5,10 35.5,34.5 Q44,14.5 -10,7.5 z"
+              stroke="rgb(0,100,0)" stroke-width="2" fill="rgb(0,128,0)"
+              fill-opacity="0.5"/>
+        <g id="cluster">
+            <use xlink:href="#elem" transform="rotate(0)"/>
+            <use xlink:href="#elem" transform="rotate(120)"/>
+            <use xlink:href="#elem" transform="rotate(240)"/>
+        </g>
+        <g id="supercluster">
+            <use xlink:href="#cluster"
+             transform="rotate(60) translate(79.674,0) rotate(60) scale(-1,1)"/>
+            <use xlink:href="#cluster"
+                 transform="rotate(0) translate(79.674,0)"/>
+            <use xlink:href="#cluster"
+                 transform="rotate(-60) translate(79.674,0) scale(1,-1)"/>
+        </g>
+        <pattern id="tile" height="138" width="239.023"
+                 patternUnits="userSpaceOnUse" overflow="visible">
+            <use xlink:href="#supercluster"
+                 transform="translate(0,69)"/>
+            <use xlink:href="#supercluster"
+                 transform="translate(239.023,69) scale(-1,1)"/>
+        </pattern>
+        <filter id="dropShadow" x="0%" y="-10%" height="140%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+            <feOffset dx="7px" dy="7px" result="offsetBlur"/>
+            <feMerge>
+                <feMergeNode in="offsetBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <!--we'll use this later-->
+        <path id="curve" d="M 110 444C 300 400 400 600 450 350" />
+    </defs>
+    <g>
+        <desc>The tiled background</desc>
+    </g>
+    
+    <rect width="1in" height="100%" fill="rgb(128,192,128)"/>
+    <rect width="1in" height="100%" fill="url(#tile)"/>
+    <rect width="100%" height="100%" opacity="0.2" fill="url(#tile)"/>
+    
+    <text x="125px" y="100px" class="text">
+    	<tspan x="125px" y="100px">
+    	Some text here 
+    	</tspan>
+    	<tspan x="125px" dy="1.5em">
+    	Some text here 
+    	</tspan> 
+    	<tspan x="125px" dy="1.5em">
+    	Some text here 
+    	</tspan> 
+    </text>
+    
+    <!--put text on a path-->
+		<text font-size="33px">
+			<textPath xlink:href="#curve">
+				some more text here
+			</textPath>
+		</text>
+</svg>
+
+
+
+
+
+
+
+
+
+
+
