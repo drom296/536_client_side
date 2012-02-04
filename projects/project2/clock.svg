@@ -12,12 +12,26 @@ xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1">
 	polygon ->
 	path ->Banner?
 	-->
-
-	<g>
-		<rect x="20%" y="20%" height="60%" width="60%"
-		style="stroke:#006600; fill: black" rx="10%" ry="10%"></rect>
-<!-- 		<circle cx="50%" cy="50%" r="20%" style="stroke:white; fill:#00cc00" stroke-width:"18px"/> -->
-		<circle id="Q" cx="50%" cy="50%" r="30%" fill="white" stroke="blue" stroke-width="18"
-		stroke-dasharray="1%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%"/>
-	</g>
+	
+<!-- 	Clock surrounding -->
+	<rect x="20%" y="20%" height="60%" width="60%"
+	style="stroke:#006600; fill: black" rx="10%" ry="10%" />
+<!-- 	Clock Face -->
+	<circle cx="50%" cy="50%" r="20%" style="stroke:white; fill:#00cc00" stroke-width="2%"/>
+<!-- 	second hand -->
+	<line x1="50%" y1="50%" x2="50%" y2="27%" stroke="red" stroke-width="1%">
+<!-- 		rotate the second hand around the center -->
+		<animate />
+		
+	</line>
+<!-- 	<rect x="49.85%" y="50%" width=".3%" height="23%" fill="#911" /> -->
+	
+	
+	
+<!-- 	grid lines -->
+	<line x1="50%" y1="100%" x2="50%"  y2="0%;" stroke="blue" />
+	<line x1="100%" y1="100%" x2="0%"  y2="100%;" stroke="blue" />
+	<line x1="0" y1="100%" x2="100%"  y2="50%;" stroke="blue" />
+	
+	<line x1="0" y1="50%" x2="100%" y2="50%" stroke="blue" />
 </svg>
