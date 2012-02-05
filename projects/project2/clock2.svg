@@ -3,9 +3,16 @@ xmlns:xlink="http://www.w3.org/1999/xlink"
 version="1.1" baseProfile="full" onload="init()">
 	<style>
 		<![CDATA[
+			#container{
+				fill: #1B6281; 
+			}
+			
+			#clockFace1, #clockFace2, #centerDot, #minHand, #hourHand{
+				stroke: #BE2525;
+			}
+		
 			#minHand, #hourHand{
-				stroke: blue;
-				fill: white;
+				fill: ;
 				stroke-width: 2px;
 			}
 		
@@ -21,21 +28,15 @@ version="1.1" baseProfile="full" onload="init()">
 				
 			}
 			
-			#clockFace{
+			#clockFace1, #clockFace2{
 				fill: white;
-				stroke: red;
 				stroke-width: 18px;
 			}
 			
 			#centerDot{
-				fill: blue; 
-				stroke: black;
+				fill: #BE2525;
 				stroke-width: 2px;
-			}
-			
-			#container{
-				fill: blue;
-			}		
+			}	
 			
 			.test{
 				stroke: clear;
@@ -107,17 +108,17 @@ version="1.1" baseProfile="full" onload="init()">
 	<rect x="0" y="0" id="container" height="100%" width="100%" fill="none"/>
 	
 	<!-- 	build the face for the clock -->
-	<circle id="clockFace" cx="50%" cy="50%" r="30%" /> 
-	<circle id="clockFace" cx="50%" cy="50%" r="30%" 
+	<circle id="clockFace1" cx="50%" cy="50%" r="30%" /> 
+	<circle id="clockFace2" cx="50%" cy="50%" r="30%" 
 	stroke-dasharray="1%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%"/>
 	
 	<!-- stroke-dasharray="1%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%"/> -->
 	
 	<!-- 	hour hand -->
-	<rect id="hourHand" x="49%" y="30%" width="2%" height="20%"/>
+	<rect id="hourHand" x="49%" y="30%" rx="1%" ry="2%" width="2%" height="20%"/>
 	
 	<!-- 	minute Hand -->
-	<rect id="minHand" x="49.75%" y="20%" width="1%" height="30%"/>
+	<rect id="minHand" x="49.75%" y="20%" ry="1%" width="1%" height="30%"/>
 	
 	<!-- 	Second Hand -->
 	<rect id="secHand" x="49.9%" y="13%" width="0.2%" height="37%"/>
