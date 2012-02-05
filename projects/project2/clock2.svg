@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink" 
+version="1.1" baseProfile="full" onload="init()">
+	<script>
+		<![CDATA[
+		// setup some globals
+		// var centerX;
+		// var centerY, 
+		
+		function init(){
+			var container = document.getElementById("container").getBBox();
+			centerX = container.width/2;
+			centerY = container.height/2;
+			// var center = centerX+","+centerY;
+			var rotate60s = document.getElementById("rotate60s");
+			
+			// get the time
+			var now = new Date();
+			var hour = now.getHours();
+			var minute = now.getMinutes();
+			var second = now.getSeconds();
+			console.log(now);
+			// console.log("(hour*30)+(minute/2), (minute*6)+(second/10), second*6");
+			// console.log(((hour*30)+(minute/2))+","+((minute*6)+(second/10))+","+(second*6));
+			
+			// calculate positions
+			var secStart = second*6;
+			var minStart = (minute*6)+(second/10);
+			var hourStart = (hour*30)+(minute/2);
+			
+			// calcuate durations
+			var secTime = 60;
+			var minTime = 60*60; 
+			var hourTime = 720*60;
+			
+			var dist = new Array((hour*30)+(minute/2), (minute*6)+(second/10), second*6);
+			var times = new Array(43200,3600,60);
+			// rects = document.getElementsByTagName("rect");
+			// console.log(rects);
+	
+			// for (i=1; i<rects.length; i++){
+				// var cloneTransform = rotate60s.cloneNode("false");
+				// cloneTransform.setAttributeNS(null, "from", dist[i-1]+","+center);
+				// cloneTransform.setAttributeNS(null, "to", (dist[i-1]+360)+","+center);
+				// cloneTransform.setAttributeNS(null, "dur", times[i-1]+"s");
+				// rects.item(i).appendChild(cloneTransform);
+			// }
+			
+			rotateHand("secHand", second*6, secTime+"s");
+			rotateHand("minHand", minute*6, minTime+"s");
+			rotateHand("hourHand", hour*6, hourTime+"s");
+			
+		}
+		
+		function rotateHand(hand, start, dur){
+		
+			// get the hand
+			var hand = document.getElementById(hand);
+			console.log(hand);
+			var aniElem = getAnimate(start, dur);
+			console.log(aniElem);
+			
+			
+			hand.appendChild(getAnimate(start, dur));
+		}
+		
+		function getAnimate(start, dur){
+			// get the rotate template and clone it
+			var aniElem = document.getElementById('rotate').cloneNode(false);
+			// remove the id
+			aniElem.removeAttribute("id");
+			// add from, to, and duration
+			aniElem.setAttributeNS(null, "from", start+","+centerX+","+centerY);
+			aniElem.setAttributeNS(null, "to", (start+360)+","+centerX+","+centerY);
+			aniElem.setAttributeNS(null, "dur", dur);
+			
+			return aniElem;
+		}
+		
+		//]]>
+	</script>
+	<defs>
+		<radialGradient id="bland" fx=".6" fy=".3">
+			<stop offset=".3" stop-color="#fff"/>
+			<stop offset=".9" stop-color="#888"/>
+			<stop offset="1" stop-color="#440"/>
+		</radialGradient>
+		<linearGradient id="hand" fx=".6" fy=".3">
+			<stop offset=".0" stop-color="#fff"/>
+			<stop offset=".4" stop-color="#000"/>
+			<stop offset=".6" stop-color="#000"/>
+			<stop offset="1" stop-color="#fff"/>
+		</linearGradient>
+		<animateTransform id="rotate" attributeName="transform" type="rotate"
+		begin="0s" dur="60s" repeatCount="indefinite" />
+	</defs>
+	
+	<!-- 	Build the container -->
+	<rect x="0" y="0" id="container" height="100%" width="100%" fill="none"/>
+	<!-- 	build the face for the clock -->
+	<circle id="clockFace" cx="50%" cy="50%" r="30%" fill="url(#bland)" stroke="blue" stroke-width="18"
+	stroke-dasharray="1%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%"/>
+	<!-- 	hour hand -->
+	<rect id="hourHand" x="49%" y="30%" rx="10" ry="10" width="2%" height="20%" stroke="blue" fill="url(#hand)" stroke-width="2"/>
+	<!-- 	minute Hand -->
+	<rect id="minHand" x="49.75%" y="20%" rx="5" ry="5" width="1%" height="30%" stroke="blue" fill="url(#hand)" stroke-width="1.5"/>
+	<!-- 	Second Hand -->
+	<rect id="secHand" x="49.9%" y="13%" width="0.2%" height="37%" fill="#911" />
+	<!-- 	center dot -->
+	<circle id="centerDot" cx="50%" cy="50%" r="1.4%" fill="blue" stroke="black" stroke-width="2"/>
+</svg>

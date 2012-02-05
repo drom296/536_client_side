@@ -6,42 +6,38 @@ xmlns:xlink="http://www.w3.org/1999/xlink" onload="start()">
 		xmlns="http://www.w3.org/2000/svg"
 		Colors=new Array("magenta","green","cyan","white","purple","orange")
 		function start(){
-			var container=document.getElementById("container").getBBox()
-			var centerX=container.width/2
-			var centerY=container.height/2
-			var center=centerX+","+centerY
-			var rotate60s=document.getElementById("rotate60s")
-			var rotateTransform=document.getElementById("rotateTransform")
-			var clockFace=document.getElementById("clockFace")
-			var gears=document.getElementById("gears")
-			var now=new Date()
-			hour=now.getHours()
-			minute=now.getMinutes()
-			second=now.getSeconds()
-			var timeDurations=new Array(hour*30+minute/2,minute*6+second/10,second*6)
-			var Times=new Array(43200,3600,60)
-			rects=document.getElementsByTagName("rects")
-			values="360,"+centerX+","+centerY+";0,"+centerX+","+centerY
-			rotateTransform.setAttributeNS(null,"values" ,values )
-			
-			// for each of the rects
-			for (i=1;i<rects.length;i++){
-				// clone the basic rotate animate
-				var CL=rotate60s.cloneNode("false")
-				CL.setAttributeNS(null, "from", timeDurations[i-1]+","+center)
-				CL.setAttributeNS(null, "to", (timeDurations[i-1]+360)+","+center)
-				CL.setAttributeNS(null, "dur", Times[i-1]+"second")
-				rects.item(i).appendChild(CL)
+			var container = document.getElementById("container").getBBox();
+			var centerX = container.width/2;
+			var centerY = container.height/2;
+			var center = centerX+","+centerY;
+			var rotate60s = document.getElementById("rotate60s");
+			var now = new Date();
+			hour = now.getHours();
+			minute = now.getMinutes();
+			second = now.getSeconds();
+			console.log(now);
+			console.log(hour);
+			console.log(minute);
+			console.log(second);
+			console.log("(hour*30)+(minute/2), (minute*6)+(second/10), second*6");
+			console.log(((hour*30)+(minute/2))+","+((minute*6)+(second/10))+","+(second*6));
+			var dist = new Array((hour*30)+(minute/2), (minute*6)+(second/10), second*6);
+			console.log(dist);
+			var times = new Array(43200,3600,60);
+			rects = document.getElementsByTagName("rect");
+			// console.log(rects);
+	
+			for (i=1; i<rects.length; i++){
+				var cloneTransform = rotate60s.cloneNode("false");
+				cloneTransform.setAttributeNS(null, "from", dist[i-1]+","+center);
+				cloneTransform.setAttributeNS(null, "to", (dist[i-1]+360)+","+center);
+				cloneTransform.setAttributeNS(null, "dur", times[i-1]+"s");
+				rects.item(i).appendChild(cloneTransform);
 			}
 		}
 		//]]>
 	</script>
 	<defs>
-		<radialGradient id="shine">
-			<stop offset=".8" stop-color="#aa0"/>
-			<stop offset=".95" stop-color="#fff"/>
-			<stop offset="1" stop-color="#bb0"/>
-		</radialGradient>
 		<radialGradient id="bland" fx=".6" fy=".3">
 			<stop offset=".3" stop-color="#fff"/>
 			<stop offset=".9" stop-color="#888"/>
@@ -55,19 +51,13 @@ xmlns:xlink="http://www.w3.org/1999/xlink" onload="start()">
 		</linearGradient>
 		<animateTransform id="rotate60s" attributeName="transform" type="rotate"
 		begin="0s" dur="60s" repeatCount="indefinite" />
-		<circle id="clockFace" cx="50%" centerX="50%" r="10%" fill="red" stroke="url(#shine)"
-		stroke-width="25" fill-opacity=".3"
-		stroke-dasharray="4%,18%" stroke-opacity=".75">
-			<animateTransform  id="rotateTransform" attributeName="transform" type="rotate" dur="4s" values="360,300,200;0,300,200" repeatCount="indefinite"/>
-		</circle>
 	</defs>
+	
 	<!-- 	Build the container -->
 	<rect x="0" y="0" id="container" height="100%" width="100%" fill="none"/>
 	<!-- 	build the face for the clock -->
 	<circle id="Q" cx="50%" cy="50%" r="30%" fill="url(#bland)" stroke="blue" stroke-width="18"
 	stroke-dasharray="1%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%"/>
-	<!-- 	<g id="gears" /> -->
-
 	<!-- 	hour hand -->
 	<rect x="49%" y="30%" rx="10" ry="10" width="2%" height="20%" stroke="blue" fill="url(#hand)" stroke-width="2"/>
 	<!-- 	minute Hand -->
