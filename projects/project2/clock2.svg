@@ -1,69 +1,89 @@
 <svg xmlns="http://www.w3.org/2000/svg"
-xmlns:xlink="http://www.w3.org/1999/xlink" 
+xmlns:xlink="http://www.w3.org/1999/xlink"
 version="1.1" baseProfile="full" onload="init()">
+	<style>
+		<![CDATA[
+			#minHand, #hourHand{
+				stroke: blue;
+				fill: white;
+				stroke-width: 2px;
+			}
+		
+			#secHand{
+				fill: red;
+			}
+			
+			#minHand{
+			
+			}
+			
+			#hourHand{
+				
+			}
+			
+			#clockFace{
+				fill: white;
+				stroke: red;
+				stroke-width: 18px;
+			}
+			
+			#centerDot{
+				fill: blue; 
+				stroke: black;
+				stroke-width: 2px;
+			}
+			
+			#container{
+				fill: blue;
+			}		
+			
+			.test{
+				stroke: clear;
+			}
+		//]]>
+	</style>
 	<script>
 		<![CDATA[
-		// setup some globals
-		// var centerX;
-		// var centerY, 
-		
+		var centerX;
+		var centerY;
+
 		function init(){
+			// get the center
 			var container = document.getElementById("container").getBBox();
 			centerX = container.width/2;
 			centerY = container.height/2;
-			// var center = centerX+","+centerY;
-			var rotate60s = document.getElementById("rotate60s");
-			
+	
 			// get the time
 			var now = new Date();
 			var hour = now.getHours();
 			var minute = now.getMinutes();
 			var second = now.getSeconds();
 			console.log(now);
-			// console.log("(hour*30)+(minute/2), (minute*6)+(second/10), second*6");
-			// console.log(((hour*30)+(minute/2))+","+((minute*6)+(second/10))+","+(second*6));
 			
-			// calculate positions
 			var secStart = second*6;
-			var minStart = (minute*6)+(second/10);
-			var hourStart = (hour*30)+(minute/2);
-			
+			var minStart = (minute*6)+(second/10); // minute plus a tenth of a second
+			var hourStart = (hour*30)+(minute/2);  // hour plus have a minute, hope thats good
+	
 			// calcuate durations
 			var secTime = 60;
-			var minTime = 60*60; 
-			var hourTime = 720*60;
-			
-			var dist = new Array((hour*30)+(minute/2), (minute*6)+(second/10), second*6);
-			var times = new Array(43200,3600,60);
-			// rects = document.getElementsByTagName("rect");
-			// console.log(rects);
+			var minTime = secTime*60;
+			var hourTime = minTime*60;
 	
-			// for (i=1; i<rects.length; i++){
-				// var cloneTransform = rotate60s.cloneNode("false");
-				// cloneTransform.setAttributeNS(null, "from", dist[i-1]+","+center);
-				// cloneTransform.setAttributeNS(null, "to", (dist[i-1]+360)+","+center);
-				// cloneTransform.setAttributeNS(null, "dur", times[i-1]+"s");
-				// rects.item(i).appendChild(cloneTransform);
-			// }
-			
-			rotateHand("secHand", second*6, secTime+"s");
-			rotateHand("minHand", minute*6, minTime+"s");
-			rotateHand("hourHand", hour*6, hourTime+"s");
-			
+			// rotate the hands
+			rotateHand("secHand", secStart, secTime+"s");
+			rotateHand("minHand", minStart, minTime+"s");
+			rotateHand("hourHand", hourStart, hourTime+"s");
 		}
-		
+
 		function rotateHand(hand, start, dur){
-		
 			// get the hand
 			var hand = document.getElementById(hand);
-			console.log(hand);
+			// make the animation
 			var aniElem = getAnimate(start, dur);
-			console.log(aniElem);
-			
-			
-			hand.appendChild(getAnimate(start, dur));
+			// attach it to the hand
+			hand.appendChild(aniElem);
 		}
-		
+
 		function getAnimate(start, dur){
 			// get the rotate template and clone it
 			var aniElem = document.getElementById('rotate').cloneNode(false);
@@ -73,39 +93,41 @@ version="1.1" baseProfile="full" onload="init()">
 			aniElem.setAttributeNS(null, "from", start+","+centerX+","+centerY);
 			aniElem.setAttributeNS(null, "to", (start+360)+","+centerX+","+centerY);
 			aniElem.setAttributeNS(null, "dur", dur);
-			
+			// return the animation
 			return aniElem;
 		}
-		
+
 		//]]>
 	</script>
 	<defs>
-		<radialGradient id="bland" fx=".6" fy=".3">
-			<stop offset=".3" stop-color="#fff"/>
-			<stop offset=".9" stop-color="#888"/>
-			<stop offset="1" stop-color="#440"/>
-		</radialGradient>
-		<linearGradient id="hand" fx=".6" fy=".3">
-			<stop offset=".0" stop-color="#fff"/>
-			<stop offset=".4" stop-color="#000"/>
-			<stop offset=".6" stop-color="#000"/>
-			<stop offset="1" stop-color="#fff"/>
-		</linearGradient>
 		<animateTransform id="rotate" attributeName="transform" type="rotate"
 		begin="0s" dur="60s" repeatCount="indefinite" />
 	</defs>
-	
 	<!-- 	Build the container -->
 	<rect x="0" y="0" id="container" height="100%" width="100%" fill="none"/>
+	
 	<!-- 	build the face for the clock -->
-	<circle id="clockFace" cx="50%" cy="50%" r="30%" fill="url(#bland)" stroke="blue" stroke-width="18"
+	<circle id="clockFace" cx="50%" cy="50%" r="30%" /> 
+	<circle id="clockFace" cx="50%" cy="50%" r="30%" 
 	stroke-dasharray="1%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%"/>
+	
+	<!-- stroke-dasharray="1%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%,0.03%,2.91%"/> -->
+	
 	<!-- 	hour hand -->
-	<rect id="hourHand" x="49%" y="30%" rx="10" ry="10" width="2%" height="20%" stroke="blue" fill="url(#hand)" stroke-width="2"/>
+	<rect id="hourHand" x="49%" y="30%" width="2%" height="20%"/>
+	
 	<!-- 	minute Hand -->
-	<rect id="minHand" x="49.75%" y="20%" rx="5" ry="5" width="1%" height="30%" stroke="blue" fill="url(#hand)" stroke-width="1.5"/>
+	<rect id="minHand" x="49.75%" y="20%" width="1%" height="30%"/>
+	
 	<!-- 	Second Hand -->
-	<rect id="secHand" x="49.9%" y="13%" width="0.2%" height="37%" fill="#911" />
+	<rect id="secHand" x="49.9%" y="13%" width="0.2%" height="37%"/>
+	
 	<!-- 	center dot -->
-	<circle id="centerDot" cx="50%" cy="50%" r="1.4%" fill="blue" stroke="black" stroke-width="2"/>
+	<circle id="centerDot" cx="50%" cy="50%" r="1.4%"/>
+	
+	<!-- 	grid lines for testing and positioning-->
+	<line class="test" x1="50%" y1="100%" x2="50%"  y2="0%;" />
+	<line class="test" x1="100%" y1="100%" x2="0%"  y2="100%;" />
+	<line class="test" x1="0" y1="100%" x2="100%"  y2="50%;" />
+	<line class="test" x1="0" y1="50%" x2="100%" y2="50%" />
 </svg>
