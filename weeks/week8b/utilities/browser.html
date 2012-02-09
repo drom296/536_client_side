@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Determining browser information</title>
+    <script src="http://code.jquery.com/jquery-latest.js">
+    </script>
+  
+    <script>
+      $(document).ready(function(){
+    
+        jQuery.each($.browser, function(i, val) {
+            $("<div>" + i + " is " + val + "<\/div>").appendTo(document.body);
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <h1>Determining browser information</h1>
+  </body>
+</html>

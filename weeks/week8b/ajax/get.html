@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Using the jQuery $.get() function</title>
+    <script src="http://code.jquery.com/jquery-latest.js">
+    </script>
+  
+    <script>
+      $(document).ready(function(){
+      	$.get("message.txt",
+  			function(data){
+    			$("div").text(data);
+  			}); 
+     });
+    </script>
+  </head>
+
+  <body>
+    <h1>Using the jQuery $.get() function</h1>
+    Got this from the server: <div></div>
+  </body>
+</html>

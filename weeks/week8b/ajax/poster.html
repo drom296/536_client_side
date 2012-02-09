@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Using the jQuery $.post() function</title>
+    <script src="http://code.jquery.com/jquery-latest.js">
+    </script>
+  
+    <script>
+      $(document).ready(function(){
+		$.post("poster.php", {data: 1},
+  		function(data){
+    		$("div").text(data);
+  		}); 
+     });
+    </script>
+  </head>
+
+  <body>
+    <h1>Using the jQuery $.post() function</h1>
+    Got this from the server: <div style="color:red"></div>
+  </body>
+</html>
