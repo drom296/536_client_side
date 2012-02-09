@@ -1,58 +1,67 @@
 <html>
-  <head>
-    <title>Handling Ajax events</title>
-    <script src="http://code.jquery.com/jquery-latest.js">
-    </script>
-  
-    <script>
-      $(document).ready(function(){
- 		$("#starting").hide();
- 		$("#sending").hide();
- 		$("#success").hide();
- 		$("#somplete").hide();
- 		$("#error").hide();
- 		$("#starting").bind("ajaxStart", function(){
-   			$(this).show();
- 		});
- 		$("#sending").bind("ajaxSend", function(){
-   			$(this).show();
- 		});
- 		$("#success").bind("ajaxSuccess", function(){
-   			$(this).show();
- 		});
- 		$("#complete").bind("ajaxComplete", function(){
-   			$(this).show();
- 		});
-  		$("#error").bind("ajaxError", function(){
-   			$(this).show();
- 		});
- 		//actual ajax object...
-		$.ajax({
-  			type: "GET",
-  			async: true,
-  			url: "ajaxEventsServer.php",
-  			data: {data: 2},
-  			success: callback,
-  			error: err
-		});
-     });
+	<head>
+		<title>Handling Ajax events</title>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("#starting").hide();
+				$("#sending").hide();
+				$("#success").hide();
+				$("#somplete").hide();
+				$("#error").hide();
+				$("#starting").bind("ajaxStart", function() {
+					$(this).show();
+				});
+				$("#sending").bind("ajaxSend", function() {
+					$(this).show();
+				});
+				$("#success").bind("ajaxSuccess", function() {
+					$(this).show();
+				});
+				$("#complete").bind("ajaxComplete", function() {
+					$(this).show();
+				});
+				$("#error").bind("ajaxError", function() {
+					$(this).show();
+				});
+				//actual ajax object...
+				$.ajax({
+					type : "GET",
+					async : true,
+					url : "ajaxEventsServer.php",
+					data : {
+						data : 2
+					},
+					success : callback,
+					error : err
+				});
+			});
+			function callback(data, status) {
+				$("#results").text(data);
+			}
 
-	function callback(data, status){
-    	$("#results").text(data);
-	}
-	function err(event, request){
-    	$("#results").append("<li>Error requesting page " + event + request + "<\/li>");
-	}
-    </script>
-  </head>
-
-  <body>
-    <h1>Handling Ajax events</h1>
-    <div id="starting">Starting...</div>
-    <div id="sending">Sending...</div>
-    <div id="success">Successful...</div>
-    <div id="complete">Complete...</div>
-    <div id="error">Error...!</div>
-    Got this in response: <div id="results" style="color:red;"></div>
-  </body>
+			function err(event, request) {
+				$("#results").append("<li>Error requesting page " + event + request + "<\/li>");
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Handling Ajax events</h1>
+		<div id="starting">
+			Starting...
+		</div>
+		<div id="sending">
+			Sending...
+		</div>
+		<div id="success">
+			Successful...
+		</div>
+		<div id="complete">
+			Complete...
+		</div>
+		<div id="error">
+			Error...!
+		</div>
+		Got this in response: <div id="results" style="color:red;"></div>
+	</body>
 </html>
