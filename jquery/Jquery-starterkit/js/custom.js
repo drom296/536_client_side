@@ -71,5 +71,9 @@ jQuery(document).ready(function() {
 		});
 	});
 	
-	
+	// add table sorting
+	$("#large").tablesorter({
+		// striping looking
+		widgets: ['zebra']
+	});
 });
