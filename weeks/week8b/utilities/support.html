@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <title>Checking browser support</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+  
+    <script>
+      $(document).ready(function()
+      {
+        if($.support.opacity){
+          $("p").html("I support opacity.");    
+        } 
+        else {
+          $("p").html("I do not support opacity.");    
+        }
+
+      });
+    </script>
+  </head>
+
+  <body>
+    <h1>Checking browser support</h1>
+    <p>
+    </p>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+<html>
+	<head>
+		<title>Using $.ajax() to get XML</title>
+		<script src="http://code.jquery.com/jquery-latest.js"></script>
+		<script>
+			$(document).ready(function() {
+				buildSelect('sandwiches');
+
+				$('select').live('change', function() {
+					buildSelect($(this).val());
+				});
+			});
+			function buildSelect(file) {
+				$.ajax({
+					type : "get",
+					url : file + ".xml",
+					dataType : "xml",
+					cache : false,
+					success : selectCallback,
+					error : err
+				});
+			}
+
+			function selectCallback(data, status) {
+				var x = '<select style="display: none;">';
+				$("sandwich", data).each(function(i) {
+					x += '<option value="' + $(this).text() + '">' + $(this).text() + '</option>';
+				});
+				// pump it out
+				$("form:first").append(x + '</select>');
+
+				$('select:last').fadeIn('slow');
+			}
+
+			function err(event) {
+				console.log(event);
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Using $.ajax() to get XML</h1>
+		<form></form>
+	</body>
+</html>

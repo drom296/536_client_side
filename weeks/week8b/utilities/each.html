@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Looping over an object with $.each()</title>
+    <script src="http://code.jquery.com/jquery-latest.js">
+    </script>
+  
+    <script>
+      $(document).ready(function()
+      {
+        var obj = { one:1, two:2, three:"three", four:4, five:5 };
+
+        $.each(obj, function(i, val) {
+          $("#" + i).append( document.createTextNode("Property " + i + " contains " + val));
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <h1>Looping over an object with $.each()</h1>
+    <div id="one"></div>
+    <div id="two"></div>
+    <div id="three"></div>
+    <div id="four"></div>
+    <div id="five"></div>
+  </body>
+</html>

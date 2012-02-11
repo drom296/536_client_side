@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Trimming strings</title>
+    <script src="http://code.jquery.com/jquery-latest.js">
+    </script>
+  
+    <script>
+      $(document).ready(function(){
+       var text = "   This is the text.     ";
+       $("#target").text("Original: '" + text + "'");
+    
+      $("button").click(function () 
+      {
+        text = jQuery.trim(text);
+        $("#target2").text("Trimmed: '" + text + "'");
+      });
+
+    });
+    </script>
+  </head>
+
+  <body>
+    <h1>Trimming strings</h1>
+    <div id="target"></div>
+    <div id="target2"></div>
+    <button>Trim text</button>
+  </body>
+</html>

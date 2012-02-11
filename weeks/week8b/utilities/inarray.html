@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title>Searching an array</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+  
+    <script>
+      $(document).ready(function()
+      {
+    
+        var array = ["strawberry", "vanilla", "chocolate", "banana"];
+
+        $("span:eq(0)").text($.inArray("banana", array));
+        $("span:eq(1)").text($.inArray("strawberry", array));
+        $("span:eq(2)").text($.inArray("tangerine", array));
+      });
+    </script>
+  </head>
+
+  <body>
+    <h1>Searching an array</h1>
+    <div>"banana" is at index <span></span>
+    </div>
+    <div>"strawberry" is at index <span></span>
+    </div>
+    <div>"tangerine" is at index <span></span>
+    </div>
+  </body>
+</html>

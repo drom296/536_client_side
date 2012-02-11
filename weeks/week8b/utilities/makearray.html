@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Creating an array</title>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+  
+    <script>
+      $(document).ready(function()
+      {
+    
+        var array = jQuery.makeArray(document.getElementsByTagName("p"));
+        //note, above could also be written:
+        //var array = $.makeArray(document.getElementsByTagName("p"));
+        array.reverse(); 
+        $(array).appendTo(document.body);
+      });
+    </script>
+  </head>
+
+  <body>
+    <h1>Creating an array</h1>
+    <p>Now</p>
+    <p>is</p>  
+    <p>the</p>
+    <p>time</p>
+  </body>
+</html>
