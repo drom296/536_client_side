@@ -26,9 +26,12 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		// get the id
 		$data = $row -> nodeValue;
 
-		// push to respective arrays
-		$values[] = $data;
-		$texts[] = $data;
+		// if we have data
+		if (isset($data) && !empty($data) && !in_array($data, $values)) {
+			// push to respective arrays
+			$values[] = $data;
+			$texts[] = $data;
+		}
 	}
 
 	// add default value
@@ -56,7 +59,7 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<!-- ************ PLUGINS **********************-->
 		<script type="text/javascript" src="plugins/jquery-1.7.1.min.js"></script>
 		<!-- in-field label plugin: http://fuelyourcoding.com/scripts/infield/ -->
-<!-- 		<script type="text/javascript" src="plugins/jquery.infieldlabel.min.js"></script> -->
+		<!-- 		<script type="text/javascript" src="plugins/jquery.infieldlabel.min.js"></script> -->
 		<!-- ************ My Scripts **********************-->
 		<script type="text/javascript" src="js/page.js"></script>
 	</head>
@@ -110,7 +113,7 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 					// path: ...ESD/Cities
 					$path = "Cities";
 					$dataElem = "city";
-					$name = "city";
+					$name = "town";
 					$default = "Cities";
 
 					// build the select and echo
@@ -135,13 +138,11 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 				<!-- input for zip code -->
 				<p>
 					<label for="zip">Zip Code</label>
-					<input type="text" name="zip" />
+					<input id="zip" pattern="\d{5}|\d{5}[\-]{1}\d{4}" type="text" name="zip" />
 				</p>
 				<!-- buttons -->
 				<div id="buttons">
-					<button type="button">
-						Show Results
-					</button>
+					<input type="submit" value="Show Results" />
 					<input type="reset" value="Reset Form" />
 				</div>
 			</fieldset>
