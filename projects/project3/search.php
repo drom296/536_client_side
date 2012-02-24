@@ -61,7 +61,7 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<!-- in-field label plugin: http://fuelyourcoding.com/scripts/infield/ -->
 		<!-- 		<script type="text/javascript" src="plugins/jquery.infieldlabel.min.js"></script> -->
 		<!-- ************ My Scripts **********************-->
-		<script type="text/javascript" src="js/page.js"></script>
+		<script type="text/javascript" src="js/form.js"></script>
 	</head>
 	<body>
 		<!-- search form -->
