@@ -234,24 +234,45 @@ function searchCallback(data) {
 			table += "<tr>";
 			table += "<th>Type</th>";
 			table += "<th>Name</th>";
-			table += "<th>email</th>";
-			table += "<th>city</th>";
-			table += "<th>state</th>";
-			table += "<th>zip</th>";
-			table += "<th>county</th>";
+			table += "<th>Email</th>";
+			table += "<th>City</th>";
+			table += "<th>State</th>";
+			table += "<th>Zip Code</th>";
+			table += "<th>County</th>";
 			table += "</tr>";
 			table += '</thead>';
 
 			// create body section
 			table += "<tbody>";
 			$('row', data).each(function() {
+				
+				var type = $(this).find("type").text();
+				var name = $(this).find("Name").text();
+				var email = $(this).find("Email").text();
+				var city = $(this).find("city").text();
+				var state = $(this).find("State").text();
+				var zip = $(this).find("zip").text();
+				var county = $(this).find("CountyName").text();
+				var id = $(this).find("OrganizationID").text();
+
+
 				table += "<tr>";
-				table += "<td>" + $(this).find('Name').text() + "</td>";
-				table += "<td onclick=getData(" + $(this).find("OrganizationID").text() + ")>" + $(this).find('Email').text() + "</td>";
-				table += "<td>" + $(this).find('city').text() + "</td>";
-				table += "<td>" + $(this).find('State').text() + "</td>";
-				table += "<td>" + $(this).find('zip').text() + "</td>";
-				table += "<td>" + $(this).find('CountyName').text() + "</td>";
+				table += "<td>" + type + "</td>";
+				// add a link for the name				
+				table += "<td>" + name + "</td>";
+				// add a mail to for the email
+				
+				table += "<td>" + '<a href="mailto:'+email+'?Subject='+encodeURI("question for "+name)+'">'+email +"</a>"+ "</td>";
+				table += "<td>" + city + "</td>";
+				table += "<td>" + state + "</td>";
+				table += "<td>" + zip + "</td>";
+				table += "<td>" + county + "</td>";
+				
+				// table += "<td onclick=getData(" + $(this).find("OrganizationID").text() + ")>" + $(this).find('Email').text() + "</td>";
+				// table += "<td>" + $(this).find('city').text() + "</td>";
+				// table += "<td>" + $(this).find('State').text() + "</td>";
+				// table += "<td>" + $(this).find('zip').text() + "</td>";
+				// table += "<td>" + $(this).find('CountyName').text() + "</td>";
 				table += "</tr>";
 			});
 			// end table body
@@ -278,8 +299,10 @@ function searchCallback(data) {
 			pager += '</div>';
 
 			// output the table and the pager
-			$("#output").html(table+pager);
+			$("#output").html(table + pager);
 
+			// add the table sorter class
+			addTableSort();
 		}
 	}
 }

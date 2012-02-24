@@ -67,6 +67,9 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<script src="plugins/jquery.tablesorter.js" type="text/javascript"></script>
 		<script src="plugins/jquery.tablesorter.pager.js" type="text/javascript"></script>
 		
+		<!-- PX to EM convertor plugin: http://www.filamentgroup.com/lab/update_jquery_plugin_for_retaining_scalable_interfaces_with_pixel_to_em_con/-->
+		<script src="plugins/pxem.jQuery.js" type="text/javascript"></script>
+		
 		<!-- ************ My Scripts **********************-->
 				<script type="text/javascript" src="js/form.js"></script>
 		<script type="text/javascript" src="js/table.js"></script>
