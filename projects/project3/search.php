@@ -53,10 +53,10 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<link rel="shortcut icon" href="img/pedro.ico" />
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/form.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="css/screen.css" />
 		<link rel="stylesheet" type="text/css" media="screen" href="css/tablesorter.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.tablesorter.pager.css" />
 		<link rel="stylesheet" href="css/form.css" />
+		<link rel="stylesheet" href="css/table.css" />
 		<!-- 		<link type="text/css" href="css/vanilla_reset.css" /> -->
 		<!-- 		<link type="text/css" href="css/infieldLabel.css" /> -->
 		<!-- JavaScript -->
@@ -116,17 +116,6 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 					echo buildHospitalSelect($path, $dataElem, $name, $default);
 					?>
 
-					<?php
-					// build combo for cities
-					// path: ...ESD/Cities
-					$path = "Cities";
-					$dataElem = "city";
-					$name = "town";
-					$default = "Cities";
-
-					// build the select and echo
-					echo buildHospitalSelect($path, $dataElem, $name, $default);
-					?>
 				</p>
 				<p>
 					<label for="county">County</label>
@@ -143,6 +132,22 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 					echo buildHospitalSelect($path, $dataElem, $name, $default);
 					?>
 				</p>
+				<p>
+					<label for="town">City</label>
+					<?php
+					// build combo for cities
+					// path: ...ESD/Cities
+					$path = "Cities";
+					$dataElem = "city";
+					$name = "town";
+					$default = "Cities";
+
+					// build the select and echo
+					echo buildHospitalSelect($path, $dataElem, $name, $default);
+					?>
+				</p>
+				
+				
 				<!-- input for zip code -->
 				<p>
 					<label for="zip">Zip Code</label>

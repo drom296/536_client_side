@@ -1,21 +1,23 @@
-form label {
+form#searchForm label {
 	display: inline-block;
 	width: 10em;
 }
-form select {
-	width: 29.3em;
+form#searchForm select {
+	width: 15em;
 }
-form input[type="text"] {
-	width: 29em;
+form#searchForm input[type="text"] {
+	width: 14.7em;
 }
-form select[name="state"], form select[name="town"] {
-	width: 14em;
-}
-form select+ select {
+form#searchForm select+ select {
 	margin-left: 1em;
 }
-form {
-	width: 40em;
+form#searchForm {
+	width: 27em;
+}
+
+form#searchForm p{
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
 }
 #buttons {
 	text-align: center
