@@ -151,6 +151,139 @@ function updateCityCallback(data) {
 	}
 }
 
+function getInputString() {
+	var result = "";
+
+	// get type
+	var type = $("#type").val();
+	// get Name
+	var name = $("#name").val();
+	// get State
+	var state = $("#state").val();
+	// get City
+	var town = $("#town").val();
+	// get County
+	var county = $("#county").val();
+	// get zipcode
+	var zip = $("#zip").val();
+
+	var inputArray = {
+		"Type" : type,
+		"Name" : name,
+		"state" : state,
+		"Town" : town,
+		"County" : county,
+		"Zip Code" : zip
+	};
+
+	console.log(inputArray);
+
+	// loop thru array
+	for(key in inputArray) {
+		// add delimiter for more than one input
+		if(result.length > 0 && inputArray[key].length > 0) {
+			result += " > ";
+		}
+
+		// display input value if we have something
+		if(inputArray[key].length > 0) {
+			result += key + ": " + inputArray[key];
+		}
+
+	}
+
+	console.log("result: " + result);
+	return result;
+
+}
+
+function search() {
+	myAjax('get', {
+		path : "/Organizations?" + $("#searchForm").serialize()
+	}, searchCallback);
+
+	return false;
+}
+
+function searchCallback(data) {
+	// if bad data
+	if($(data).find('error').length != 0) {
+
+	} else {
+
+		// if no data
+		if($('row', data).length == 0) {
+
+			// replace with text
+			var error = document.createElement("span");
+			error.setAttribute("id", "output");
+
+			error.appendChild(document.createTextNode("No data matches for-> " + getInputString()));
+
+			// get the city select
+			$("#output").replaceWith(error);
+
+		} else {
+			// we have data!
+			// build table
+
+			// start the table
+			var table = '<table id="pageTable" class="tablesorter" cellspacing="1">';
+			// create head section
+			table += '<thead>';
+			table += "<tr>";
+			table += "<th>Type</th>";
+			table += "<th>Name</th>";
+			table += "<th>email</th>";
+			table += "<th>city</th>";
+			table += "<th>state</th>";
+			table += "<th>zip</th>";
+			table += "<th>county</th>";
+			table += "</tr>";
+			table += '</thead>';
+
+			// create body section
+			table += "<tbody>";
+			$('row', data).each(function() {
+				table += "<tr>";
+				table += "<td>" + $(this).find('Name').text() + "</td>";
+				table += "<td onclick=getData(" + $(this).find("OrganizationID").text() + ")>" + $(this).find('Email').text() + "</td>";
+				table += "<td>" + $(this).find('city').text() + "</td>";
+				table += "<td>" + $(this).find('State').text() + "</td>";
+				table += "<td>" + $(this).find('zip').text() + "</td>";
+				table += "<td>" + $(this).find('CountyName').text() + "</td>";
+				table += "</tr>";
+			});
+			// end table body
+			table += "</tbody>";
+
+			// end table
+			table += '</table>';
+
+			// create paging div
+			var pager = '<div id="pager" class="tablesorterPager">';
+			pager += '<form>';
+			pager += '<img src="img/first.png" class="first"/>';
+			pager += '<img src="img/prev.png" class="prev"/>';
+			pager += '<input type="text" class="pagedisplay"/>';
+			pager += '<img src="img/next.png" class="next"/>';
+			pager += '<img src="img/last.png" class="last"/>';
+			pager += '<select class="pagesize">';
+			pager += '<option selected="selected"  value="10">10</option>';
+			pager += '<option value="20">20</option>';
+			pager += '<option value="30">30</option>';
+			pager += '<option  value="40">40</option>';
+			pager += '</select>';
+			pager += '</form>';
+			pager += '</div>';
+
+			// output the table and the pager
+			$("#output").html(table+pager);
+
+		}
+	}
+}
+
 function myAjax(myType, myData, callback) {
 	$.ajax({
 		type : myType,

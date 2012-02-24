@@ -53,19 +53,27 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<link rel="shortcut icon" href="img/pedro.ico" />
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/form.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="css/screen.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="css/tablesorter.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.tablesorter.pager.css" />
+		<link rel="stylesheet" href="css/form.css" />
 		<!-- 		<link type="text/css" href="css/vanilla_reset.css" /> -->
 		<!-- 		<link type="text/css" href="css/infieldLabel.css" /> -->
 		<!-- JavaScript -->
 		<!-- ************ PLUGINS **********************-->
 		<script type="text/javascript" src="plugins/jquery-1.7.1.min.js"></script>
-		<!-- in-field label plugin: http://fuelyourcoding.com/scripts/infield/ -->
-		<!-- 		<script type="text/javascript" src="plugins/jquery.infieldlabel.min.js"></script> -->
+		
+		<!-- Table sorter plugin: http://tablesorter.com/docs/index.html -->
+		<script src="plugins/jquery.tablesorter.js" type="text/javascript"></script>
+		<script src="plugins/jquery.tablesorter.pager.js" type="text/javascript"></script>
+		
 		<!-- ************ My Scripts **********************-->
-		<script type="text/javascript" src="js/form.js"></script>
+				<script type="text/javascript" src="js/form.js"></script>
+		<script type="text/javascript" src="js/table.js"></script>
 	</head>
 	<body>
 		<!-- search form -->
-		<form name=searchForm id="searchForm">
+		<form name="searchForm" id="searchForm" onsubmit="return search()" >
 			<fieldset>
 				<legend>
 					Search Criteria
@@ -88,7 +96,7 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 				<!-- build input for organization name -->
 				<p>
 					<label for="name">Organization Name</label>
-					<input type="text" name="name" />
+					<input type="text" id="name" name="name" />
 				</p>
 				<!-- Build input for state and City -->
 				<p>
@@ -147,6 +155,8 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 				</div>
 			</fieldset>
 		</form>
-		<div id="tableOutput"></div>
+		<div id="results">
+			<div id="output"></div>			
+		</div>
 	</body>
 </html>
