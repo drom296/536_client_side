@@ -3,19 +3,19 @@ form label {
 	width: 10em;
 }
 form select {
-	width: 20em;
+	width: 29.3em;
 }
 form input[type="text"] {
-	width: 19.5em;
+	width: 29em;
 }
 form select[name="state"], form select[name="town"] {
-	width: 9.3em;
+	width: 14em;
 }
 form select+ select {
 	margin-left: 1em;
 }
 form {
-	width: 35em;
+	width: 40em;
 }
 #buttons {
 	text-align: center
