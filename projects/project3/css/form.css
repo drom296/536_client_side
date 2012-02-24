@@ -1,0 +1,22 @@
+form label {
+	display: inline-block;
+	width: 10em;
+}
+form select {
+	width: 20em;
+}
+form input[type="text"] {
+	width: 19.5em;
+}
+form select[name="state"], form select[name="city"] {
+	width: 9.3em;
+}
+form select+ select {
+	margin-left: 1em;
+}
+form {
+	width: 35em;
+}
+#buttons {
+	text-align: center
+}
