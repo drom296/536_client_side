@@ -88,7 +88,7 @@ ul.tabs a.xl.current {
 	padding: 15px 10px;
 	border: 1px solid #999;
 	border-top: 0;
-	height: 100px;
+	height: auto;
 	font-size: 14px;
 	background-color: #fff;
 }

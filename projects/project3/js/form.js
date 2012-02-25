@@ -22,8 +22,8 @@ $(document).ready(function() {
 		var state = $(this).val();
 		var county = $("#count").val();
 
-		updateCity(state, county);
 		updateCounty(state);
+		updateCity(state, county);
 	});
 });
 function updateCounty(state) {

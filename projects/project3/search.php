@@ -56,9 +56,10 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<link rel="stylesheet" type="text/css" media="screen" href="css/tablesorter.css" />
 		<link rel="stylesheet" type="text/css" href="css/jquery.tablesorter.pager.css" />
 		<link rel="stylesheet" href="css/form.css" />
-		<link rel="stylesheet" href="css/table.css" />
 		<link rel="stylesheet" href="plugins/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="css/tabs.css" />
+		<link rel="stylesheet" href="css/results.css" />
+		<link rel="stylesheet" href="css/table.css" />
 		<!-- JavaScript -->
 		<!-- ************ PLUGINS **********************-->
 		<script type="text/javascript" src="plugins/jquery-1.7.1.min.js"></script>
@@ -169,19 +170,19 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<div style="display:none">
 			<div id="data">
 				<!-- the tabs -->
-				<ul class="tabs">
+				<ul id="orgTabs" class="tabs">
 					<li>
-						<a href="#">Tab 1</a>
+						<a>Tab 1</a>
 					</li>
 					<li>
-						<a href="#">Tab 2</a>
+						<a>Tab 2</a>
 					</li>
 					<li>
-						<a href="#">Tab 3</a>
+						<a>Tab 3</a>
 					</li>
 				</ul>
 				<!-- tab "panes" -->
-				<div class="panes">
+				<div id="orgPanes" class="panes">
 					<div>
 						First tab content. Tab contents are called "panes"
 					</div>
