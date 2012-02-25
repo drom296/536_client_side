@@ -58,6 +58,7 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<link rel="stylesheet" href="css/form.css" />
 		<link rel="stylesheet" href="css/table.css" />
 		<link rel="stylesheet" href="plugins/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="css/tabs.css" />
 		<!-- JavaScript -->
 		<!-- ************ PLUGINS **********************-->
 		<script type="text/javascript" src="plugins/jquery-1.7.1.min.js"></script>
@@ -69,6 +70,8 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<!-- Lightbox: fancyBox http://fancybox.net/howto -->
 		<script type="text/javascript" src="plugins/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
 		<script type="text/javascript" src="plugins/fancybox/jquery.easing-1.3.pack.js"></script>
+		<!-- JQuery Tools http://flowplayer.org/tools/index.html -->
+		<script type="text/javascript" src="plugins/jquery.tools.min.js"></script>
 		<!-- ************ My Scripts **********************-->
 		<script type="text/javascript" src="js/form.js"></script>
 		<script type="text/javascript" src="js/table.js"></script>
@@ -165,12 +168,30 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		</div>
 		<div style="display:none">
 			<div id="data">
-				<div>
-				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				<!-- the tabs -->
+				<ul class="tabs">
+					<li>
+						<a href="#">Tab 1</a>
+					</li>
+					<li>
+						<a href="#">Tab 2</a>
+					</li>
+					<li>
+						<a href="#">Tab 3</a>
+					</li>
+				</ul>
+				<!-- tab "panes" -->
+				<div class="panes">
+					<div>
+						First tab content. Tab contents are called "panes"
+					</div>
+					<div>
+						Second tab content
+					</div>
+					<div>
+						Third tab content
+					</div>
 				</div>
-				<p>
-					Testing the flexibility
-				</p>
 			</div>
 		</div>
 	</body>
