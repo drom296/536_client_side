@@ -57,24 +57,22 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<link rel="stylesheet" type="text/css" href="css/jquery.tablesorter.pager.css" />
 		<link rel="stylesheet" href="css/form.css" />
 		<link rel="stylesheet" href="css/table.css" />
-		<!-- 		<link type="text/css" href="css/vanilla_reset.css" /> -->
-		<!-- 		<link type="text/css" href="css/infieldLabel.css" /> -->
+		<link rel="stylesheet" href="plugins/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 		<!-- JavaScript -->
 		<!-- ************ PLUGINS **********************-->
 		<script type="text/javascript" src="plugins/jquery-1.7.1.min.js"></script>
-		
 		<!-- Table sorter plugin: http://tablesorter.com/docs/index.html -->
 		<script src="plugins/jquery.tablesorter.js" type="text/javascript"></script>
 		<script src="plugins/jquery.tablesorter.pager.js" type="text/javascript"></script>
-		
 		<!-- PX to EM convertor plugin: http://www.filamentgroup.com/lab/update_jquery_plugin_for_retaining_scalable_interfaces_with_pixel_to_em_con/-->
 		<script src="plugins/pxem.jQuery.js" type="text/javascript"></script>
-		
 		<!-- Lightbox: fancyBox http://fancybox.net/howto -->
-		
+		<script type="text/javascript" src="plugins/fancybox/jquery.fancybox-1.3.4.pack.js"></script>
+		<script type="text/javascript" src="plugins/fancybox/jquery.easing-1.3.pack.js"></script>
 		<!-- ************ My Scripts **********************-->
-				<script type="text/javascript" src="js/form.js"></script>
+		<script type="text/javascript" src="js/form.js"></script>
 		<script type="text/javascript" src="js/table.js"></script>
+		<script type="text/javascript" src="js/results.js"></script>
 	</head>
 	<body>
 		<!-- search form -->
@@ -120,7 +118,6 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 					// build the select and echo
 					echo buildHospitalSelect($path, $dataElem, $name, $default);
 					?>
-
 				</p>
 				<p>
 					<label for="county">County</label>
@@ -151,8 +148,6 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 					echo buildHospitalSelect($path, $dataElem, $name, $default);
 					?>
 				</p>
-				
-				
 				<!-- input for zip code -->
 				<p>
 					<label for="zip">Zip Code</label>
@@ -166,7 +161,17 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 			</fieldset>
 		</form>
 		<div id="results">
-			<div id="output"></div>			
+			<div id="output"></div>
+		</div>
+		<div style="display:none">
+			<div id="data">
+				<div>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+				</div>
+				<p>
+					Testing the flexibility
+				</p>
+			</div>
 		</div>
 	</body>
 </html>

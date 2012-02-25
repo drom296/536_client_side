@@ -11,6 +11,9 @@ function addTableSort() {
 		// minimum length as em
 		var minLen = 5;
 
+		// get this content
+		var text = $(this).text();
+
 		// get the width (returns it as px)
 		var x = $(this).width();
 
@@ -22,5 +25,37 @@ function addTableSort() {
 			// set to min length
 			$(this).width(parseFloat($(minLen).toPx()));
 		}
+		
+		// give name some room
+		if(text.toUpperCase()=="NAME"){
+			// as em
+			var nameLength = 20;
+			
+			// expand
+			$(this).width(parseFloat($(nameLength).toPx()));
+		}
+		
+		// give City some room
+		if(text.toUpperCase()=="CITY"){
+			// as em
+			var nameLength = 10;
+			
+			// expand
+			$(this).width(parseFloat($(nameLength).toPx()));
+		}
+		
 	});
+}
+
+function addLightbox() {
+	$("a.orgLink").fancybox({
+		'transitionIn' : 'elastic',
+		'transitionOut' : 'fade',
+		'overlayColor' : '#000',
+		'titlePosition' : 'outside',
+		'speedIn' : 200,
+		'speedOut' : 150,
+		'overlayOpacity' : 0.9
+	});
+
 }

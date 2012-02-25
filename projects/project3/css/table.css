@@ -6,7 +6,7 @@ table {
 th, td {
 	padding: 2px 4px 2px 4px !important;
 	text-align: center;
-	vertical-align: top;
+	vertical-align:middle;
 }
 
 th {
@@ -30,6 +30,6 @@ tr a:hover {
 	text-decoration: underline;
 }
 
-table a.orgName{
+table a.orgLink{
 	color: red;
 }

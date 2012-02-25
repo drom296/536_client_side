@@ -245,29 +245,27 @@ function searchCallback(data) {
 			// create body section
 			table += "<tbody>";
 			$('row', data).each(function() {
-				
-				var type = $(this).find("type").text();
-				var name = $(this).find("Name").text();
-				var email = $(this).find("Email").text();
-				var city = $(this).find("city").text();
-				var state = $(this).find("State").text();
-				var zip = $(this).find("zip").text();
-				var county = $(this).find("CountyName").text();
-				var id = $(this).find("OrganizationID").text();
 
-
+				var type = $.trim($(this).find("type").text());
+				var name = $.trim($(this).find("Name").text());
+				var email = $.trim($(this).find("Email").text());
+				var city = $.trim($(this).find("city").text());
+				var state = $.trim($(this).find("State").text());
+				var zip = $.trim($(this).find("zip").text());
+				var county = $.trim($(this).find("CountyName").text());
+				var id = $.trim($(this).find("OrganizationID").text());
 				table += "<tr>";
 				table += "<td>" + type + "</td>";
-				// add a link for the name				
-				table += "<td>" +'<a class="orgName" onclick="getData('+id+')">'+name +'</a>'+ "</td>";
+				// add a link for the name
+				table += "<td>" + '<a href="#data" class="orgLink" onclick="getData(' + id + ')" title="Information for ' + name + '">' + name + '</a>' + "</td>";
 				// add a mail to for the email
-				
-				table += "<td>" + '<a href="mailto:'+email+'?Subject='+encodeURI("question for "+name)+'">'+email +"</a>"+ "</td>";
+
+				table += "<td>" + '<a href="mailto:' + email + '?Subject=' + encodeURI("question for " + name) + '">' + email + "</a>" + "</td>";
 				table += "<td>" + city + "</td>";
 				table += "<td>" + state + "</td>";
 				table += "<td>" + zip + "</td>";
 				table += "<td>" + county + "</td>";
-				
+
 				// table += "<td onclick=getData(" + $(this).find("OrganizationID").text() + ")>" + $(this).find('Email').text() + "</td>";
 				table += "</tr>";
 			});
@@ -299,6 +297,9 @@ function searchCallback(data) {
 
 			// add the table sorter class
 			addTableSort();
+
+			// add lightbox
+			addLightbox();
 		}
 	}
 }
