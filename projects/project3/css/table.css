@@ -1,0 +1,32 @@
+table.tablesorter {
+	border: 1px solid #666;
+	margin: 20px 0 20px 0 !important;
+}
+table.tablesorter th, table.tablesorter td {
+	padding: 2px 4px 2px 4px !important;
+	text-align: center;
+	vertical-align: middle;
+}
+table.tablesorter th {
+	background-color: #fc0;
+}
+table.tablesorter th:hover {
+	background-color: #fc7;
+}
+table.tablesorter tbody tr.even {
+	background-color: #fea
+}
+table.tablesorter tr a {
+	color: rgb(102, 102, 102);
+	text-decoration: none;
+}
+table.tablesorter tr a:hover {
+	text-decoration: underline;
+}
+table.tablesorter a.orgLink {
+	color: red;
+}
+.getAutoHeight {
+	overflow: auto; /* edit by thobens: overflow: hidden seems to be better, as (at least) IE 8 shows always a disabled scrollbar with overflow: auto */
+	height: auto;
+}

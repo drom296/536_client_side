@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>536 p3 ex</title>
+		<script src="http://code.jquery.com/jquery-latest.js" type="text/javascript"></script>
+		<script type="text/javascript">
+			//now what?
+			/*if they enter an orgId (we will get it next class through a search), we need to find:
+			 -What different areas of information the organization has (/Application/Tabs?orgId=x)
+			 -then, find each area on demand (each will need it's own call)
+			 General
+			 Path: ...ESD/{orgId}/General
+			 Locations
+			 Path: ...ESD/{orgId}/Locations
+			 Treatment
+			 Path: ...ESD/{orgId}/Treatments
+			 Training
+			 Path: ...ESD/{orgId}/Training
+			 Facilities
+			 Path: ...ESD/{orgId}/Facilities
+			 Equipment
+			 Path: ...ESD/{orgId}/Equipment
+			 Physicians
+			 Path: ...ESD/{orgId}/Physicians
+			 People
+			 Path: ...ESD/{orgId}/People
+			 */
+
+			function getData(orgId) {
+				//for this organization, I need to know how many 'tabs' to create...
+				$.ajax({
+					type : 'get',
+					async : true,
+					url : 'proxy.php',
+					data : {
+						path : '/Application/Tabs?orgId=' + orgId
+					},
+					dataType : 'xml',
+					success : function(data, status) {
+						if($(data).find('error').length != 0) {
+							//pump out that the server is having issues
+						} else {
+							//<data><row><Tab>General</Tab></row><row><Tab>Locations</Tab></row><row><Tab>Facilities</Tab></row>
+							//<row><Tab>People</Tab></row></data>
+							//what I'm going to build for now - that YOU CAN'T USE (you need tabs or such)
+							var x = '<select onchange="window[\'get\'+$(this).val()](' + orgId + ')">';
+							$('Tab', data).each(function() {
+								x += '<option value="' + $(this).text() + '">' + $(this).text() + '</option>';
+							});
+							$('#dump').html(x + '</select>');
+							getGeneral(orgId);
+						}
+					}
+				});
+			}
+
+			function getGeneral(orgId) {
+				//console.log('general '+orgId);
+				$.ajax({
+					type : 'get',
+					async : true,
+					cache : false,
+					url : 'proxy.php',
+					data : {
+						path : '/' + orgId + '/General'
+					},
+					dataType : 'xml',
+					success : function(data) {
+						if($(data).find('error').length != 0) {
+							//do something....
+						} else {
+							var x = '<tr><th>Name</th><th>Value</th></tr>';
+							x += '<tr><td>Name:</td><td>' + $(data).find('name').text() + '</td></tr>';
+							x += '<tr><td>Desciption:</td><td>' + $(data).find('description').text() + '</td></tr>';
+							x += '<tr><td>Email:</td><td>' + $(data).find('email').text() + '</td></tr>';
+							x += '<tr><td>Site:</td><td>' + $(data).find('website').text() + '</td></tr>';
+							x += '<tr><td>Number of Members:</td><td>' + $(data).find('nummembers').text() + '</td></tr>';
+							x += '<tr><td>Number of calls:</td><td>' + $(data).find('numcalls').text() + '</td></tr>';
+							x += '<tr><td>Service Area:</td><td>' + $(data).find('servicearea').text() + '</td></tr>';
+							$('#dumpTable').html(x);
+						}
+					}
+				});
+			}
+
+			function getLocations(orgId) {
+				$('#dumpTable').html('going to get Location of ' + orgId);
+			}
+
+			function getTraining(orgId) {
+				$('#dumpTable').html('going to get Training of ' + orgId);
+			}
+
+			function getTreatment(orgId) {
+				$('#dumpTable').html('going to get Treatment of ' + orgId);
+			}
+
+			function getFacilities(orgId) {
+				$('#dumpTable').html('going to get Facilities of ' + orgId);
+			}
+
+			function getEquipment(orgId) {
+				$('#dumpTable').html('going to get Equipment of ' + orgId);
+			}
+
+			function getPhysicians(orgId) {
+				$('#dumpTable').html('going to get Physicians of ' + orgId);
+			}
+
+			function getPeople(orgId) {
+				$('#dumpTable').html('going to get People of ' + orgId);
+			}
+
+			// *******************NEW FUNCTIONS
+
+			$(document).ready(function() {
+				getOrgTypes();
+				getCities('NY');
+				$("#state").change(function() {
+					getCities($(this).val());
+				});
+			});
+			function getOrgTypes() {
+				myAjax("get", {
+					path : '/OrgTypes'
+				}, getOrgTypesCallback);
+			}
+
+			function getOrgTypesCallback(data, status) {
+				if($(data).find('error').length != 0) {
+
+				} else {
+					var x = '<option value="">All Organizations</option>';
+
+					$('type', data).each(function(y) {
+						x += '<option value=""' + $(this).text() + '">' + $(this).text() + '</option>';
+					});
+
+					$('#orgType').html("Cities: " + x + "</select>");
+				}
+			}
+
+			function getCities(state) {
+				myAjax("get", {
+					path : "/Cities?state=" + state
+				}, getCitiesCallback);
+			}
+
+			function getCitiesCallback(data) {
+				// if bad data
+				if($(data).find('error').length != 0) {
+
+				} else {
+
+					// if no data
+					if($(data).find('city').length == 0) {
+
+					} else {
+
+						var x = '<select name="town">';
+						x += ' <option value="">All cities in ' + $("#state").val() + '</option>';
+
+						$('city', data).each(function(y) {
+							x += '<option value = ""' + $(this).text() + '">' + $(this).text() + '</option>';
+						});
+						x += '</select>';
+						$('#orgCitySearch').html("Cities: " + x);
+					}
+
+				}
+			}
+			
+			function checkSearch(){
+				myAjax('get', {path:"/Organizations?"+$("#searchForm").serialize()}, checkSearchCallback);
+			}
+			
+			function checkSearchCallback(data){
+				
+				
+				var x = '<table>';
+				
+				x += "<tr>";
+				x += "<th>Type</th>";
+				x += "<th>Name</th>";
+				x += "<th>email</th>";
+				x += "<th>city</th>";
+				x += "<th>state</th>";
+				x += "<th>zip</th>";
+				x += "<th>county</th>";
+				x += "</tr>";
+				$('row', data).each(function(){
+					x += "<tr>";
+					
+					x += "<td>"+$(this).find('Name').text()+"</td>";
+					x += "<td onclick=getData("+$(this).find("OrganizationID").text()+")>"+$(this).find('Email').text()+"</td>";
+					x += "<td>"+$(this).find('city').text()+"</td>";
+					x += "<td>"+$(this).find('State').text()+"</td>";
+					x += "<td>"+$(this).find('zip').text()+"</td>";
+					x += "<td>"+$(this).find('CountyName').text()+"</td>";
+					
+					x += "</tr>";
+				});
+				
+				x += '</table>';
+				
+				$("#tableOutput").html(x);		
+				
+				
+			}
+
+			function getSelectCallback(id, defaulOption, data, status) {
+
+			}
+
+			/**
+			 * Shortcut for all ajax calls for this app
+			 * 		-myType 	-> get or post
+			 * 		-myData 	-> {path:"urlWithData"}
+			 * 		-callback -> name of function
+			 */
+			function myAjax(myType, myData, callback) {
+				$.ajax({
+					type : myType,
+					async : true,
+					cache : false,
+					url : 'proxy.php',
+					dataType : 'xml',
+					data : myData,
+					success : callback
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<h2>ESD Example</h2>Input org Id:
+		<form>
+			<input type="text" id="orgId"/>
+			<input type="button" value="find data" onclick="getData($('#orgId').val())"/>
+		</form>
+		<div id="dump"></div>
+		<table id="dumpTable"></table>
+		<hr>
+		<form style="" id="searchForm">
+			<fieldset>
+				<legend>
+					Search Criteria
+				</legend>
+				<p>
+					Organization Type <select id="orgType" name="type"></select>
+				</p>
+				<p>
+					<span id="orgLabel">Organization Name</span>
+					<input id="orgName" name="name" type="text">
+					<em style="color: rgb(104, 129, 162);">*can be partial - "vol" for "Volunteer"</em>
+				</p>
+				State
+				<select id="state" name="state">
+					<option value=""> All States </option>
+					<option value="AK"> AK </option>
+					<option value="AL"> AL </option>
+					<option value="AR"> AR </option>
+					<option value="AZ"> AZ </option>
+					<option value="CA"> CA </option>
+					<option value="CO"> CO </option>
+					<option value="CT"> CT </option>
+					<option value="DC"> DC </option>
+					<option value="DE"> DE </option>
+					<option value="FL"> FL </option>
+					<option value="GA"> GA </option>
+					<option value="HI"> HI </option>
+					<option value="IA"> IA </option>
+					<option value="ID"> ID </option>
+					<option value="IL"> IL </option>
+					<option value="IN"> IN </option>
+					<option value="KS"> KS </option>
+					<option value="KY"> KY </option>
+					<option value="LA"> LA </option>
+					<option value="MA"> MA </option>
+					<option value="MD"> MD </option>
+					<option value="ME"> ME </option>
+					<option value="MI"> MI </option>
+					<option value="MN"> MN </option>
+					<option value="MO"> MO </option>
+					<option value="MS"> MS </option>
+					<option value="MT"> MT </option>
+					<option value="NC"> NC </option>
+					<option value="ND"> ND </option>
+					<option value="NE"> NE </option>
+					<option value="NH"> NH </option>
+					<option value="NJ"> NJ </option>
+					<option value="NM"> NM </option>
+					<option value="NV"> NV </option>
+					<option value="NY" selected="selected"> NY </option>
+					<option value="OH"> OH </option>
+					<option value="OK"> OK </option>
+					<option value="OR"> OR </option>
+					<option value="PA"> PA </option>
+					<option value="RI"> RI </option>
+					<option value="SC"> SC </option>
+					<option value="SD"> SD </option>
+					<option value="TN"> TN </option>
+					<option value="TX"> TX </option>
+					<option value="UT"> UT </option>
+					<option value="VA"> VA </option>
+					<option value="VT"> VT </option>
+					<option value="WA"> WA </option>
+					<option value="WI"> WI </option>
+					<option value="WV"> WV </option>
+					<option value="WY"> WY </option>
+				</select>
+				<span id="orgCitySearch"></span>
+				<p>
+					County
+					<input id="county" name="county" type="text">
+				</p>
+				<p>
+					ZIP Code
+					<input id="zip" type="text" name="zip">
+				</p>
+				<div style="margin:0 0 0 210px">
+					<input value="Show Results" onclick="checkSearch()" id="btnSearch" class="button" type="button">
+					&nbsp;
+					<input type="reset" class="button" value="Reset Form" onclick="">
+				</div>
+			</fieldset>
+		</form>
+		<div id="tableOutput"></div>
+	</body>
+</html>
