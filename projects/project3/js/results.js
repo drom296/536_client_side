@@ -4,6 +4,14 @@
 
 var orgId = 1;
 
+function fixNull(input) {
+	if(!input || input == "null") {
+		input = "";
+	}
+
+	return input;
+}
+
 function getData(orgId) {
 	// do something
 
@@ -146,6 +154,8 @@ function getPeopleData(orgId) {
 }
 
 function getGeneralDataCallback(data) {
+	console.log(data);
+
 	// if bad data
 	if($(data).find('error').length != 0) {
 		console.log("There was an error")
@@ -178,19 +188,34 @@ function getGeneralDataCallback(data) {
 			// </data>
 
 			// get data
-			var name = $.trim($('name', data).text());
-			var description = $.trim($('description', data).text());
-			var email = $.trim($('email', data).text());
-			var website = $.trim($('website', data).text());
-			var numMembers = $.trim($('nummembers', data).text());
-			var numCalls = $.trim($('numcalls', data).text());
-			
+			var name = fixNull($.trim($('name', data).text()));
+			var description = fixNull($.trim($('description', data).text()));
+			var email = fixNull($.trim($('email', data).text()));
+			var website = fixNull($.trim($('website', data).text()));
+			var numMembers = fixNull($.trim($('nummembers', data).text()));
+			var numCalls = fixNull($.trim($('numcalls', data).text()));
+
 			// we are going to build a table
 			pane += '<table cellspacing="1">';
 			pane += '<tbody>';
 			pane += '<tr><td>Name: </td><td>' + name + '</td></tr>';
-			pane += '<tr><td>Website: </td><td>' + "<a href='"+website+"'>"+website + "</a>"+'</td></tr>';
-			pane += '<tr><td>Email: </td>'+"<td>" + '<a href="mailto:' + email + '?Subject=' + encodeURI("question for " + name) + '">' + email + "</a>" + "</td>"+'</tr>';
+			// check if we have a valid url
+			pane += '<tr><td>Website: </td>';
+			if(website) {
+				// add link
+				pane += "<td><a href='" + website + "'>" + website + "</a>" + '</td>';
+			} else {
+				pane += '<td></td>';
+			}
+			// check if we have an email
+			pane += '<tr><td>Email: </td>';
+			if(email) {
+				// add mailto link
+				pane += "<td>" + '<a href="mailto:' + email + '?Subject=' + encodeURI("question for " + name) + '">' + email + "</a>" + "</td>";
+			} else {
+				pane += '<td></td>';
+			}
+			pane += '</tr>';
 			pane += '<tr><td>Description: </td><td>' + description + '</td></tr>';
 			pane += '<tr><td>Number of Members: </td><td>' + numMembers + '</td></tr>';
 			pane += '<tr><td>Number of calls last year: </td><td>' + numCalls + '</td></tr>';
@@ -207,7 +232,7 @@ function getGeneralDataCallback(data) {
 }// function
 
 function getLocationsDataCallback(data) {
-	
+
 }
 
 function getTreatmentDataCallback(data) {
