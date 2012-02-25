@@ -24,6 +24,7 @@ $(document).ready(function() {
 
 		updateCounty(state);
 		updateCity(state, county);
+		
 	});
 });
 function updateCounty(state) {
