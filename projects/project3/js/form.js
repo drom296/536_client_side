@@ -259,7 +259,7 @@ function searchCallback(data) {
 				table += "<tr>";
 				table += "<td>" + type + "</td>";
 				// add a link for the name				
-				table += "<td>" + name + "</td>";
+				table += "<td>" +'<a class="orgName" onclick="getData('+id+')">'+name +'</a>'+ "</td>";
 				// add a mail to for the email
 				
 				table += "<td>" + '<a href="mailto:'+email+'?Subject='+encodeURI("question for "+name)+'">'+email +"</a>"+ "</td>";
@@ -269,10 +269,6 @@ function searchCallback(data) {
 				table += "<td>" + county + "</td>";
 				
 				// table += "<td onclick=getData(" + $(this).find("OrganizationID").text() + ")>" + $(this).find('Email').text() + "</td>";
-				// table += "<td>" + $(this).find('city').text() + "</td>";
-				// table += "<td>" + $(this).find('State').text() + "</td>";
-				// table += "<td>" + $(this).find('zip').text() + "</td>";
-				// table += "<td>" + $(this).find('CountyName').text() + "</td>";
 				table += "</tr>";
 			});
 			// end table body

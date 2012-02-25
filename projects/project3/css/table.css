@@ -5,7 +5,7 @@ table {
 
 th, td {
 	padding: 2px 4px 2px 4px !important;
-	text-align: left;
+	text-align: center;
 	vertical-align: top;
 }
 
@@ -25,6 +25,11 @@ tr a {
 	color: rgb(102, 102, 102);
 	text-decoration: none;
 }
+
 tr a:hover {
 	text-decoration: underline;
+}
+
+table a.orgName{
+	color: red;
 }
