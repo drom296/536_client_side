@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<title>Google Maps plugin and jQuery</title>
+		<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAjCcd0GebZzRydNDN0zJcShSQoI3-9SFIuAj2jkior4rquK9fSRQNny54IFWL5rAYAd5PrHEA53ubYQ"></script>
+		<script type="text/javascript">
+			google.load('maps','3',{'other_params':'sensor=false'});
+			google.load('jquery','1.7');
+			google.load('jqueryui','1.8.9');
+		</script>
+		
+		
+		<!--load the plugin 
+			from: http://code.google.com/p/jquery-ui-map/
+			When you visit that page you'll find tutorials and examples
+		-->
+		<script type="text/javascript" src="jquery-ui-map/ui/jquery.ui.map.js"></script>
+		<script type="text/javascript">
+		$(function() {
+			$('#map_canvas').gmap({'zoom':13,'center':new google.maps.LatLng(43.160364,-77.6125717),callback:function(){
+					$.getJSON('json.json',function(data){
+						$.each(data.markers,function(i,mdata){
+							$('<li />').html(this.title).attr('data-origColor',this.color).css({color:this.color}).click(function(){
+								//create a new marker
+								displayPoint(mdata);
+								//set all li's back to original color
+								$('li').each(function(){
+									var orgColor=$(this).attr('data-origColor');
+									$(this).css({'background':'#ffe8b2','color':orgColor});
+								});
+								
+								
+								//change my background for hilite!
+								$(this).css({'background':mdata.color,'color':'black'});
+							}).appendTo('#list');
+						});
+					});
+				}
+			});
+			
+			function displayPoint(data){
+				//clear out old markers
+				$('#map_canvas').gmap('clearMarkers');
+				//console.log(data.lng);
+				//create new marker
+				$('#map_canvas').gmap('addMarker',{'position':new google.maps.LatLng(data.lat,data.lng),'animation':google.maps.Animation.DROP},function(map, marker){
+					//create an info window
+					$('#map_canvas').gmap('addInfoWindow',{'content':data.title+'<div style="font-size:0.7em">'+data.desc+' </div>' },function(iw){
+						$(marker).click(function(){
+							iw.open(map,marker);
+						});
+					});
+					map.panTo(new google.maps.LatLng(data.lat,data.lng));
+				});
+			}
+		});
+		
+		
+		</script>
+
+		<style type="text/css" media="screen">
+			#list { float:left; width:250px; background:#ffe8b2;font-weight:bold; list-style:none; padding:0; }
+			#list li { padding:10px; }
+			#list li:hover { text-decoration:underline; cursor:pointer; cursor:hand; }
+			.item { padding:1em; margin:0 0 2em; }
+			.gradient {background:#fff;background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#eaeaea));background: -moz-linear-gradient(top, #fff, #eaeaea);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#eaeaea);-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#eaeaea)";}
+			.shadow-all { -moz-box-shadow: 0px 2px 4px #999;-webkit-box-shadow: 0px 2px 4px #999;box-shadow: 0px 2px 4px #999;/*-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=160, Color='#999999')";filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=160, Color='#999999');*/}
+			#map_canvas {float:left; width: 700px; height:700px; }
+		</style>
+	</head>
+	<body>
+		<div style="width:950px;height:700px" class="item gradient ui-corner-all shadow-all">
+    		<div id="map_canvas"></div>
+    		<ul id="list"></ul>
+        </div>
+	</body>
+
+</html>
+
+<!--my google maps api gibson ABQIAAAAjCcd0GebZzRydNDN0zJcShSQoI3-9SFIuAj2jkior4rquK9fSRQNny54IFWL5rAYAd5PrHEA53ubYQ -->
+<!--my google maps api maserati ABQIAAAAjCcd0GebZzRydNDN0zJcShRxhIkRFcYys1ZdLCtp620uTAKxNxRfaIprdDZZmO6a1OmSq6ITf_EZhg -->

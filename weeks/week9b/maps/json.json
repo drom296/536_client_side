@@ -1,0 +1,16 @@
+{"markers":[
+	{"title":"ROC Airport","lat":43.128267,"lng":-77.667332,"desc":"quick getaway?","color":"#3fb843"},
+	{"title":"Rochester Institute of Technology","lat":43.085531,"lng":-77.675915,"desc":"as if you didn't know","color":"#439aab"},
+	{"title":"Monroe Community College","lat":43.101154,"lng":-77.609310,"desc":"cheap credits","color":"#439aab"},
+	{"title":"University of Rochester","lat":43.129286,"lng":-77.629223,"desc":"expensive credits","color":"#439aab"},
+	{"title":"Nick Tahou's Restaurant","lat":43.153833,"lng":-77.621477,"desc":"late night cravings","color":"orange"},
+	{"title":"Highland Diner","lat":43.139680,"lng":-77.595642,"desc":"good food","color":"orange"},
+	{"title":"Highland Hospital","lat":43.135777,"lng":-77.606134,"desc":"For after Nicks","color":"red"},
+	{"title":"Strong Memorial Hospital","lat":43.122968,"lng":-77.625403,"desc":"In case Highland is full","color":"red"},
+	{"title":"Seneca Park Zoo","lat":43.205284,"lng":-77.623730,"desc":"take your parents","color":"#5B3FB8"},
+	{"title":"Frontier Field","lat":43.157977,"lng":-77.620039,"desc":"Go with your Dad","color":"#5B3FB8"},
+	{"title":"Rochester Rhinos Stadium","lat":43.161608,"lng":-77.628708,"desc":"Soccer anyone?","color":"#5B3FB8"},
+	{"title":"Eastman House","lat":43.152091,"lng":-77.580428,"desc":"Good pics","color":"#c25742"},
+	{"title":"Strong National Museum of Play","lat":43.152521,"lng":-77.600813,"desc":"Video games!","color":"#c25742"},
+	{"title":"Susan B. Anthony House","lat":43.153281,"lng":-77.625790,"desc":"A little history","color":"#c25742"}
+]}

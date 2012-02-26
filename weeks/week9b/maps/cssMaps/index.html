@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Google Map Slider</title>
+	<style>
+		* { margin: 0; padding: 0; }
+		body { font: 14px Georgia, serif; color: #222; }
+
+		#page-wrap { width: 960px; margin: 60px auto; }
+		#map_canvas { width: 100%; height: 400px; width: 300px; float: left; position: relative; z-index: 30 !important; }
+
+		h1 { margin: 0 0 15px 0; font: bold 48px Helvetica, Arial, Sans-Serif; letter-spacing: -2px; }
+		h2 { margin: 0 0 15px 0; font: bold 32px Helvetica, Arial, Sans-Serif; letter-spacing: -1px; text-shadow: 0 1px 0px rgba(255,255,255,0.3); }
+		h3 { margin: 0 0  1px 0; font: bold 18px Helvetica, Arial, Sans-Serif; letter-spacing: -1px; }
+
+		#locations { list-style: none; width: 250px; float: left;  }
+		#locations li { padding: 10px; width: 800px; float: left; position: relative; z-index: 20; }
+		#locations li:hover, #locations li.hover { background: #ffe8b2 url(images/shadow.png) 128px 0 repeat-y; }
+		#locations li:hover h3, #locations li.hover h3 { color: red; text-shadow: 0 1px 0px rgba(255,255,255,0.3); }
+		#more-info { width: 340px; float: right; background: #ffe8b2; padding: 20px; height: 360px; }
+		#more-info * { position: relative; z-index: 40; }
+		#more-info > div { background: #e9e2bf; -moz-box-shadow: 0 0 14px rgba(70,49,1,0.5); -webkit-box-shadow: 0 0 14px rgba(70,49,1,0.5); padding: 20px; height: 320px; }
+		.longdesc { display: none; }
+	</style>
+	
+	<!-- http://code.google.com/p/html5shiv/ -->
+	<!--[if lt IE 9]>
+    	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    
+    <!-- Modernizr (http://www.modernizr.com/) -->
+    
+    <!-- What are they?
+    
+    html5shiv allows you to use the new HTML5 tags in versions of IE that don't understand them. 
+    Without it, IE will choke on these tags, so you need this if you intend to use the tags. 
+    Don't expect it to make the tags actually do anything in IE though! It just stop the browser 
+    complaining about them.
+
+	modernizr sets a bunch of classes in your HTML, depending on the available features, which 
+	you can use to change your layout according to what the browser supports. It also allows you 
+	to use the new HTML5 tags in IE, like html5shiv. (Ex: it wont make old browsers have rounded 
+	corners, it will detect that the browser can't handle rounded corners and allow you to create
+	your own fallback)
+    
+    -->
+  <!--
+  	Before we begin, lets get a better understanding of google maps in general...
+  -->
+  <!-- http://code.google.com/apis/maps/documentation/javascript/ -->
+  <script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAjCcd0GebZzRydNDN0zJcShSQoI3-9SFIuAj2jkior4rquK9fSRQNny54IFWL5rAYAd5PrHEA53ubYQ"></script>
+  <script type="text/javascript">
+  	google.load("maps", "3", {'other_params':'sensor=false'});
+  	google.load("jquery", "1.7");
+  </script>
+  
+  <script type="text/javascript">
+    $(function() {
+      var rochester = new google.maps.LatLng(43.160364570168774, -77.6125717163086),
+          pointToMoveTo, 
+          first = true,
+          curMarker = new google.maps.Marker({});
+      var myOptions = {
+          zoom: 12,
+          center: rochester,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+      var map = new google.maps.Map($("#map_canvas")[0], myOptions);
+      $("#locations li").mouseenter(function() {
+        if (!$(this).hasClass("hover")) {
+          $("#locations li").removeClass("hover");
+          $(this).addClass("hover");
+          
+          if (!first) { 
+            // Clear current marker
+            curMarker.setMap(); 
+          }
+          
+          // Move (pan) map to new location
+          pointToMoveTo = new google.maps.LatLng($(this).attr("data-geo-lat"), $(this).attr("data-geo-long"));
+          map.panTo(pointToMoveTo);
+          
+          // Add new marker
+          curMarker = new google.maps.Marker({
+              position: pointToMoveTo,
+              map: map,
+              icon: "images/marker.png"
+          });
+          
+          // On click, zoom map
+          google.maps.event.addListener(curMarker, 'click', function() {
+             map.setZoom(14);
+          });
+          
+          // Fill more info area
+          $("#more-info")
+            .find("h2")
+              .html($(this).find("h3").html())
+              .end()
+            .find("p")
+              .html($(this).find(".longdesc").html());
+          
+          // No longer the first time through (re: marker clearing)        
+          first = false; 
+        }
+        
+      });
+      
+      //make first one show up
+      $("#locations li:first").trigger("mouseenter");
+      
+    });
+
+  </script>
+
+</head>
+
+<body>
+
+	<div id="page-wrap">
+	   <h1>Google Maps Slider</h1>
+	   
+	   <ul id="locations">
+        <li data-geo-lat="43.128267" data-geo-long="-77.667332">
+          <h3>Rochester Airport</h3>
+          <p>Flights n' stuff</p>
+          <p class="longdesc"><strong>About:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec a tincidunt nisl. Aenean sapien tortor, vestibulum ut scelerisque at, pulvinar in erat! Maecenas vulputate feugiat turpis eu commodo. Maecenas et felis a erat consectetur ultrices. Morbi ut purus vel risus varius porta. Donec imperdiet augue nec est pretium at elementum arcu vulputate. Donec mollis; lorem nec fermentum vulputate, purus nunc congue lorem, quis rhoncus ante nisl non tortor. Quisque enim dolor, accumsan ut pretium eu, pellentesque sed eros. Ut pellentesque auctor turpis, ac aliquet mauris vulputate sit amet. Suspendisse fringilla libero sed nisi vulputate sit amet ullamcorper neque vulputate. Etiam nec arcu ligula, at rutrum lectus?</p>
+        </li>
+        
+        <li data-geo-lat="43.085531" data-geo-long="-77.675915">
+          <h3>R.I.T</h3>
+          <p>World-class education!</p>
+          <p class="longdesc"><strong>About:</strong> Cool stuff taught here...</p>
+        </li>
+        
+        <li data-geo-lat="43.153833" data-geo-long="-77.621477">
+          <h3>Nick Tahou's Restaurant</h3>
+          <p>If you don't know you better ask...</p>
+          <p class="longdesc"><strong>Random review:</strong> I actually know people who eat here every day.  Their colon must be a mess.</p>
+        </li>
+        
+        <li data-geo-lat="43.135777" data-geo-long="-77.606134">
+          <h3>Highland Hospital</h3>
+          <p>For after Nick's</p>
+          <p class="longdesc"><strong>Random review:</strong> Only thing that can make you feel better after a trip to Nick's is a trip here...</p>
+        </li>
+        
+        <li data-geo-lat="43.152521" data-geo-long="-77.600813">
+          <h3>Strong Museum of Play</h3>
+          <p>Cool place for kids</p>
+          <p class="longdesc"><strong>About:</strong> Video Games!</p>
+        </li>
+     </ul>
+
+     <div id="map_canvas"></div>
+     
+     <div id="more-info"><div>
+        <h2>More Info</h2>
+        <p>Hover over location on the left. (JavaScript must be enabled)</p>
+     </div></div>
+	</div>
+
+</body>
+</html>
