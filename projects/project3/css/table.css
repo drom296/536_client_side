@@ -31,3 +31,7 @@ table.tablesorter a.orgLink {
 div.pager{
 	margin-top: -2%;
 }
+
+table.spaceCol td+td{
+	margin-left: 1.5%;
+}

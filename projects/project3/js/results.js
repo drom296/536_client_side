@@ -8,7 +8,7 @@ function addAccordion(which) {
 	$(which).accordion({
 		// collapsible: true,
 		collapsible : true,
-		autoHeight: false,
+		autoHeight : false,
 		header : "> div > h3"
 	}).sortable({
 		axis : "y",
@@ -258,7 +258,131 @@ function getGeneralDataCallback(data) {
 }// function
 
 function getLocationsDataCallback(data) {
+	console.log('location data');
+	console.log(data);
 
+	// path ...ESD/{orgId}/Locations
+
+	// if bad data
+	if($(data).find('error').length != 0) {
+		console.log("There was an error")
+	} else {
+		// if no data
+		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {
+			// replace with text
+			var error = document.createElement("div");
+			error.setAttribute("id", "locationsData");
+			var errorSpan = document.createElement("span");
+			errorSpan.appendChild(document.createTextNode("No Location Information Found"));
+			error.appendChild(errorSpan);
+
+			// get the city select
+			$("#locationsData").replaceWith(error);
+
+		} else {
+			// build the pane
+			var pane = '<div id="locationsData" class="getAutoHeight">';
+			pane += "<p class='paneTitle'>Location Information</p>";
+
+			// <count>2</count>
+			// <location>
+			//	 <type>main</type>
+			//	 <address1>1000 South Ave.</address1>
+			//	 <address2>Box 57</address2>
+			//	 <city>Rochester</city>
+			//	 <state>NY</state>
+			//	 <zip>14620</zip>
+			//	 <phone>585-341-6867</phone>
+			//	 <ttyPhone>null</ttyPhone>
+			//	 <fax>585-341-0387</fax>
+			//	 <latitude>43.13553525333046</latitude>
+			//	 <longitude>-77.60544776916504</longitude>
+			//	 <countyId>1</countyId>
+			//	 <countyName>Monroe</countyName>
+			//	 <siteId>1</siteId>
+			// </location>
+
+			// loop thru the sites
+
+			$('location', data).each(function(i) {
+				// build the group div
+				group = '<div class="group">';
+
+				// grab site info
+				var siteType = fixNull($.trim($(this).find('type').text()));
+				var address = fixNull($.trim($(this).find('address1').text()));
+				var address2 = fixNull($.trim($(this).find('address2').text()));
+				var city = fixNull($.trim($(this).find('city').text()));
+				var state = fixNull($.trim($(this).find('state').text()));
+				var zip = fixNull($.trim($(this).find('zip').text()));
+				var phone = fixNull($.trim($(this).find('phone').text()));
+				var ttyPhone = fixNull($.trim($(this).find('ttyPhone').text()));
+				var fax = fixNull($.trim($(this).find('fax').text()));
+				var latitude = fixNull($.trim($(this).find('latitude').text()));
+				var longitude = fixNull($.trim($(this).find('longitude').text()));
+				var county = fixNull($.trim($(this).find('countyName').text()));
+
+				// create the header for it
+				group += '<h3 class="accTitle"><a href="site' + i + '">' + siteType + ": " + address + '</a></h3>'
+
+				// create div container for the results
+				group += '<div class="accDiv">';
+
+				// build a table!
+				group += '<table class="locationsDataTable">';
+
+				// get location data
+				group += '<tr><td>Type:</td><td>' + siteType + '</td></tr>';
+				group += '<tr><td>Address:</td><td>' + address + '</td></tr>';
+				group += '<tr><td>Address 2:</td><td>' + address2 + '</td></tr>';
+				group += '<tr><td>City:</td><td>' + city + '</td></tr>';
+				group += '<tr><td>State:</td><td>' + state + '</td></tr>';
+				group += '<tr><td>County:</td><td>' + county + '</td></tr>';
+				group += '<tr><td>Zip:</td><td>' + zip + '</td></tr>';
+				group += '<tr><td>Phone:</td><td>' + phone + '</td></tr>';
+				group += '<tr><td>TTYPhone:</td><td>' + ttyPhone + '</td></tr>';
+				group += '<tr><td>Fax:</td><td>' + fax + '</td></tr>';
+				group += '<tr><td>Latitude:</td><td>' + latitude + '</td></tr>';
+				group += '<tr><td>Longitude:</td><td>' + longitude + '</td></tr>';
+
+				// end the table
+				group += '</tbody>';
+				group += '</table>';
+
+				// close the results div
+				group += '</div>';
+
+				// close the group div
+				group += '</div>';
+
+				// add group to the pane
+				pane += group;
+
+			});
+			pane += '</div>';
+
+			$("#locationsData").replaceWith(pane);
+
+			// add accordian
+			addAccordion($("#locationsData"));
+
+			// fix some accoridian size issues in lightbox
+			$("#locationsData").find('.accTitle').each(function() {
+				// resize the title: accTitle
+				$(this).css("width", "96.456%");
+			});
+			$("#locationsData").find('.accDiv').each(function() {
+				// resize the table: accDiv
+				$(this).css("width", "90%");
+			});
+
+			$("#locationsData").css("width", "97.8%");
+
+		} // if no data
+	}// if error
+
+	// turn on tabs
+	turnOnTabs();
 }
 
 function getTreatmentDataCallback(data) {
@@ -648,26 +772,24 @@ function getPeopleDataCallback(data) {
 
 			// add the table sorter class
 			// loop thru all the tables
-			$("#peopleData").find('.peopleDataTable').each(function(){
+			$("#peopleData").find('.peopleDataTable').each(function() {
 				addTableSort($(this));
 			});
-
 			// add accordian
 			addAccordion($("#peopleData"));
-			
+
 			// fix some accoridian size issues in lightbox
-			$("#peopleData").find('.accTitle').each(function(){
+			$("#peopleData").find('.accTitle').each(function() {
 				// resize the title: accTitle
 				$(this).css("width", "96.456%");
 			});
-			$("#peopleData").find('.accDiv').each(function(){
+			$("#peopleData").find('.accDiv').each(function() {
 				// resize the table: accDiv
 				$(this).css("width", "90%");
 			});
-			
+
 			$("#peopleData").css("width", "97.8%");
-			
-				
+
 		} // if no data
 	}// if error
 
