@@ -7,6 +7,9 @@ $(document).ready(function() {
 	});
 });
 function addTableSort(which) {
+	// add tablesorter class
+	$(which).addClass('tablesorter');
+	
 	// create the pager div
 	var pager = '<div class="tablesorterPager pager">';
 	pager += '<form>';
@@ -23,10 +26,10 @@ function addTableSort(which) {
 	pager += '</select>';
 	pager += '</form>';
 	pager += '</div>';
-	
+
 	// append to which
 	$(which).parent().append(pager);
-	
+
 	$("table").tablesorter({
 		widthFixed : false,
 		widgets : ['zebra']

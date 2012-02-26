@@ -231,7 +231,7 @@ function searchCallback(data) {
 			// start the container
 			var table = '<div id="output">';
 			// start the table
-			table += '<table id="pageTable" class="tablesorter" cellspacing="1">';
+			table += '<table id="pageTable">';
 			// create head section
 			table += '<thead>';
 			table += "<tr>";
