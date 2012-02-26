@@ -205,7 +205,7 @@ function getGeneralDataCallback(data) {
 			var numCalls = fixNull($.trim($('numcalls', data).text()));
 
 			// we are going to build a table
-			pane += '<table cellspacing="1">';
+			pane += '<table cellspacing="1" class="center">';
 			pane += '<tbody>';
 			pane += '<tr><td>Name: </td><td>' + name + '</td></tr>';
 			// check if we have a valid url
@@ -432,6 +432,82 @@ function getFacilitiesDataCallback(data) {
 }
 
 function getPhysiciansDataCallback(data) {
+	// path ...ESD/{orgId}/Physicians
+
+	// if bad data
+	if($(data).find('error').length != 0) {
+		console.log("There was an error")
+	} else {
+		// if no data
+		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {
+			// replace with text
+			var error = document.createElement("div");
+			error.setAttribute("id", "physiciansData");
+			var errorSpan = document.createElement("span");
+			errorSpan.appendChild(document.createTextNode("No Physicians Information Found"));
+			error.appendChild(errorSpan);
+
+			// get the city select
+			$("#physiciansData").replaceWith(error);
+
+		} else {
+			// build the pane
+			var pane = '<div id="physiciansData" class="getAutoHeight">';
+			pane += "<p class='paneTitle'>Physicians with Admitting Privilages</p>";
+
+			// <count>551</count>
+			// <physician>
+			//	 <personId>2</personId>
+			//	 <fName>Deborah</fName>
+			//	 <mName>H.</mName>
+			//	 <lName>Abell</lName>
+			//	 <suffix>null</suffix>
+			//	 <phone>585-218-9560</phone>
+			//	 <license>null</license>
+			// </physician>
+
+			// we are going to build a table
+			pane += '<table id="physiciansDataTable" class="maxWidth">';
+			pane += '<thead>';
+			pane += '<tr><th>Name</th><th>License</th><th>Contact</th></tr>';
+			pane += '</thead>';
+			pane += '<tbody>';
+
+			$('physician', data).each(function() {
+
+				// get data
+				var name = "";
+				if( suffix = fixNull($.trim($(this).find('suffix').text()))) {
+					name += suffix + ' ';
+				}
+				if( fName = fixNull($.trim($(this).find('fName').text()))) {
+					name += fName + ' ';
+				}
+				if( mName = fixNull($.trim($(this).find('mName').text()))) {
+					name += mName + ' ';
+				}
+				if( lName = fixNull($.trim($(this).find('lName').text()))) {
+					name += lName + ' ';
+				}
+
+				var license = fixNull($.trim($(this).find('license').text()));
+				var phone = fixNull($.trim($(this).find('phone').text()));
+				pane += '<tr><td>' + name + '</td><td>' + license + '</td><td>' + phone + '</td></tr>';
+
+			});
+			pane += '</tbody>';
+			pane += '</table>';
+			pane += '</div>';
+
+			$("#physiciansData").replaceWith(pane);
+
+			// add the table sorter class
+			addTableSort($('#physiciansDataTable'));
+		} // if no data
+	}// if error
+
+	// turn on tabs
+	turnOnTabs();
 
 }
 
