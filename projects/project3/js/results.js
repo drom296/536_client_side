@@ -4,6 +4,23 @@
 
 var orgId = 1;
 
+function addAccordion(which) {
+	$(which).accordion({
+		// collapsible: true,
+		collapsible : true,
+		autoHeight: false,
+		header : "> div > h3"
+	}).sortable({
+		axis : "y",
+		handle : "h3",
+		stop : function(event, ui) {
+			// IE doesn't register the blur when sorting
+			// so trigger focusout handlers to remove .ui-state-focus
+			ui.item.children("h3").triggerHandler("focusout");
+		}
+	});
+}
+
 function fixNull(input) {
 	if(!input || input == "null") {
 		input = "";
@@ -508,11 +525,154 @@ function getPhysiciansDataCallback(data) {
 
 	// turn on tabs
 	turnOnTabs();
-
 }
 
 function getPeopleDataCallback(data) {
+	console.log('people data');
+	console.log(data);
 
+	// path ...ESD/{orgId}/People
+
+	// if bad data
+	if($(data).find('error').length != 0) {
+		console.log("There was an error")
+	} else {
+		// if no data
+		if($('siteCount', data).length == 0 || parseInt($('siteCount', data).text()) < 1) {
+			// replace with text
+			var error = document.createElement("div");
+			error.setAttribute("id", "peopleData");
+			var errorSpan = document.createElement("span");
+			errorSpan.appendChild(document.createTextNode("No People Information Found"));
+			error.appendChild(errorSpan);
+
+			// get the city select
+			$("#peopleData").replaceWith(error);
+
+		} else {
+			// build the pane
+			var pane = '<div id="peopleData" class="getAutoHeight">';
+			pane += "<p class='paneTitle'>People</p>";
+
+			// <siteCount>2</siteCount>
+			// <site address="1000 South Ave." siteId="1" siteType="main">
+			//	 <personCount>5</personCount>
+			//	 <person>
+			//		 <personId>1</personId>
+			//		 <honorific>null</honorific>
+			//		 <fName>null</fName>
+			//		 <mName>null</mName>
+			//		 <lName>Jan Taylor, RN</lName>
+			//		 <suffix>null</suffix>
+			//		 <role>ED Director</role>
+			//		 <contactmethods/>
+			//	 </person>
+
+			// loop thru the sites
+
+			$('site', data).each(function(i) {
+				// build the group div
+				group = '<div class="group">';
+
+				// grab site info
+				var address = $(this).attr('address');
+				var siteType = $(this).attr('siteType');
+
+				// create the header for it
+				group += '<h3 class="accTitle"><a href="site' + i + '">' + siteType + ": " + address + '</a></h3>'
+
+				// create div container for the results
+				group += '<div class="accDiv">';
+
+				// check if site has people
+				if($('personCount', $(this)).length == 0 || parseInt($('personCount', $(this)).text()) < 1) {
+					// doesn't have people
+					group += '<p>No People found for this location</p>'
+				} else {
+					// we have people
+
+					// build a table!
+					group += '<table class="maxWidth peopleDataTable">';
+					group += '<thead>';
+					group += '<tr><th>Name</th><th>Role</th></tr>';
+					group += '</thead>';
+					group += '<tbody>';
+
+					console.log('this is');
+					console.log($(this));
+
+					$('person', $(this)).each(function() {
+						// get data
+						var name = "";
+						if( suffix = fixNull($.trim($(this).find('suffix').text()))) {
+							name += suffix + ' ';
+						}
+						if( fName = fixNull($.trim($(this).find('fName').text()))) {
+							name += fName + ' ';
+						}
+						if( mName = fixNull($.trim($(this).find('mName').text()))) {
+							name += mName + ' ';
+						}
+						if( lName = fixNull($.trim($(this).find('lName').text()))) {
+							name += lName + ' ';
+						}
+						if( honor = fixNull($.trim($(this).find('honorific').text()))) {
+							name += '(' + honor + ') ';
+						}
+
+						var role = fixNull($.trim($(this).find('role').text()));
+
+						// add row
+						group += '<tr><td>' + name + '</td><td>' + role + '</td></tr>';
+
+					});
+					// end the table
+					group += '</tbody>';
+					group += '</table>';
+
+				}
+
+				// close the results div
+				group += '</div>';
+
+				// close the group div
+				group += '</div>';
+
+				// add group to the pane
+				pane += group;
+
+			});
+			pane += '</div>';
+
+			$("#peopleData").replaceWith(pane);
+
+			// add the table sorter class
+			// loop thru all the tables
+			$("#peopleData").find('.peopleDataTable').each(function(){
+				addTableSort($(this));
+			});
+
+			// add accordian
+			addAccordion($("#peopleData"));
+			
+			// fix some accoridian size issues in lightbox
+			$("#peopleData").find('.accTitle').each(function(){
+				// resize the title: accTitle
+				$(this).css("width", "96.456%");
+			});
+			$("#peopleData").find('.accDiv').each(function(){
+				// resize the table: accDiv
+				$(this).css("width", "90%");
+			});
+			
+			$("#peopleData").css("width", "97.8%");
+			
+				
+		} // if no data
+	}// if error
+
+	// turn on tabs
+	turnOnTabs();
 }
 
 function getEquipmentDataCallback(data) {
