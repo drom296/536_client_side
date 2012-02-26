@@ -15,7 +15,7 @@ function addTableSort(which) {
 	pager += '<form>';
 	pager += '<img src="img/first.png" class="first"/>';
 	pager += '<img src="img/prev.png" class="prev"/>';
-	pager += '<input id="pageDisplay" type="text" class="pagedisplay"/>';
+	pager += '<input id="pageDisplay" readonly="readonly" type="text" class="pagedisplay"/>';
 	pager += '<img src="img/next.png" class="next"/>';
 	pager += '<img src="img/last.png" class="last"/>';
 	pager += '<select class="pagesize">';
@@ -30,7 +30,7 @@ function addTableSort(which) {
 	// append to which
 	$(which).parent().append(pager);
 
-	$("table").tablesorter({
+	$(which).tablesorter({
 		widthFixed : false,
 		widgets : ['zebra']
 	}).tablesorterPager({

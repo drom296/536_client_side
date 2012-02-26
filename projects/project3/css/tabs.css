@@ -83,7 +83,7 @@ ul.tabs a.xl.current {
 .panes .pane {
 	display: none;
 }
-.panes div {
+.panes > div {
 	display: none;
 	padding: 15px 10px;
 	border: 1px solid #999;
