@@ -327,7 +327,7 @@ function getTrainingDataCallback(data) {
 		} else {
 			// build the pane
 			var pane = '<div id="trainingData" class="getAutoHeight">';
-			pane += "<p class='paneTitle'>Treatments</p>";
+			pane += "<p class='paneTitle'>Training</p>";
 
 			// <count>22</count>
 			// <training>
@@ -368,6 +368,66 @@ function getTrainingDataCallback(data) {
 }
 
 function getFacilitiesDataCallback(data) {
+	// path ...ESD/{orgId}/Facilities
+
+	// if bad data
+	if($(data).find('error').length != 0) {
+		console.log("There was an error")
+	} else {
+		// if no data
+		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {
+			// replace with text
+			var error = document.createElement("div");
+			error.setAttribute("id", "facilitiesData");
+			var errorSpan = document.createElement("span");
+			errorSpan.appendChild(document.createTextNode("No Facility Information Found"));
+			error.appendChild(errorSpan);
+
+			// get the city select
+			$("#facilitiesData").replaceWith(error);
+
+		} else {
+			// build the pane
+			var pane = '<div id="facilitiesData" class="getAutoHeight">';
+			pane += "<p class='paneTitle'>Facilities</p>";
+
+			// <count>2</count>
+			// <facility>
+			// 	<typeId>11</typeId>
+			// 	<type>A/C</type>
+			// 	<quantity>18</quantity>
+			// 	<description>desc</description>
+			// </facility>
+
+			// we are going to build a table
+			pane += '<table id="facilitiesDataTable" class="maxWidth">';
+			pane += '<thead>';
+			pane += '<tr><th>Name</th><th>Quantity</th><th>Description</th></tr>';
+			pane += '</thead>';
+			pane += '<tbody>';
+
+			$('facility', data).each(function() {
+
+				// get data
+				var name = fixNull($.trim($(this).find('type').text()));
+				var quantity = fixNull($.trim($(this).find('quantity').text()));
+				var desc = fixNull($.trim($(this).find('description').text()));
+				pane += '<tr><td>' + name + '</td><td>' + quantity + '</td><td>' + desc + '</td></tr>';
+
+			});
+			pane += '</tbody>';
+			pane += '</table>';
+			pane += '</div>';
+
+			$("#facilitiesData").replaceWith(pane);
+
+			// add the table sorter class
+			addTableSort($('#facilitiesDataTable'));
+		} // if no data
+	}// if error
+
+	// turn on tabs
+	turnOnTabs();
 
 }
 
