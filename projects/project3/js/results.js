@@ -154,8 +154,6 @@ function getPeopleData(orgId) {
 }
 
 function getGeneralDataCallback(data) {
-	console.log(data);
-
 	// if bad data
 	if($(data).find('error').length != 0) {
 		console.log("There was an error")
@@ -236,7 +234,79 @@ function getLocationsDataCallback(data) {
 }
 
 function getTreatmentDataCallback(data) {
+	// if bad data
+	if($(data).find('error').length != 0) {
+		console.log("There was an error")
+	} else {
+		// if no data
+		if($('name', data).length == 0) {
+			// replace with text
+			var error = document.createElement("div");
+			error.setAttribute("id", "generalData");
+			var errorSpan = document.createElement("span");
+			errorSpan.appendChild(document.createTextNode("No General Information Found"));
+			error.appendChild(errorSpan);
 
+			// get the city select
+			$("#generalData").replaceWith(error);
+
+		} else {
+			// build the pane
+			var pane = '<div id="generalData" class="getAutoHeight">';
+			pane += "<p class='paneTitle'>General Information</p>";
+
+			// example xml
+			// <data>
+			// 	<name>Some Hospital</name>
+			// 	<description>Something cool here about the hospital</description>
+			//	<email>sf@lkj.sdf</email>
+			//	<website>http://www.rit.edu</website>
+			//	<nummembers>33</nummembers>
+			//	<numcalls>300</numcalls>
+			// </data>
+
+			// get data
+			var name = fixNull($.trim($('name', data).text()));
+			var description = fixNull($.trim($('description', data).text()));
+			var email = fixNull($.trim($('email', data).text()));
+			var website = fixNull($.trim($('website', data).text()));
+			var numMembers = fixNull($.trim($('nummembers', data).text()));
+			var numCalls = fixNull($.trim($('numcalls', data).text()));
+
+			// we are going to build a table
+			pane += '<table cellspacing="1">';
+			pane += '<tbody>';
+			pane += '<tr><td>Name: </td><td>' + name + '</td></tr>';
+			// check if we have a valid url
+			pane += '<tr><td>Website: </td>';
+			if(website) {
+				// add link
+				pane += "<td><a target='_blank' href='" + website + "'>" + website + "</a>" + '</td>';
+			} else {
+				pane += '<td></td>';
+			}
+			// check if we have an email
+			pane += '<tr><td>Email: </td>';
+			if(email) {
+				// add mailto link
+				pane += "<td>" + '<a href="mailto:' + email + '?Subject=' + encodeURI("question for " + name) + '">' + email + "</a>" + "</td>";
+			} else {
+				pane += '<td></td>';
+			}
+			pane += '</tr>';
+			pane += '<tr><td>Description: </td><td>' + description + '</td></tr>';
+			pane += '<tr><td>Number of Members: </td><td>' + numMembers + '</td></tr>';
+			pane += '<tr><td>Number of calls last year: </td><td>' + numCalls + '</td></tr>';
+			pane += '</tbody>';
+			pane += '</table>';
+			pane += '</div>';
+
+			$("#generalData").replaceWith(pane);
+		} // if no data
+	}// if error
+
+	// turn on tabs
+	turnOnTabs();
 }
 
 function getTrainingDataCallback(data) {

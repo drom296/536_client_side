@@ -53,14 +53,14 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<link rel="shortcut icon" href="img/pedro.ico" />
 		<!-- CSS -->
 		<link rel="stylesheet" href="css/form.css" />
-		<link rel="stylesheet" type="text/css" media="screen" href="css/tablesorter.css" />
-		<link rel="stylesheet" type="text/css" href="css/jquery.tablesorter.pager.css" />
 		<link rel="stylesheet" href="css/form.css" />
 		<link rel="stylesheet" href="plugins/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="css/tabs.css" />
 		<link rel="stylesheet" href="css/results.css" />
 		<link rel="stylesheet" href="css/table.css" />
-		<link rel="stylesheet" href="css/page.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.tablesorter.pager.css" />
+		<link rel="stylesheet" type="text/css" media="screen" href="css/tablesorter.css" />
+		<!-- 		<link rel="stylesheet" href="css/page.css" /> -->
 		<!-- JavaScript -->
 		<!-- ************ PLUGINS **********************-->
 		<script type="text/javascript" src="plugins/jquery-1.7.1.min.js"></script>
@@ -194,9 +194,13 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 						<div>
 							Third tab content
 						</div>
-					</div> <!-- tab div -->
-				</div> <!-- data div for lightbox -->
-			</div> <!-- lightbox div -->
-		</div> <!-- page div -->
+					</div>
+					<!-- tab div -->
+				</div>
+				<!-- data div for lightbox -->
+			</div>
+			<!-- lightbox div -->
+		</div>
+		<!-- page div -->
 	</body>
 </html>
