@@ -14,11 +14,18 @@ form#searchForm select+ select {
 form#searchForm {
 	width: 27em;
 }
-
-form#searchForm p{
+form#searchForm p {
 	margin-top: 0.5em;
 	margin-bottom: 0.5em;
 }
 #buttons {
 	text-align: center
+}
+form#searchForm {
+	margin: auto;
+	font-variant: small-caps;
+}
+form#searchForm fieldset {
+	border-style: dotted;
+	border-color: black;
 }

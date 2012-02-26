@@ -60,6 +60,7 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<link rel="stylesheet" href="css/tabs.css" />
 		<link rel="stylesheet" href="css/results.css" />
 		<link rel="stylesheet" href="css/table.css" />
+		<link rel="stylesheet" href="css/page.css" />
 		<!-- JavaScript -->
 		<!-- ************ PLUGINS **********************-->
 		<script type="text/javascript" src="plugins/jquery-1.7.1.min.js"></script>
@@ -79,121 +80,123 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 		<script type="text/javascript" src="js/results.js"></script>
 	</head>
 	<body>
-		<!-- search form -->
-		<form name="searchForm" id="searchForm" onsubmit="return search()" >
-			<fieldset>
-				<legend>
-					Search Criteria
-				</legend>
-				<p>
-					<label for="type">Organization Type</label>
-					<?php
-					// build select for Organization TYPE
+		<div id="page">
+			<!-- search form -->
+			<form name="searchForm" id="searchForm" onsubmit="return search()" >
+				<fieldset>
+					<legend>
+						Search Criteria
+					</legend>
+					<p>
+						<label for="type">Organization Type</label>
+						<?php
+						// build select for Organization TYPE
 
-					// path: ...ESD/OrgTypes
-					$path = "OrgTypes";
-					$dataElem = "type";
-					$name = "type";
-					$default = "Organization Types";
+						// path: ...ESD/OrgTypes
+						$path = "OrgTypes";
+						$dataElem = "type";
+						$name = "type";
+						$default = "Organization Types";
 
-					// build the select and echo
-					echo buildHospitalSelect($path, $dataElem, $name, $default);
-					?>
-				</p>
-				<!-- build input for organization name -->
-				<p>
-					<label for="name">Organization Name</label>
-					<input type="text" id="name" name="name" />
-				</p>
-				<!-- Build input for state and City -->
-				<p>
-					<!-- Label -->
-					<label for="state">State</label>
-					<!-- State Combo -->
-					<?php
-					// build combo for state
+						// build the select and echo
+						echo buildHospitalSelect($path, $dataElem, $name, $default);
+						?>
+					</p>
+					<!-- build input for organization name -->
+					<p>
+						<label for="name">Organization Name</label>
+						<input type="text" id="name" name="name" />
+					</p>
+					<!-- Build input for state and City -->
+					<p>
+						<!-- Label -->
+						<label for="state">State</label>
+						<!-- State Combo -->
+						<?php
+						// build combo for state
 
-					// path: ...ESD/States
-					$path = "States";
-					$dataElem = "State";
-					$name = "state";
-					$default = "States";
+						// path: ...ESD/States
+						$path = "States";
+						$dataElem = "State";
+						$name = "state";
+						$default = "States";
 
-					// build the select and echo
-					echo buildHospitalSelect($path, $dataElem, $name, $default);
-					?>
-				</p>
-				<p>
-					<label for="county">County</label>
-					<?php
-					// combo for county
+						// build the select and echo
+						echo buildHospitalSelect($path, $dataElem, $name, $default);
+						?>
+					</p>
+					<p>
+						<label for="county">County</label>
+						<?php
+						// combo for county
 
-					// path: ...ESD/Counties
-					$path = "Counties";
-					$dataElem = "CountyName";
-					$name = "county";
-					$default = "Counties";
+						// path: ...ESD/Counties
+						$path = "Counties";
+						$dataElem = "CountyName";
+						$name = "county";
+						$default = "Counties";
 
-					// build the select and echo
-					echo buildHospitalSelect($path, $dataElem, $name, $default);
-					?>
-				</p>
-				<p>
-					<label for="town">City</label>
-					<?php
-					// build combo for cities
-					// path: ...ESD/Cities
-					$path = "Cities";
-					$dataElem = "city";
-					$name = "town";
-					$default = "Cities";
+						// build the select and echo
+						echo buildHospitalSelect($path, $dataElem, $name, $default);
+						?>
+					</p>
+					<p>
+						<label for="town">City</label>
+						<?php
+						// build combo for cities
+						// path: ...ESD/Cities
+						$path = "Cities";
+						$dataElem = "city";
+						$name = "town";
+						$default = "Cities";
 
-					// build the select and echo
-					echo buildHospitalSelect($path, $dataElem, $name, $default);
-					?>
-				</p>
-				<!-- input for zip code -->
-				<p>
-					<label for="zip">Zip Code</label>
-					<input id="zip" pattern="\d{5}|\d{5}[\-]{1}\d{4}" type="text" name="zip" />
-				</p>
-				<!-- buttons -->
-				<div id="buttons">
-					<input type="submit" value="Show Results" />
-					<input type="reset" value="Reset Form" />
-				</div>
-			</fieldset>
-		</form>
-		<div id="results">
-			<div id="output"></div>
-		</div>
-		<div style="display:none">
-			<div id="data">
-				<!-- the tabs -->
-				<ul id="orgTabs" class="tabs">
-					<li>
-						<a>Tab 1</a>
-					</li>
-					<li>
-						<a>Tab 2</a>
-					</li>
-					<li>
-						<a>Tab 3</a>
-					</li>
-				</ul>
-				<!-- tab "panes" -->
-				<div id="orgPanes" class="panes">
-					<div>
-						First tab content. Tab contents are called "panes"
+						// build the select and echo
+						echo buildHospitalSelect($path, $dataElem, $name, $default);
+						?>
+					</p>
+					<!-- input for zip code -->
+					<p>
+						<label for="zip">Zip Code</label>
+						<input id="zip" pattern="\d{5}|\d{5}[\-]{1}\d{4}" type="text" name="zip" />
+					</p>
+					<!-- buttons -->
+					<div id="buttons">
+						<input type="submit" value="Show Results" />
+						<input type="reset" value="Reset Form" />
 					</div>
-					<div>
-						Second tab content
-					</div>
-					<div>
-						Third tab content
-					</div>
-				</div>
+				</fieldset>
+			</form>
+			<div id="results">
+				<div id="output"></div>
 			</div>
-		</div>
+			<div style="display:none">
+				<div id="data">
+					<!-- the tabs -->
+					<ul id="orgTabs" class="tabs">
+						<li>
+							<a>Tab 1</a>
+						</li>
+						<li>
+							<a>Tab 2</a>
+						</li>
+						<li>
+							<a>Tab 3</a>
+						</li>
+					</ul>
+					<!-- tab "panes" -->
+					<div id="orgPanes" class="panes">
+						<div>
+							First tab content. Tab contents are called "panes"
+						</div>
+						<div>
+							Second tab content
+						</div>
+						<div>
+							Third tab content
+						</div>
+					</div> <!-- tab div -->
+				</div> <!-- data div for lightbox -->
+			</div> <!-- lightbox div -->
+		</div> <!-- page div -->
 	</body>
 </html>

@@ -228,8 +228,10 @@ function searchCallback(data) {
 			// we have data!
 			// build table
 
+			// start the container
+			var table = '<div id="output">';
 			// start the table
-			var table = '<table id="pageTable" class="tablesorter" cellspacing="1">';
+			table += '<table id="pageTable" class="tablesorter" cellspacing="1">';
 			// create head section
 			table += '<thead>';
 			table += "<tr>";
@@ -292,9 +294,11 @@ function searchCallback(data) {
 			pager += '</select>';
 			pager += '</form>';
 			pager += '</div>';
+			
+			
 
 			// output the table and the pager
-			$("#output").html(table + pager);
+			$("#output").replaceWith(table + pager+"</div>");
 
 			// add the table sorter class
 			addTableSort();
