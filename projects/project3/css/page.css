@@ -2,3 +2,7 @@ div#page{
 	width: 85%;
 	margin: auto;
 }
+
+.maxWidth{
+	width: 100%;
+}

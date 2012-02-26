@@ -3,7 +3,11 @@
 		tablesorterPager: new function() {
 			
 			function updatePageDisplay(c) {
-				var s = $(c.cssPageDisplay,c.container).val((c.page+1) + c.seperator + c.totalPages);	
+				var s = $(c.cssPageDisplay,c.container).val((c.page+1) + c.seperator + c.totalPages);
+				
+				// PJM 2/26/12 This was added so the lightbox appears at every page of the table
+				// TODO: find a better way that is modular and outside of this pager js
+				addLightbox();	
 			}
 			
 			function setPageSize(table,size) {
@@ -17,16 +21,16 @@
 			
 			function fixPosition(table) {
 				var c = table.config;
-				if(!c.pagerPositionSet && c.positionFixed) {
-					var c = table.config, o = $(table);
-					if(o.offset) {
-						c.container.css({
-							top: o.offset().top + o.height() + 'px',
-							position: 'absolute'
-						});
-					}
-					c.pagerPositionSet = true;
-				}
+				// if(!c.pagerPositionSet && c.positionFixed) {
+					// var c = table.config, o = $(table);
+					// if(o.offset) {
+						// c.container.css({
+							// top: o.offset().top + o.height() + 'px',
+							// position: 'absolute'
+						// });
+					// }
+					// c.pagerPositionSet = true;
+				// }
 			}
 			
 			function moveToFirstPage(table) {

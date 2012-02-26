@@ -34,3 +34,7 @@ table.tablesorter a.orgLink {
 #output > table{
 	width: 100%;
 }
+
+div.pager{
+	margin-top: -2%;
+}

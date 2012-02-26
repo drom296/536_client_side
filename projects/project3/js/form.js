@@ -277,31 +277,14 @@ function searchCallback(data) {
 
 			// end table
 			table += '</table>';
-
-			// create paging div
-			var pager = '<div id="pager" class="tablesorterPager">';
-			pager += '<form>';
-			pager += '<img src="img/first.png" class="first"/>';
-			pager += '<img src="img/prev.png" class="prev"/>';
-			pager += '<input type="text" class="pagedisplay"/>';
-			pager += '<img src="img/next.png" class="next"/>';
-			pager += '<img src="img/last.png" class="last"/>';
-			pager += '<select class="pagesize">';
-			pager += '<option selected="selected"  value="10">10</option>';
-			pager += '<option value="20">20</option>';
-			pager += '<option value="30">30</option>';
-			pager += '<option  value="40">40</option>';
-			pager += '</select>';
-			pager += '</form>';
-			pager += '</div>';
-			
-			
+			table += '</div>';
 
 			// output the table and the pager
-			$("#output").replaceWith(table + pager+"</div>");
+			// $("#output").replaceWith(table + pager+"</div>");
+			$("#output").replaceWith(table);
 
 			// add the table sorter class
-			addTableSort();
+			addTableSort($('#pageTable'));
 
 			// add lightbox
 			addLightbox();

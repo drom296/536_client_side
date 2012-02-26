@@ -153,7 +153,18 @@ function getPeopleData(orgId) {
 	}, getPeopleDataCallback);
 }
 
+function getEquipmentData(orgId) {
+	var path = "/" + orgId + "/Equipment";
+
+	// add data
+	myAjax('get', {
+		path : path
+	}, getEquipmentDataCallback);
+}
+
 function getGeneralDataCallback(data) {
+	// path: ...ESD/{orgId}/General
+	
 	// if bad data
 	if($(data).find('error').length != 0) {
 		console.log("There was an error")
@@ -234,74 +245,62 @@ function getLocationsDataCallback(data) {
 }
 
 function getTreatmentDataCallback(data) {
+	// path ...ESD/{orgId}/Treatments
+	console.log('treatment data');
+	console.log(data);
+
 	// if bad data
 	if($(data).find('error').length != 0) {
 		console.log("There was an error")
 	} else {
 		// if no data
-		if($('name', data).length == 0) {
+		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {
 			// replace with text
 			var error = document.createElement("div");
-			error.setAttribute("id", "generalData");
+			error.setAttribute("id", "treatmentData");
 			var errorSpan = document.createElement("span");
-			errorSpan.appendChild(document.createTextNode("No General Information Found"));
+			errorSpan.appendChild(document.createTextNode("No Treatment Information Found"));
 			error.appendChild(errorSpan);
 
 			// get the city select
-			$("#generalData").replaceWith(error);
+			$("#treatmentData").replaceWith(error);
 
 		} else {
 			// build the pane
-			var pane = '<div id="generalData" class="getAutoHeight">';
-			pane += "<p class='paneTitle'>General Information</p>";
+			var pane = '<div id="treatmentData" class="getAutoHeight">';
+			pane += "<p class='paneTitle'>Treatments</p>";
 
-			// example xml
-			// <data>
-			// 	<name>Some Hospital</name>
-			// 	<description>Something cool here about the hospital</description>
-			//	<email>sf@lkj.sdf</email>
-			//	<website>http://www.rit.edu</website>
-			//	<nummembers>33</nummembers>
-			//	<numcalls>300</numcalls>
-			// </data>
-
-			// get data
-			var name = fixNull($.trim($('name', data).text()));
-			var description = fixNull($.trim($('description', data).text()));
-			var email = fixNull($.trim($('email', data).text()));
-			var website = fixNull($.trim($('website', data).text()));
-			var numMembers = fixNull($.trim($('nummembers', data).text()));
-			var numCalls = fixNull($.trim($('numcalls', data).text()));
+			// <count>5</count>
+			// <treatment>
+			//		<typeId>10</typeId>
+			//		<type>Burn Center</type>
+			// 		<abbreviation>Tr-Burn</abbreviation>
+			// </treatment>
 
 			// we are going to build a table
-			pane += '<table cellspacing="1">';
+			pane += '<table cellspacing="1" id="treatmentDataTable" class="maxWidth tablesorter">';
+			pane += '<thead>'; 
+			pane += '<tr><th>Type</th><th>Abbreviation</th></tr>';
+			pane += '</thead>';
 			pane += '<tbody>';
-			pane += '<tr><td>Name: </td><td>' + name + '</td></tr>';
-			// check if we have a valid url
-			pane += '<tr><td>Website: </td>';
-			if(website) {
-				// add link
-				pane += "<td><a target='_blank' href='" + website + "'>" + website + "</a>" + '</td>';
-			} else {
-				pane += '<td></td>';
-			}
-			// check if we have an email
-			pane += '<tr><td>Email: </td>';
-			if(email) {
-				// add mailto link
-				pane += "<td>" + '<a href="mailto:' + email + '?Subject=' + encodeURI("question for " + name) + '">' + email + "</a>" + "</td>";
-			} else {
-				pane += '<td></td>';
-			}
-			pane += '</tr>';
-			pane += '<tr><td>Description: </td><td>' + description + '</td></tr>';
-			pane += '<tr><td>Number of Members: </td><td>' + numMembers + '</td></tr>';
-			pane += '<tr><td>Number of calls last year: </td><td>' + numCalls + '</td></tr>';
+
+			$('treatment', data).each(function() {
+
+				// get data
+				var type = fixNull($.trim($(this).find('type').text()));
+				var abv = fixNull($.trim($(this).find('abbreviation').text()));
+
+				pane += '<tr><td>'+type+'</td><td>'+abv+'</td></tr>';
+
+			});
 			pane += '</tbody>';
 			pane += '</table>';
-			pane += '</div>';
-
-			$("#generalData").replaceWith(pane);
+			pane += '</div>';			
+			
+			$("#treatmentData").replaceWith(pane);
+			
+			// add the table sorter class
+			addTableSort($('#treatmentDataTable'));
 		} // if no data
 	}// if error
 
@@ -323,6 +322,10 @@ function getPhysiciansDataCallback(data) {
 
 function getPeopleDataCallback(data) {
 
+}
+
+function getEquipmentDataCallback(data){
+	
 }
 
 function turnOnTabs() {

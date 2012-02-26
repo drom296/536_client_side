@@ -1,9 +1,37 @@
-function addTableSort() {
+$(document).ready(function() {
+
+	$("#pageDisplay").live("change", function() {
+		console.log('adding lightbox');
+		addLightbox();
+		console.log('lightbox added');
+	});
+});
+function addTableSort(which) {
+	// create the pager div
+	var pager = '<div class="tablesorterPager pager">';
+	pager += '<form>';
+	pager += '<img src="img/first.png" class="first"/>';
+	pager += '<img src="img/prev.png" class="prev"/>';
+	pager += '<input id="pageDisplay" type="text" class="pagedisplay"/>';
+	pager += '<img src="img/next.png" class="next"/>';
+	pager += '<img src="img/last.png" class="last"/>';
+	pager += '<select class="pagesize">';
+	pager += '<option selected="selected"  value="10">10</option>';
+	pager += '<option value="20">20</option>';
+	pager += '<option value="30">30</option>';
+	pager += '<option  value="40">40</option>';
+	pager += '</select>';
+	pager += '</form>';
+	pager += '</div>';
+	
+	// append to which
+	$(which).parent().append(pager);
+	
 	$("table").tablesorter({
 		widthFixed : false,
 		widgets : ['zebra']
 	}).tablesorterPager({
-		container : $("#pager")
+		container : $(which).parent().find('.tablesorterPager').first()
 	});
 
 	// try to fix columns that are too small to include the background image
@@ -25,25 +53,25 @@ function addTableSort() {
 			// set to min length
 			$(this).width(parseFloat($(minLen).toPx()));
 		}
-		
+
 		// give name some room
-		if(text.toUpperCase()=="NAME"){
+		if(text.toUpperCase() == "NAME") {
 			// as em
 			var nameLength = 20;
-			
+
 			// expand
 			$(this).width(parseFloat($(nameLength).toPx()));
 		}
-		
+
 		// give City some room
-		if(text.toUpperCase()=="CITY"){
+		if(text.toUpperCase() == "CITY") {
 			// as em
 			var nameLength = 10;
-			
+
 			// expand
 			$(this).width(parseFloat($(nameLength).toPx()));
 		}
-		
+
 	});
 }
 
