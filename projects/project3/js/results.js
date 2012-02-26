@@ -164,7 +164,7 @@ function getEquipmentData(orgId) {
 
 function getGeneralDataCallback(data) {
 	// path: ...ESD/{orgId}/General
-	
+
 	// if bad data
 	if($(data).find('error').length != 0) {
 		console.log("There was an error")
@@ -246,8 +246,6 @@ function getLocationsDataCallback(data) {
 
 function getTreatmentDataCallback(data) {
 	// path ...ESD/{orgId}/Treatments
-	console.log('treatment data');
-	console.log(data);
 
 	// if bad data
 	if($(data).find('error').length != 0) {
@@ -278,8 +276,8 @@ function getTreatmentDataCallback(data) {
 			// </treatment>
 
 			// we are going to build a table
-			pane += '<table cellspacing="1" id="treatmentDataTable" class="maxWidth tablesorter">';
-			pane += '<thead>'; 
+			pane += '<table id="treatmentDataTable" class="maxWidth">';
+			pane += '<thead>';
 			pane += '<tr><th>Type</th><th>Abbreviation</th></tr>';
 			pane += '</thead>';
 			pane += '<tbody>';
@@ -289,16 +287,15 @@ function getTreatmentDataCallback(data) {
 				// get data
 				var type = fixNull($.trim($(this).find('type').text()));
 				var abv = fixNull($.trim($(this).find('abbreviation').text()));
-
-				pane += '<tr><td>'+type+'</td><td>'+abv+'</td></tr>';
+				pane += '<tr><td>' + type + '</td><td>' + abv + '</td></tr>';
 
 			});
 			pane += '</tbody>';
 			pane += '</table>';
-			pane += '</div>';			
-			
+			pane += '</div>';
+
 			$("#treatmentData").replaceWith(pane);
-			
+
 			// add the table sorter class
 			addTableSort($('#treatmentDataTable'));
 		} // if no data
@@ -309,6 +306,64 @@ function getTreatmentDataCallback(data) {
 }
 
 function getTrainingDataCallback(data) {
+	// path ...ESD/{orgId}/Training
+
+	// if bad data
+	if($(data).find('error').length != 0) {
+		console.log("There was an error")
+	} else {
+		// if no data
+		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {
+			// replace with text
+			var error = document.createElement("div");
+			error.setAttribute("id", "trainingData");
+			var errorSpan = document.createElement("span");
+			errorSpan.appendChild(document.createTextNode("No Training Information Found"));
+			error.appendChild(errorSpan);
+
+			// get the city select
+			$("#trainingData").replaceWith(error);
+
+		} else {
+			// build the pane
+			var pane = '<div id="trainingData" class="getAutoHeight">';
+			pane += "<p class='paneTitle'>Treatments</p>";
+
+			// <count>22</count>
+			// <training>
+			// 	<typeId>35</typeId>
+			// 	<type>1 CFR Certified First Responder</type>
+			// 	<abbreviation>CFR</abbreviation>
+			// </training>
+
+			// we are going to build a table
+			pane += '<table id="trainingDataTable" class="maxWidth">';
+			pane += '<thead>';
+			pane += '<tr><th>Type</th><th>Abbreviation</th></tr>';
+			pane += '</thead>';
+			pane += '<tbody>';
+
+			$('training', data).each(function() {
+
+				// get data
+				var type = fixNull($.trim($(this).find('type').text()));
+				var abv = fixNull($.trim($(this).find('abbreviation').text()));
+				pane += '<tr><td>' + type + '</td><td>' + abv + '</td></tr>';
+
+			});
+			pane += '</tbody>';
+			pane += '</table>';
+			pane += '</div>';
+
+			$("#trainingData").replaceWith(pane);
+
+			// add the table sorter class
+			addTableSort($('#trainingDataTable'));
+		} // if no data
+	}// if error
+
+	// turn on tabs
+	turnOnTabs();
 
 }
 
@@ -324,8 +379,8 @@ function getPeopleDataCallback(data) {
 
 }
 
-function getEquipmentDataCallback(data){
-	
+function getEquipmentDataCallback(data) {
+
 }
 
 function turnOnTabs() {
