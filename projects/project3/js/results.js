@@ -203,7 +203,7 @@ function getGeneralDataCallback(data) {
 			pane += '<tr><td>Website: </td>';
 			if(website) {
 				// add link
-				pane += "<td><a href='" + website + "'>" + website + "</a>" + '</td>';
+				pane += "<td><a target='_blank' href='" + website + "'>" + website + "</a>" + '</td>';
 			} else {
 				pane += '<td></td>';
 			}
