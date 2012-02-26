@@ -6,3 +6,11 @@ div#orgPanes{
 div#orgTabs{
 /*	width: */
 }
+
+p.paneTitle{
+	text-align:center;
+	font-weight:bold;
+	font-size: 1.4em;
+	margin-top: 0;
+	margin-bottom: 0;
+}

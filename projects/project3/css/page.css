@@ -6,3 +6,7 @@ div#page{
 .maxWidth{
 	width: 100%;
 }
+
+.center{
+	margin: auto;
+}
