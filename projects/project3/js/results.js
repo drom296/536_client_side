@@ -25,7 +25,6 @@ function fixNull(input) {
 	if(!input || input == "null") {
 		input = "";
 	}
-
 	return input;
 }
 
@@ -283,6 +282,7 @@ function getLocationsDataCallback(data) {
 			// build the pane
 			var pane = '<div id="locationsData" class="getAutoHeight">';
 			pane += "<p class='paneTitle'>Location Information</p>";
+			pane += '<div id="locations">';
 
 			// <count>2</count>
 			// <location>
@@ -359,30 +359,137 @@ function getLocationsDataCallback(data) {
 				pane += group;
 
 			});
+			// close the locations div
+			pane += '</div>';
+
+			// close the container
 			pane += '</div>';
 
 			$("#locationsData").replaceWith(pane);
 
-			// add accordian
-			addAccordion($("#locationsData"));
-
 			// fix some accoridian size issues in lightbox
-			$("#locationsData").find('.accTitle').each(function() {
-				// resize the title: accTitle
-				$(this).css("width", "96.456%");
-			});
 			$("#locationsData").find('.accDiv').each(function() {
 				// resize the table: accDiv
-				$(this).css("width", "90%");
+				$(this).css("width", "82%");
 			});
 
-			$("#locationsData").css("width", "97.8%");
+			$("#locations").css("width", "40%");
+
+			// add accordian
+			addAccordion($("#locations"));
+
+			// add map
+			addMap($("#locations"));
 
 		} // if no data
 	}// if error
 
 	// turn on tabs
 	turnOnTabs();
+}
+
+// which should have some specific structure
+function addMap(where) {
+	var map = '<div style="background-color: yellow; float: right; width: 40em; height: 25em; margin:auto;"></div>';
+
+	$(where).before(map);
+
+	var json = '{';
+	
+	json += '"markers": [';
+
+	// get all the locations from the where
+	var numLocs = $('.locationsDataTable').length;
+	
+	$('.locationsDataTable').each(function(index) {
+		
+		console.log('single loc');
+		console.log($(this));
+		
+		// get the typr
+		var type = $(this).find('tr:nth-child(1)').find('td:last-of-type').text();
+		var phone = $(this).find('tr:nth-child(8)').find('td:last-of-type').text();
+		
+		
+		// check if we have a latitude and longitude
+		var lat = $(this).find('tr:nth-child(11)').find('td:last-of-type').text();
+		var lon = $(this).find('tr:nth-child(12)').find('td:last-of-type').text();
+		
+		console.log("lat:"+lat+" | long:"+lon);
+		
+		// start the object
+		json += '{';
+		
+		if(lat && lon){
+			// use this longitutude
+			json += '"latitude": '+lat+',';
+			json += '"longitude": '+lon+',';
+			json += '"html": "'+type+'<br />'+phone+'"';
+			
+		} else{
+			// use the address
+			var address = '"address": "';
+			
+			// get the street
+			var street = $(this).find('tr:nth-child(2)').find('td:last-of-type').text();
+			if(street){
+				address += street + ' ';
+			}
+			
+			// get the city
+			var city = $(this).find('tr:nth-child(4)').find('td:last-of-type').text();
+			if(city){
+				address += city + ' ';
+			}
+			
+			// get the state
+			var state = $(this).find('tr:nth-child(5)').find('td:last-of-type').text();
+			if(state){
+				address += state + ' ';
+			}
+			
+			// get the zip			
+			var zip = $(this).find('tr:nth-child(7)').find('td:last-of-type').text();
+			if(zip){
+				address += zip + ' ';
+			}
+			
+			// close the address
+			address += '"';
+			
+			// add the address to the JSon
+			json+= address;
+			// add the popup html to JSOn
+			json += ', "html": "'+type+'<br />'+phone+'"';
+		}
+		
+		// close the object
+		json += '}';
+		
+		// if we have more
+		if(index < numLocs -1){
+			// add a comma
+			json += ',';
+		}
+		
+	});		
+		
+	// close the markers object
+	json += '], ';
+	
+	// some level
+	json += '"zoom": 8';
+	// close the json object
+	json += '}';
+
+	console.log("string json")
+	console.log(json);
+	json = $.parseJSON(json);
+	console.log(json);
+
+	console.log('adding the map');
+	// turn on map for the div before this one
+	$(where).prev().gMap(json);
 }
 
 function getTreatmentDataCallback(data) {
@@ -652,14 +759,11 @@ function getPhysiciansDataCallback(data) {
 }
 
 function getPeopleDataCallback(data) {
-	console.log('people data');
-	console.log(data);
-
 	// path ...ESD/{orgId}/People
 
 	// if bad data
 	if($(data).find('error').length != 0) {
-		console.log("There was an error")
+		console.log("There was an error");
 	} else {
 		// if no data
 		if($('siteCount', data).length == 0 || parseInt($('siteCount', data).text()) < 1) {
@@ -721,9 +825,6 @@ function getPeopleDataCallback(data) {
 					group += '<tr><th>Name</th><th>Role</th></tr>';
 					group += '</thead>';
 					group += '<tbody>';
-
-					console.log('this is');
-					console.log($(this));
 
 					$('person', $(this)).each(function() {
 						// get data

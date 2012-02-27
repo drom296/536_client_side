@@ -1,36 +1,37 @@
 <?php
-define("BASE_URL","http://simon.ist.rit.edu:8080/Services/resources/ESD/");
+define("BASE_URL", "http://simon.ist.rit.edu:8080/Services/resources/ESD/");
 //include any libraries/classes needed
 function __autoload($className) {
-require_once 'classes/'.$className.'.class.php';
+	require_once 'classes/' . $className . '.class.php';
 }
-function buildHospitalSelect($path,$dataElem,$name_id,$type) {
-// build select for Organization TYPE
-// grab the dom
-$dom=new DOMDocument();
-$dom->load(BASE_URL.$path);
-// grab all the data nodes
-$rows=$dom->getElementsByTagName("$dataElem");
-// setup array to store the information
-$values=array();
-$texts=array();
-//loop thru rows
-foreach($rows as $row) {
-// get the id
-$data=$row->nodeValue;
-// if we have data
-if(isset($data)&&!empty($data)&&!in_array($data,$values)) {
-// push to respective arrays
-$values[]=$data;
-$texts[]=$data;
-}
-}
-// add default value
-array_unshift($texts,"All $type");
-array_unshift($values,"");
-// build select
-// would like to put the IDs in the value, but our search needs the text
-return Form::buildSelect($values,$texts,$name_id,$name_id);
+
+function buildHospitalSelect($path, $dataElem, $name_id, $type) {
+	// build select for Organization TYPE
+	// grab the dom
+	$dom = new DOMDocument();
+	$dom -> load(BASE_URL . $path);
+	// grab all the data nodes
+	$rows = $dom -> getElementsByTagName("$dataElem");
+	// setup array to store the information
+	$values = array();
+	$texts = array();
+	//loop thru rows
+	foreach ($rows as $row) {
+		// get the id
+		$data = $row -> nodeValue;
+		// if we have data
+		if (isset($data) && !empty($data) && !in_array($data, $values)) {
+			// push to respective arrays
+			$values[] = $data;
+			$texts[] = $data;
+		}
+	}
+	// add default value
+	array_unshift($texts, "All $type");
+	array_unshift($values, "");
+	// build select
+	// would like to put the IDs in the value, but our search needs the text
+	return Form::buildSelect($values, $texts, $name_id, $name_id);
 }
 ?>
 <!DOCTYPE html>
@@ -67,6 +68,9 @@ return Form::buildSelect($values,$texts,$name_id,$name_id);
 		<script type="text/javascript" src="plugins/jquery.tools.min.js"></script>
 		<!-- JQuery UI: for accoridion -->
 		<script type="text/javascript" src="plugins/jquery-ui-1.8.18.custom/js/jquery-ui-1.8.18.custom.min.js"></script>
+		<!-- Google Maps plugin: gMap http://gmap.nurtext.de/documentation.html -->
+		<script type="text/javascript" src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=AIzaSyBascqUIuBm8sDRiZHJlYRcjpBtq9ciml0"></script>
+		<script type="text/javascript" src="plugins/jquery.gmap-1.1.0-min.js"></script>
 		<!-- ************ My Scripts **********************-->
 		<script type="text/javascript" src="js/form.js"></script>
 		<script type="text/javascript" src="js/table.js"></script>
@@ -84,14 +88,14 @@ return Form::buildSelect($values,$texts,$name_id,$name_id);
 					<p>
 						<label for="type">Organization Type</label>
 						<?php
-// build select for Organization TYPE
-// path: ...ESD/OrgTypes
-$path="OrgTypes";
-$dataElem="type";
-$name="type";
-$default="Organization Types";
-// build the select and echo
-echo buildHospitalSelect($path,$dataElem,$name,$default);
+						// build select for Organization TYPE
+						// path: ...ESD/OrgTypes
+						$path = "OrgTypes";
+						$dataElem = "type";
+						$name = "type";
+						$default = "Organization Types";
+						// build the select and echo
+						echo buildHospitalSelect($path, $dataElem, $name, $default);
 						?>
 					</p>
 					<!-- build input for organization name -->
@@ -105,40 +109,40 @@ echo buildHospitalSelect($path,$dataElem,$name,$default);
 						<label for="state">State</label>
 						<!-- State Combo -->
 						<?php
-// build combo for state
-// path: ...ESD/States
-$path="States";
-$dataElem="State";
-$name="state";
-$default="States";
-// build the select and echo
-echo buildHospitalSelect($path,$dataElem,$name,$default);
+						// build combo for state
+						// path: ...ESD/States
+						$path = "States";
+						$dataElem = "State";
+						$name = "state";
+						$default = "States";
+						// build the select and echo
+						echo buildHospitalSelect($path, $dataElem, $name, $default);
 						?>
 					</p>
 					<p>
 						<label for="county">County</label>
 						<?php
-// combo for county
-// path: ...ESD/Counties
-$path="Counties";
-$dataElem="CountyName";
-$name="county";
-$default="Counties";
-// build the select and echo
-echo buildHospitalSelect($path,$dataElem,$name,$default);
+						// combo for county
+						// path: ...ESD/Counties
+						$path = "Counties";
+						$dataElem = "CountyName";
+						$name = "county";
+						$default = "Counties";
+						// build the select and echo
+						echo buildHospitalSelect($path, $dataElem, $name, $default);
 						?>
 					</p>
 					<p>
 						<label for="town">City</label>
 						<?php
-// build combo for cities
-// path: ...ESD/Cities
-$path="Cities";
-$dataElem="city";
-$name="town";
-$default="Cities";
-// build the select and echo
-echo buildHospitalSelect($path,$dataElem,$name,$default);
+						// build combo for cities
+						// path: ...ESD/Cities
+						$path = "Cities";
+						$dataElem = "city";
+						$name = "town";
+						$default = "Cities";
+						// build the select and echo
+						echo buildHospitalSelect($path, $dataElem, $name, $default);
 						?>
 					</p>
 					<!-- input for zip code -->
@@ -187,7 +191,7 @@ echo buildHospitalSelect($path,$dataElem,$name,$default);
 				<!-- data div for lightbox -->
 			</div>
 			<!-- lightbox div -->
-			</div>
-			<!-- page div -->
+		</div>
+		<!-- page div -->
 	</body>
 </html>
