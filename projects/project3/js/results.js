@@ -395,88 +395,85 @@ function addMap(where) {
 	$(where).before(map);
 
 	var json = '{';
-	
 	json += '"markers": [';
 
 	// get all the locations from the where
 	var numLocs = $('.locationsDataTable').length;
-	
+
 	$('.locationsDataTable').each(function(index) {
-		
+
 		console.log('single loc');
 		console.log($(this));
-		
+
 		// get the typr
 		var type = $(this).find('tr:nth-child(1)').find('td:last-of-type').text();
 		var phone = $(this).find('tr:nth-child(8)').find('td:last-of-type').text();
-		
-		
+
 		// check if we have a latitude and longitude
 		var lat = $(this).find('tr:nth-child(11)').find('td:last-of-type').text();
 		var lon = $(this).find('tr:nth-child(12)').find('td:last-of-type').text();
-		
-		console.log("lat:"+lat+" | long:"+lon);
-		
+
+		console.log("lat:" + lat + " | long:" + lon);
+
 		// start the object
 		json += '{';
-		
-		if(lat && lon){
+
+		if(lat && lon) {
 			// use this longitutude
-			json += '"latitude": '+lat+',';
-			json += '"longitude": '+lon+',';
-			json += '"html": "'+type+'<br />'+phone+'"';
-			
-		} else{
+			json += '"latitude": ' + lat + ',';
+			json += '"longitude": ' + lon + ',';
+			json += '"html": "' + type + '<br />' + phone + '"';
+
+		} else {
 			// use the address
 			var address = '"address": "';
-			
+
 			// get the street
 			var street = $(this).find('tr:nth-child(2)').find('td:last-of-type').text();
-			if(street){
+			if(street) {
 				address += street + ' ';
 			}
-			
+
 			// get the city
 			var city = $(this).find('tr:nth-child(4)').find('td:last-of-type').text();
-			if(city){
+			if(city) {
 				address += city + ' ';
 			}
-			
+
 			// get the state
 			var state = $(this).find('tr:nth-child(5)').find('td:last-of-type').text();
-			if(state){
+			if(state) {
 				address += state + ' ';
 			}
-			
-			// get the zip			
+
+			// get the zip
 			var zip = $(this).find('tr:nth-child(7)').find('td:last-of-type').text();
-			if(zip){
+			if(zip) {
 				address += zip + ' ';
 			}
-			
+
 			// close the address
 			address += '"';
-			
+
 			// add the address to the JSon
-			json+= address;
+			json += address;
 			// add the popup html to JSOn
-			json += ', "html": "'+type+'<br />'+phone+'"';
+			json += ', "html": "' + type + '<br />' + phone + '"';
 		}
-		
+
 		// close the object
 		json += '}';
-		
+
 		// if we have more
-		if(index < numLocs -1){
+		if(index < numLocs - 1) {
 			// add a comma
 			json += ',';
 		}
-		
-	});		
-		
+
+	});
 	// close the markers object
 	json += '], ';
-	
+
 	// some level
 	json += '"zoom": 8';
 	// close the json object
@@ -899,7 +896,66 @@ function getPeopleDataCallback(data) {
 }
 
 function getEquipmentDataCallback(data) {
+	// path ...ESD/{orgId}/Equipment
 
+	// if bad data
+	if($(data).find('error').length != 0) {
+		console.log("There was an error")
+	} else {
+		// if no data
+		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {
+			// replace with text
+			var error = document.createElement("div");
+			error.setAttribute("id", "equipmentData");
+			var errorSpan = document.createElement("span");
+			errorSpan.appendChild(document.createTextNode("No Equipment Information Found"));
+			error.appendChild(errorSpan);
+
+			// get the city select
+			$("#equipmentData").replaceWith(error);
+
+		} else {
+			// build the pane
+			var pane = '<div id="equipmentData" class="getAutoHeight">';
+			pane += "<p class='paneTitle'>Equipment Information</p>";
+
+			// <count>4</count>
+			// <equipment>
+			//	 <typeId>3</typeId>
+			//	 <type>Aerocommander 690B Airplane</type>
+			//	 <quantity>8</quantity>
+			//	 <description>some really long desc,but no longer than this</description>
+			// </equipment>
+
+			// we are going to build a table
+			pane += '<table id="equipmentDataTable" class="maxWidth">';
+			pane += '<thead>';
+			pane += '<tr><th>TYpe</th><th>Quantity</th><th>description</th></tr>';
+			pane += '</thead>';
+			pane += '<tbody>';
+
+			$('equipment', data).each(function() {
+
+				// get data
+				var type = fixNull($.trim($(this).find('type').text()));
+				var quantity = fixNull($.trim($(this).find('quantity').text()));
+				var description = fixNull($.trim($(this).find('description').text()));
+				pane += '<tr><td>' + type + '</td><td>' + quantity + '</td><td>' + description + '</td></tr>';
+
+			});
+			pane += '</tbody>';
+			pane += '</table>';
+			pane += '</div>';
+
+			$("#equipmentData").replaceWith(pane);
+
+			// add the table sorter class
+			addTableSort($('#equipmentDataTable'));
+		} // if no data
+	}// if error
+
+	// turn on tabs
+	turnOnTabs();
 }
 
 function turnOnTabs() {
