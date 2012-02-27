@@ -183,7 +183,7 @@ function getGeneralDataCallback(data) {
 
 	// if bad data
 	if($(data).find('error').length != 0) {
-		console.log("There was an error")
+		console.log("There was an error");
 	} else {
 		// if no data
 		if($('name', data).length == 0) {
@@ -257,14 +257,11 @@ function getGeneralDataCallback(data) {
 }// function
 
 function getLocationsDataCallback(data) {
-	console.log('location data');
-	console.log(data);
-
 	// path ...ESD/{orgId}/Locations
 
 	// if bad data
 	if($(data).find('error').length != 0) {
-		console.log("There was an error")
+		console.log("There was an error");
 	} else {
 		// if no data
 		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {
@@ -390,10 +387,6 @@ function getLocationsDataCallback(data) {
 
 // which should have some specific structure
 function addMap(where) {
-	var map = '<div style="background-color: yellow; float: right; width: 40em; height: 25em; margin:auto;"></div>';
-
-	$(where).before(map);
-
 	var json = '{';
 	json += '"markers": [';
 
@@ -402,9 +395,6 @@ function addMap(where) {
 
 	$('.locationsDataTable').each(function(index) {
 
-		console.log('single loc');
-		console.log($(this));
-
 		// get the typr
 		var type = $(this).find('tr:nth-child(1)').find('td:last-of-type').text();
 		var phone = $(this).find('tr:nth-child(8)').find('td:last-of-type').text();
@@ -412,8 +402,6 @@ function addMap(where) {
 		// check if we have a latitude and longitude
 		var lat = $(this).find('tr:nth-child(11)').find('td:last-of-type').text();
 		var lon = $(this).find('tr:nth-child(12)').find('td:last-of-type').text();
-
-		console.log("lat:" + lat + " | long:" + lon);
 
 		// start the object
 		json += '{';
@@ -479,14 +467,29 @@ function addMap(where) {
 	// close the json object
 	json += '}';
 
-	console.log("string json")
-	console.log(json);
+	// jsonify
 	json = $.parseJSON(json);
-	console.log(json);
 
-	console.log('adding the map');
-	// turn on map for the div before this one
-	$(where).prev().gMap(json);
+	// add all this good info to a map
+
+	// div for map
+	var map = '<div class="gMap"></div>';
+
+	// Thought this would fix my map not rendering correctly in firefox, but nope
+	// works perfectly in Chrome Canary
+	// oddly enough, the map renders fine if you open a developer tool (i.e. firebug)
+
+	// remove all maps from the this element
+	$(where).parent().find('.gMap').remove();
+
+	// add our new map div to location
+	$(where).before(map);
+
+	// where to add the map
+	var mapHere = $(where).prev();
+
+	// gMap that map!
+	$(mapHere).gMap(json);
 }
 
 function getTreatmentDataCallback(data) {
@@ -494,7 +497,7 @@ function getTreatmentDataCallback(data) {
 
 	// if bad data
 	if($(data).find('error').length != 0) {
-		console.log("There was an error")
+		console.log("There was an error");
 	} else {
 		// if no data
 		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {
@@ -555,7 +558,7 @@ function getTrainingDataCallback(data) {
 
 	// if bad data
 	if($(data).find('error').length != 0) {
-		console.log("There was an error")
+		console.log("There was an error");
 	} else {
 		// if no data
 		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {
@@ -617,7 +620,7 @@ function getFacilitiesDataCallback(data) {
 
 	// if bad data
 	if($(data).find('error').length != 0) {
-		console.log("There was an error")
+		console.log("There was an error");
 	} else {
 		// if no data
 		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {
@@ -681,7 +684,7 @@ function getPhysiciansDataCallback(data) {
 
 	// if bad data
 	if($(data).find('error').length != 0) {
-		console.log("There was an error")
+		console.log("There was an error");
 	} else {
 		// if no data
 		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {
@@ -900,7 +903,7 @@ function getEquipmentDataCallback(data) {
 
 	// if bad data
 	if($(data).find('error').length != 0) {
-		console.log("There was an error")
+		console.log("There was an error");
 	} else {
 		// if no data
 		if($('count', data).length == 0 || parseInt($('count', data).text()) < 1) {

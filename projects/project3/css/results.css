@@ -1,16 +1,18 @@
-div#orgPanes{
+div#orgPanes {
 	width: 60em;
-/*	height: 30em;*/
 }
-
-div#orgTabs{
-/*	width: */
-}
-
-p.paneTitle{
-	text-align:center;
-	font-weight:bold;
+p.paneTitle {
+	text-align: center;
+	font-weight: bold;
 	font-size: 1.4em;
 	margin-top: 0;
 	margin-bottom: 0;
+}
+.gMap {
+	background-color: yellow;
+	float: right;
+	width: 40em;
+	height: 25em;
+	margin: auto;
+	overflow: hidden;
 }
