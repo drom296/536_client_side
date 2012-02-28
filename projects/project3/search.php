@@ -85,74 +85,76 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 					<legend>
 						Search Criteria
 					</legend>
-					<p>
-						<label for="type">Organization Type</label>
-						<?php
-						// build select for Organization TYPE
-						// path: ...ESD/OrgTypes
-						$path = "OrgTypes";
-						$dataElem = "type";
-						$name = "type";
-						$default = "Organization Types";
-						// build the select and echo
-						echo buildHospitalSelect($path, $dataElem, $name, $default);
-						?>
-					</p>
-					<!-- build input for organization name -->
-					<p>
-						<label for="name">Organization Name</label>
-						<input type="text" id="name" name="name" />
-					</p>
-					<!-- Build input for state and City -->
-					<p>
-						<!-- Label -->
-						<label for="state">State</label>
-						<!-- State Combo -->
-						<?php
-						// build combo for state
-						// path: ...ESD/States
-						$path = "States";
-						$dataElem = "State";
-						$name = "state";
-						$default = "States";
-						// build the select and echo
-						echo buildHospitalSelect($path, $dataElem, $name, $default);
-						?>
-					</p>
-					<p>
-						<label for="county">County</label>
-						<?php
-						// combo for county
-						// path: ...ESD/Counties
-						$path = "Counties";
-						$dataElem = "CountyName";
-						$name = "county";
-						$default = "Counties";
-						// build the select and echo
-						echo buildHospitalSelect($path, $dataElem, $name, $default);
-						?>
-					</p>
-					<p>
-						<label for="town">City</label>
-						<?php
-						// build combo for cities
-						// path: ...ESD/Cities
-						$path = "Cities";
-						$dataElem = "city";
-						$name = "town";
-						$default = "Cities";
-						// build the select and echo
-						echo buildHospitalSelect($path, $dataElem, $name, $default);
-						?>
-					</p>
-					<!-- input for zip code -->
-					<p>
-						<label for="zip">Zip Code</label>
-						<input id="zip" pattern="\d{5}|\d{5}[\-]{1}\d{4}" type="text" name="zip" />
-					</p>
+					<div id="formFields">
+						<p>
+							<label for="type">Organization Type</label>
+							<?php
+							// build select for Organization TYPE
+							// path: ...ESD/OrgTypes
+							$path = "OrgTypes";
+							$dataElem = "type";
+							$name = "type";
+							$default = "Organization Types";
+							// build the select and echo
+							echo buildHospitalSelect($path, $dataElem, $name, $default);
+							?>
+						</p>
+						<!-- build input for organization name -->
+						<p>
+							<label for="name">Organization Name</label>
+							<input type="text" id="name" name="name" />
+						</p>
+						<!-- Build input for state and City -->
+						<p>
+							<!-- Label -->
+							<label for="state">State</label>
+							<!-- State Combo -->
+							<?php
+							// build combo for state
+							// path: ...ESD/States
+							$path = "States";
+							$dataElem = "State";
+							$name = "state";
+							$default = "States";
+							// build the select and echo
+							echo buildHospitalSelect($path, $dataElem, $name, $default);
+							?>
+						</p>
+						<p>
+							<label for="county">County</label>
+							<?php
+							// combo for county
+							// path: ...ESD/Counties
+							$path = "Counties";
+							$dataElem = "CountyName";
+							$name = "county";
+							$default = "Counties";
+							// build the select and echo
+							echo buildHospitalSelect($path, $dataElem, $name, $default);
+							?>
+						</p>
+						<p>
+							<label for="town">City</label>
+							<?php
+							// build combo for cities
+							// path: ...ESD/Cities
+							$path = "Cities";
+							$dataElem = "city";
+							$name = "town";
+							$default = "Cities";
+							// build the select and echo
+							echo buildHospitalSelect($path, $dataElem, $name, $default);
+							?>
+						</p>
+						<!-- input for zip code -->
+						<p>
+							<label for="zip">Zip Code</label>
+							<input id="zip" pattern="\d{5}|\d{5}[\-]{1}\d{4}" type="text" name="zip" />
+						</p>
+					</div>
 					<!-- buttons -->
 					<div id="buttons">
-						<input type="submit" value="Show Results" />
+						<input type="submit" id="showResultsInput" value="Show Results" onclick="hideSearch()"/>
 						<input type="reset" value="Reset Form" />
 					</div>
 				</fieldset>

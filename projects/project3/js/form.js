@@ -24,7 +24,7 @@ $(document).ready(function() {
 
 		updateCounty(state);
 		updateCity(state, county);
-		
+
 	});
 });
 function updateCounty(state) {
@@ -204,6 +204,44 @@ function search() {
 	}, searchCallback);
 
 	return false;
+}
+
+function hideSearch() {
+	console.log("hiding the search");
+	console.log("target: " + event.target.id);
+	
+	$('#formFields').fadeOut('slow', function() {
+		// Animation complete.
+		console.log("hide is complete");
+		
+		//change the text on the submit
+		$('#showResultsInput').attr("value", "Show Search Criteria");
+
+		// change the action on the submit
+		$("#showResultsInput").attr("onclick", "showSearch()");
+
+		// hide the reset button
+		$("#showResultsInput").next().hide();
+	});
+}
+
+function showSearch() {
+	console.log("showing the search");
+	console.log("target: " + event.target.id);
+	
+	// fade in the search criteria
+	$('#formFields').fadeIn('fast', function() {
+
+		// change the text of the submit
+		$('#showResultsInput').attr("value", "Show Results");
+
+		// change the action of the submit
+		$("#showResultsInput").attr("onclick", "hideSearch()");
+
+		// show the reset button
+		$("#showResultsInput").next().show();
+
+	});
 }
 
 function searchCallback(data) {

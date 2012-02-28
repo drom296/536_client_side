@@ -47,12 +47,15 @@ function buildTabs(data) {
 		// if no data
 		if($('Tab', data).length == 0) {
 			// replace with text
-			var error = document.createElement("span");
+			var error = document.createElement('div');
 			error.setAttribute("id", "orgTabs");
-			error.appendChild(document.createTextNode("No Tabs were found"));
+			var errorSpan = document.createElement("span");
+			errorSpan.appendChild(document.createTextNode("No Tabs were found for this organization"));
+			error.appendChild(errorSpan);
 
 			// get the city select
 			$("#orgTabs").replaceWith(error);
+			$("#orgPanes").replaceWith(error);
 
 		} else {
 			// build the tabs
