@@ -217,7 +217,7 @@ function search() {
 }
 
 function hideSearch() {
-	$('#formFields').fadeOut('medium', function() {
+	$('#formFields').fadeOut('fast', function() {
 		// Animation complete.
 
 		//change the text on the submit
