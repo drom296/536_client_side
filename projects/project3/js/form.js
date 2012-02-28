@@ -204,9 +204,9 @@ function search() {
 }
 
 function hideSearch() {
-	$('#formFields').fadeOut('slow', function() {
+	$('#formFields').fadeOut('medium', function() {
 		// Animation complete.
-		
+
 		//change the text on the submit
 		$('#showResultsInput').attr("value", "Show Search Criteria");
 
@@ -226,11 +226,13 @@ function showSearch() {
 		$('#showResultsInput').attr("value", "Show Results");
 
 		// change the action of the submit
-		$("#showResultsInput").attr("onclick", "hideSearch()");
+		$("#showResultsInput").attr("onclick", "hideSearch();search();");
 
 		// show the reset button
 		$("#showResultsInput").next().show();
-
+		
+		// remove any errors from before
+		$('#output').find('.error').first().remove();
 	});
 }
 
@@ -244,13 +246,20 @@ function searchCallback(data) {
 		if($('row', data).length == 0) {
 
 			// replace with text
-			var error = document.createElement("span");
+			var error = document.createElement("div");
 			error.setAttribute("id", "output");
+			var errorSpan = document.createElement("div");
+			errorSpan.setAttribute("class", "error center");
 
-			error.appendChild(document.createTextNode("No data matches for-> " + getInputString()));
+			errorSpan.appendChild(document.createTextNode("No data matches for-> " + getInputString()));
+			error.appendChild(errorSpan);
 
 			// get the city select
 			$("#output").replaceWith(error);
+			
+			if($('#numResults').length > 0) {
+				$('#numResults').remove();
+			}
 
 		} else {
 			// we have data!
@@ -277,28 +286,31 @@ function searchCallback(data) {
 			table += "<tbody>";
 			$('row', data).each(function() {
 
-				var type = $.trim($(this).find("type").text());
-				var name = $.trim($(this).find("Name").text());
-				var email = $.trim($(this).find("Email").text());
-				var city = $.trim($(this).find("city").text());
-				var state = $.trim($(this).find("State").text());
-				var zip = $.trim($(this).find("zip").text());
-				var county = $.trim($(this).find("CountyName").text());
-				var id = $.trim($(this).find("OrganizationID").text());
-				table += "<tr>";
-				table += "<td>" + type + "</td>";
-				// add a link for the name
-				table += "<td>" + '<a href="#data" class="orgLink" onclick="getData(' + id + ')" title="Information for ' + name + '">' + name + '</a>' + "</td>";
-				// add a mail to for the email
+				var type = fixNull($.trim($(this).find("type").text()));
+				var name = fixNull($.trim($(this).find("Name").text()));
+				var email = fixNull($.trim($(this).find("Email").text()));
+				var city = fixNull($.trim($(this).find("city").text()));
+				var state = fixNull($.trim($(this).find("State").text()));
+				var zip = fixNull($.trim($(this).find("zip").text()));
+				var county = fixNull($.trim($(this).find("CountyName").text()));
+				var id = fixNull($.trim($(this).find("OrganizationID").text()));
 
-				table += "<td>" + '<a href="mailto:' + email + '?Subject=' + encodeURI("question for " + name) + '">' + email + "</a>" + "</td>";
-				table += "<td>" + city + "</td>";
-				table += "<td>" + state + "</td>";
-				table += "<td>" + zip + "</td>";
-				table += "<td>" + county + "</td>";
+				if(name.length > 0) {
+					table += "<tr>";
+					table += "<td>" + type + "</td>";
+					// add a link for the name
+					table += "<td>" + '<a href="#data" class="orgLink" onclick="getData(' + id + ')" title="Information for ' + name + '">' + name + '</a>' + "</td>";
+					// add a mail to for the email
 
-				// table += "<td onclick=getData(" + $(this).find("OrganizationID").text() + ")>" + $(this).find('Email').text() + "</td>";
-				table += "</tr>";
+					table += "<td>" + '<a href="mailto:' + email + '?Subject=' + encodeURI("question for " + name) + '">' + email + "</a>" + "</td>";
+					table += "<td>" + city + "</td>";
+					table += "<td>" + state + "</td>";
+					table += "<td>" + zip + "</td>";
+					table += "<td>" + county + "</td>";
+
+					// table += "<td onclick=getData(" + $(this).find("OrganizationID").text() + ")>" + $(this).find('Email').text() + "</td>";
+					table += "</tr>";
+				}
 			});
 			// end table body
 			table += "</tbody>";
@@ -307,9 +319,16 @@ function searchCallback(data) {
 			table += '</table>';
 			table += '</div>';
 
+			var numResults = '<div id="numResults"><span>Results: </span>';
+			numResults += $('row', data).length + " total found</div>";
+
+			if($('#numResults').length > 0) {
+				$('#numResults').replaceWith(numResults);
+				numResults = "";
+			}
+
 			// output the table and the pager
-			// $("#output").replaceWith(table + pager+"</div>");
-			$("#output").replaceWith(table);
+			$("#output").replaceWith(numResults + table);
 
 			// add the table sorter class
 			addTableSort($('#pageTable'));

@@ -80,7 +80,7 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 	<body>
 		<div id="page">
 			<!-- search form -->
-			<form name="searchForm" id="searchForm" onsubmit="return search()" >
+			<form name="searchForm" id="searchForm">
 				<fieldset>
 					<legend>
 						Search Criteria
@@ -154,7 +154,7 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 					</div>
 					<!-- buttons -->
 					<div id="buttons">
-						<input type="submit" id="showResultsInput" value="Show Results" onclick="hideSearch()"/>
+						<input type="button" id="showResultsInput" value="Show Results" onclick="hideSearch();search();"/>
 						<input type="reset" value="Reset Form" />
 					</div>
 				</fieldset>
