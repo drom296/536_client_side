@@ -177,8 +177,6 @@ function getInputString() {
 		"Zip Code" : zip
 	};
 
-	console.log(inputArray);
-
 	// loop thru array
 	for(key in inputArray) {
 		// add delimiter for more than one input
@@ -193,7 +191,6 @@ function getInputString() {
 
 	}
 
-	console.log("result: " + result);
 	return result;
 
 }
@@ -207,12 +204,8 @@ function search() {
 }
 
 function hideSearch() {
-	console.log("hiding the search");
-	console.log("target: " + event.target.id);
-	
 	$('#formFields').fadeOut('slow', function() {
 		// Animation complete.
-		console.log("hide is complete");
 		
 		//change the text on the submit
 		$('#showResultsInput').attr("value", "Show Search Criteria");
@@ -226,9 +219,6 @@ function hideSearch() {
 }
 
 function showSearch() {
-	console.log("showing the search");
-	console.log("target: " + event.target.id);
-	
 	// fade in the search criteria
 	$('#formFields').fadeIn('fast', function() {
 
