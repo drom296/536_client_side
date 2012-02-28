@@ -154,7 +154,7 @@ function buildHospitalSelect($path, $dataElem, $name_id, $type) {
 					</div>
 					<!-- buttons -->
 					<div id="buttons">
-						<input type="button" id="showResultsInput" value="Show Results" onclick="hideSearch();search();"/>
+						<input type="button" id="showResultsInput" value="Show Results" onclick="search();"/>
 						<input type="reset" value="Reset Form" />
 					</div>
 				</fieldset>

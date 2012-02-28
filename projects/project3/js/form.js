@@ -26,6 +26,17 @@ $(document).ready(function() {
 		updateCity(state, county);
 
 	});
+	
+	// This was done to simulate a submit without clicking the Search Results button
+	// this might be slow
+	$('#searchForm input').keydown(function(e) {
+		if(e.which == 13){
+			// the enter key was pressed
+			// start a search
+			search();
+		}
+	});
+	
 });
 function updateCounty(state) {
 	// make sure the parameter isnt undefined
@@ -199,6 +210,8 @@ function search() {
 	myAjax('get', {
 		path : "/Organizations?" + $("#searchForm").serialize()
 	}, searchCallback);
+
+	hideSearch();
 
 	return false;
 }
