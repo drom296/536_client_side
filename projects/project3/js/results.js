@@ -370,7 +370,7 @@ function getLocationsDataCallback(data) {
 			// fix some accoridian size issues in lightbox
 			$("#locationsData").find('.accDiv').each(function() {
 				// resize the table: accDiv
-				$(this).css("width", "82%");
+				$(this).css("width", "81.4%");
 			});
 
 			$("#locations").css("width", "40%");
