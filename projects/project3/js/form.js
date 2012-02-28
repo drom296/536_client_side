@@ -26,17 +26,15 @@ $(document).ready(function() {
 		updateCity(state, county);
 
 	});
-	
 	// This was done to simulate a submit without clicking the Search Results button
 	// this might be slow
 	$('#searchForm input').keydown(function(e) {
-		if(e.which == 13){
+		if(e.which == 13) {
 			// the enter key was pressed
 			// start a search
 			search();
 		}
 	});
-	
 });
 function updateCounty(state) {
 	// make sure the parameter isnt undefined
@@ -243,7 +241,7 @@ function showSearch() {
 
 		// show the reset button
 		$("#showResultsInput").next().show();
-		
+
 		// remove any errors from before
 		$('#output').find('.error').first().remove();
 	});
@@ -269,7 +267,7 @@ function searchCallback(data) {
 
 			// get the city select
 			$("#output").replaceWith(error);
-			
+
 			if($('#numResults').length > 0) {
 				$('#numResults').remove();
 			}
